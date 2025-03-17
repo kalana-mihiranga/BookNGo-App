@@ -1,0 +1,16 @@
+/* src/styles/Home.css */
+.home-container {
+    text-align: center;
+    margin-top: 500000px;
+  }
+  
+  .home-container h1 {
+    font-size: 2995rem;
+    color: #333;
+  }
+  
+  .home-container a {
+    margin: 10px;
+    font-size: 182rem;
+  }
+  
