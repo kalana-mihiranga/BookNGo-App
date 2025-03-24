@@ -1,70 +1,80 @@
-# Getting Started with Create React App
+Chili Event Management Dashboard
+This is a web application for managing events related to chili farming. It allows users to sign in, create events, and manage event details efficiently. The dashboard offers easy access to various functionalities, including adding and viewing events, and provides an interactive profile sidebar.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Getting Started
+Prerequisites
+To get started, you need to have the following installed:
 
-## Available Scripts
+Node.js (Recommended version: LTS)
 
+npm (Node Package Manager) - Comes with Node.js
+
+Clone the repository
+First, clone this repository to your local machine:
+
+bash
+Copy
+Edit
+git clone https://github.com/your-repository-name/chili-event-dashboard.git
+cd chili-event-dashboard
+Install dependencies
+After cloning the repository, run the following command to install the necessary packages:
+
+bash
+Copy
+Edit
+npm install
+Running the Application
+Once the dependencies are installed, you can run the application in development mode using:
+
+bash
+Copy
+Edit
+npm start
+This will start the app at http://localhost:3000.
+
+Available Scripts
 In the project directory, you can run:
 
-### `npm start`
+npm start: Runs the app in development mode. The app will reload on changes, and you'll see any lint errors in the console.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+npm test: Runs the test suite in interactive watch mode.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+npm run build: Builds the app for production, optimizing the build for best performance.
 
-### `npm test`
+npm run eject: Removes the build dependencies and gives you full control over configurations like Webpack, Babel, etc. This is a one-way operation, so proceed with caution.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Features
+Admin Dashboard: The main page where you can manage events, view event details, and update or delete events.
 
-### `npm run build`
+Event Form: A form to create new events, including uploading images.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+User Profile Sidebar: Displays the logged-in user's profile image in the top-right corner. Clicking it opens a sidebar with user details.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Technology Stack
+React: JavaScript library for building user interfaces.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+React Router: For navigating between pages within the app.
 
-### `npm run eject`
+Bootstrap: Frontend framework for responsive design.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+CSS: For styling and layout adjustments.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Axios: For handling API requests.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Contributing
+Fork the repository: Create a copy of the project to work on.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Clone the fork: Get a copy of your forked repository on your local machine.
 
-## Learn More
+Create a new branch: Always create a new branch for the changes you intend to make.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Commit your changes: Write clear, concise commit messages describing your changes.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Push to your fork: Push your changes to your forked repository.
 
-### Code Splitting
+Create a pull request: Once you're ready to merge your changes, create a pull request from your branch to the main branch of the original repository.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+License
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
