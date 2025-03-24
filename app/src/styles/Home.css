@@ -1,16 +1,124 @@
-/* src/styles/Home.css */
+/* Home container */
 .home-container {
-    text-align: center;
-    margin-top: 500000px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f1f5f8; /* Soft light background */
+  text-align: center;
+  flex-direction: column;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* Hero Section Styling */
+.hero-section {
+  background: linear-gradient(45deg, #f05656, #ff8c00); /* Gradient background */
+  color: white;
+  padding: 80px 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Hero Section Hover Effect */
+.hero-section:hover {
+  transform: scale(1.05);
+}
+
+.hero-section h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.hero-section p {
+  font-size: 20px;
+  margin-bottom: 40px;
+  font-weight: 300;
+}
+
+/* Call-to-action buttons */
+.hero-section .cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.hero-section .cta-buttons a {
+  padding: 15px 30px;
+  font-size: 18px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: 500;
+  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Button Hover Effect */
+.hero-section .cta-buttons a:hover {
+  background-color: #0056b3;
+  transform: translateY(-3px);
+}
+
+/* Link container between sections */
+.links-container {
+  margin-top: 30px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.links-container a {
+  color: #007bff;
+  text-decoration: none;
+  padding: 8px;
+  transition: color 0.3s;
+}
+
+.links-container a:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+/* Footer Styling */
+.footer {
+  margin-top: 50px;
+  font-size: 14px;
+  color: #6c757d;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.footer a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 36px;
   }
-  
-  .home-container h1 {
-    font-size: 2995rem;
-    color: #333;
+
+  .hero-section p {
+    font-size: 18px;
   }
-  
-  .home-container a {
-    margin: 10px;
-    font-size: 182rem;
+
+  .hero-section .cta-buttons {
+    flex-direction: column;
+    gap: 15px;
   }
-  
+
+  .links-container {
+    font-size: 16px;
+  }
+}
