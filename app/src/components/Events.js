@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import '../styles/Events.css';
 
 function Events() {
@@ -8,6 +9,8 @@ function Events() {
     date: "",
     location: "",
   });
+
+  const navigate = useNavigate(); // Initialize useNavigate for redirection
 
   useEffect(() => {
     // Fetch events from API or database (for now, use a mock array)
@@ -24,6 +27,11 @@ function Events() {
       ...searchQuery,
       [name]: value,
     });
+  };
+
+  // Function to handle booking (redirect to payment page)
+  const handleBookNow = (eventId) => {
+    navigate(`/payment/${eventId}`); // Redirects to payment page with event ID
   };
 
   const filteredEvents = events.filter((event) => {
@@ -68,7 +76,7 @@ function Events() {
             <p><strong>Date:</strong> {event.date}</p>
             <p><strong>Location:</strong> {event.location}</p>
             <p>{event.description}</p>
-            <button>Book Now</button>
+            <button onClick={() => handleBookNow(event.id)}>Book Now</button>
           </div>
         ))}
       </div>

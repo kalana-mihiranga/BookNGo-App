@@ -8,6 +8,7 @@ import Events from "./components/Events"; // Assuming this is for listing all ev
 import AboutUs from "./pages/AboutUs"; // Add About Us import
 import Contact from "./pages/Contact"; // Add Contact import
 import AdminDashboard from "./pages/AdminDashboard"; // Admin Dashboard import
+import Payment from "./pages/Payment"; // Admin Dashboard import
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/about" element={<AboutUs />} /> {/* About Us Page */}
         <Route path="/contact" element={<Contact />} /> {/* Contact Page */}
         <Route path="/admin-dashboard" element={<AdminDashboard />} /> {/* Admin Dashboard */}
+        <Route path="/payment/:eventId" element={<Payment />} />
       </Routes>
     </Router>
   );
