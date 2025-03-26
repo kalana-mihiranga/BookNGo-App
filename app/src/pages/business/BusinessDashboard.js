@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../styles/BusinessDashboard.css";
+import "../../styles/business/BusinessDashboard.css";
 
 const BusinessDashboard = () => {
   const [events] = useState([
