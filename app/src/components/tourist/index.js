@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Calendar, Clock, Users, MapPin, DollarSign, Ticket } from 'lucide-react';
 
 // Expanded Event Data Model
 const initialEvents = [
@@ -101,7 +100,7 @@ const initialEvents = [
   }
 ];
 
-// Event Card Component (Unchanged from previous version)
+// Event Card Component
 const EventCard = ({ event, onBookTicket }) => {
   return (
     <div className="border rounded-lg p-4 m-2 shadow-md hover:shadow-xl transition-shadow">
@@ -114,27 +113,27 @@ const EventCard = ({ event, onBookTicket }) => {
       <p className="text-gray-600 mb-3 h-12 overflow-hidden">{event.description}</p>
       
       <div className="flex items-center mb-2">
-        <Calendar className="mr-2 text-blue-500" size={20} />
+        <span className="mr-2 text-blue-500 font-bold">📅</span>
         <span>{event.date}</span>
       </div>
       
       <div className="flex items-center mb-2">
-        <Clock className="mr-2 text-green-500" size={20} />
+        <span className="mr-2 text-green-500 font-bold">🕒</span>
         <span>{event.time}</span>
       </div>
       
       <div className="flex items-center mb-2">
-        <MapPin className="mr-2 text-red-500" size={20} />
+        <span className="mr-2 text-red-500 font-bold">📍</span>
         <span className="truncate">{event.location}</span>
       </div>
       
       <div className="flex items-center mb-2">
-        <Users className="mr-2 text-purple-500" size={20} />
+        <span className="mr-2 text-purple-500 font-bold">👥</span>
         <span>{event.availableTickets} tickets remaining</span>
       </div>
       
       <div className="flex items-center mb-3">
-        <DollarSign className="mr-2 text-green-600" size={20} />
+        <span className="mr-2 text-green-600 font-bold">💰</span>
         <span>${event.price} per ticket</span>
       </div>
       
@@ -143,14 +142,14 @@ const EventCard = ({ event, onBookTicket }) => {
         className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition flex items-center justify-center"
         disabled={event.availableTickets === 0}
       >
-        <Ticket className="mr-2" size={20} />
+        <span className="mr-2">🎫</span>
         {event.availableTickets === 0 ? 'Sold Out' : 'Book Tickets'}
       </button>
     </div>
   );
 };
 
-// Booking Modal Component (Unchanged from previous version)
+// Booking Modal Component
 const BookingModal = ({ event, onClose, onConfirm }) => {
   const [ticketCount, setTicketCount] = useState(1);
 
@@ -240,12 +239,12 @@ const EventBookingApp = () => {
       <h1 className="text-3xl font-bold text-center mb-6">Event Booking Platform</h1>
       
       {/* Category Filter */}
-      <div className="flex justify-center mb-6">
+      <div className="flex justify-center mb-6 flex-wrap">
         {categories.map(category => (
           <button
             key={category}
             onClick={() => setFilter(category)}
-            className={`mx-2 px-4 py-2 rounded ${
+            className={`m-1 px-4 py-2 rounded ${
               filter === category 
                 ? 'bg-blue-500 text-white' 
                 : 'bg-gray-200 text-gray-800'
