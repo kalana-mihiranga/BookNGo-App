@@ -10,6 +10,9 @@ import Contact from "./pages/Contact"; // Add Contact import
 import AdminDashboard from "./pages/AdminDashboard"; // Admin Dashboard import
 import Payment from "./pages/Payment"; // Admin Dashboard import
 import Tourist from "./components/tourist/index"
+import HomePage from "./components/home/HomePage"
+
+
 function App() {
   return (
     <Router>
@@ -24,6 +27,8 @@ function App() {
         <Route path="/admin-dashboard" element={<AdminDashboard />} /> {/* Admin Dashboard */}
         <Route path="/payment/:eventId" element={<Payment />} />
         <Route path="/tourist" element={<Tourist/>}/>
+        <Route path="/home" element={<HomePage/>}/>
+
         
   
 
