@@ -12,8 +12,15 @@ function SignIn() {
 
     if (email === "admin@example.com" && password === "admin123") {
       navigate("/admin-dashboard");
-    } else {
-      alert("Invalid credentials! Please try again.");
+    }if (email === "bus@example.com" && password === "admin123") {
+      // Redirect to Admin Dashboard upon successful login
+      navigate("/business-dashboard");
+    }if (email === "tourist@example.com" && password === "admin123") {
+      // Redirect to Admin Dashboard upon successful login
+      navigate("/tourist");
+    }
+    else {
+      
     }
   };
 
