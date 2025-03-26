@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import '../styles/AdminDashboard.css';
+import '../../styles/admin/AdminDashboard.css';
 
 const mockEventRequests = [
   { id: 1, name: "Music Concert", date: "2025-04-10", location: "New York", status: "Pending" },

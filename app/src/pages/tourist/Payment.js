@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../styles/Payment.css";
+import "../../styles/tourist/Payment.css";
 
 function Payment() {
   const { eventId } = useParams(); // Get event ID from URL
