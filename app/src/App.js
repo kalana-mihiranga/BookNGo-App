@@ -11,7 +11,7 @@ import AdminDashboard from "./pages/AdminDashboard"; // Admin Dashboard import
 import Payment from "./pages/Payment"; // Admin Dashboard import
 import Tourist from "./components/tourist/index"
 import HomePage from "./components/home/HomePage"
-
+import BusinessDashboard from "./pages/BusinessDashboard";
 import EventCRUD from "./components/EventCRUD";
 
 function App() {
@@ -29,10 +29,7 @@ function App() {
         <Route path="/payment/:eventId" element={<Payment />} />
         <Route path="/tourist" element={<Tourist/>}/>
         <Route path="/home" element={<HomePage/>}/>
-
-        
-  
-
+        <Route path="/business-dashboard" element={<BusinessDashboard />} /> {/* Business Dashboard */}
         <Route path="/crud" element={<EventCRUD />} />
       </Routes>
     </Router>
