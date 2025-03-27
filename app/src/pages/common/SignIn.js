@@ -1,23 +1,26 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import '../styles/SignIn.css';
+import '../../styles/common/SignIn.css';
 
 function SignIn() {
-  // Set default values for email and password (username and password hints)
   const [email, setEmail] = useState("admin@example.com");
   const [password, setPassword] = useState("admin123");
   const navigate = useNavigate();
 
-  // Handle the form submission
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Simulate a simple login process (you can replace this with actual authentication logic)
     if (email === "admin@example.com" && password === "admin123") {
-      // Redirect to Admin Dashboard upon successful login
       navigate("/admin-dashboard");
-    } else {
-      alert("Invalid credentials! Please try again.");
+    }if (email === "bus@example.com" && password === "admin123") {
+      // Redirect to Admin Dashboard upon successful login
+      navigate("/business-dashboard");
+    }if (email === "tourist@example.com" && password === "admin123") {
+      // Redirect to Admin Dashboard upon successful login
+      navigate("/tourist");
+    }
+    else {
+      
     }
   };
 
