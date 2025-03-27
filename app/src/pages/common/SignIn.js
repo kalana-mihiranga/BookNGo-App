@@ -14,12 +14,12 @@ function SignIn() {
       navigate("/admin-dashboard");
     }if (email === "bus@example.com" && password === "admin123") {
       // Redirect to Admin Dashboard upon successful login
-      navigate("/business-dashboard");
+      navigate("/manage-events");
     }if (email === "tourist@example.com" && password === "admin123") {
       // Redirect to Admin Dashboard upon successful login
       navigate("/tourist");
     }
-    else {
+    else { 
       
     }
   };

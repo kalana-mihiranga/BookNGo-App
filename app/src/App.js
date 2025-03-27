@@ -17,6 +17,7 @@ import Landing from "./pages/common/Landing";
 import Event from "./pages/common/Event";
 import BookingHistory from "./components/tourist/BookedEvents";
 import UserProfile from "./components/tourist/UserProfile";
+import ManageEvents from "./pages/business/ManageEvents";
 function App() {
   return (
     <Router>
@@ -39,6 +40,7 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/booking-history" element={<BookingHistory />} />
         <Route path="/user-profile" element={<UserProfile/>} />
+        <Route path="/manage-events" element={<ManageEvents/>} />
 
 
 
