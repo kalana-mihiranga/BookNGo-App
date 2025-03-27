@@ -15,6 +15,7 @@ import Home from "./pages/common/Home";
 import BusinessDashboard from "./pages/business/BusinessDashboard";
 import Landing from "./pages/common/Landing";
 import Event from "./pages/common/Event";
+import BookingHistory from "./components/tourist/BookedEvents";
 function App() {
   return (
     <Router>
@@ -35,6 +36,9 @@ function App() {
         <Route path="/event" element={<Event />} />
         {/* common routes */}
         <Route path="/landing" element={<Landing />} />
+        <Route path="/booking-history" element={<BookingHistory />} />
+
+
       </Routes>
     </Router>
   );

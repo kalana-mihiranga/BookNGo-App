@@ -55,7 +55,7 @@ const Event = () => {
     <div className="bg-gray-50 min-h-screen">
       <Navbar />
       
-      <Container maxWidth={false}>
+      <Container maxWidth={false} className='pt-4'>
         <Paper elevation={3} className=" rounded-lg">
           <Grid container spacing={4}>
             {/* Image Section */}
@@ -149,7 +149,7 @@ const Event = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex space-x-4">
+              <div className="flex space-x-4 pb-5">
                 <Button 
                   variant="contained" 
                   color="primary" 
