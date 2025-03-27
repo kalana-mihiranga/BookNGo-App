@@ -16,6 +16,7 @@ import BusinessDashboard from "./pages/business/BusinessDashboard";
 import Landing from "./pages/common/Landing";
 import Event from "./pages/common/Event";
 import BookingHistory from "./components/tourist/BookedEvents";
+import UserProfile from "./components/tourist/UserProfile";
 function App() {
   return (
     <Router>
@@ -37,6 +38,8 @@ function App() {
         {/* common routes */}
         <Route path="/landing" element={<Landing />} />
         <Route path="/booking-history" element={<BookingHistory />} />
+        <Route path="/user-profile" element={<UserProfile/>} />
+
 
 
       </Routes>

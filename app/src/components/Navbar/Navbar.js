@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import LoginIcon from '@mui/icons-material/Login';  
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import "./style.css";
 
 export default function Navbar() {
@@ -38,12 +38,19 @@ export default function Navbar() {
               cursor: 'pointer'
             }}
           >
-            BOOKNGO
+            BOOKnGO
           </Typography>
 
           <Box sx={{ flexGrow: 1 }} />
 
           <Box sx={{ display: 'flex', gap: 1 }}>
+          <Button 
+            variant="outlined" 
+            startIcon={<NotificationsActiveIcon/>}
+            sx={buttonStyles}
+          >
+          </Button>
+
             <Button 
               variant="outlined" 
               startIcon={<LoginIcon />}

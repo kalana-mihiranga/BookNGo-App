@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Typography, Button, TableContainer, TableCell, Paper, Table, TableHead, TableRow, TableBody } from '@mui/material';
-import { Event } from '@mui/icons-material';
+import { Typography, TableContainer, TableCell, Paper, Table, TableHead, TableRow, TableBody } from '@mui/material';
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
 
