@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Avatar, Button, Box, Typography, Card, CardContent, TextField, } from '@mui/material';
+import { Avatar, Button, Box, Typography, Card, CardContent, TextField, Accordion, AccordionSummary, AccordionDetails, } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { blue } from '@mui/material/colors';
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
-
+import BookingHistory from './BookedEvents';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 const UserProfile = () => {
 
   const [user, setUser] = useState({
@@ -105,7 +106,31 @@ const UserProfile = () => {
         </Box>
       </CardContent>
     </Card>
-          <Footer/>
+
+
+{/* history */}
+<div>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ArrowDownwardIcon/>}
+          aria-controls="panel1-content"
+          id="panel1-header"
+        >    
+      <Typography variant="h5" component="h5">
+        Booking History
+      </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+          <BookingHistory/>
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+    </div>
+
+
+
+    <Footer/>
     </div>
 
   );

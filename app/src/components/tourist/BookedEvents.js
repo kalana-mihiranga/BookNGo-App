@@ -40,11 +40,6 @@ const BookingHistory = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-
-<Navbar/>
-      <Typography variant="h4" component="h1" className="text-center py-8 font-bold pt-4">
-        Booking History
-      </Typography>
       <TableContainer component={Paper} sx={{ mt: 4 }}>
       <Table>
         <TableHead>
@@ -69,7 +64,6 @@ const BookingHistory = () => {
         </TableBody>
       </Table>
     </TableContainer>
-      <Footer/>
     </div>
   );
 };
