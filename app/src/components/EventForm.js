@@ -1,233 +1,400 @@
-import React, { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { FiUser, FiCalendar, FiClock, FiMapPin, FiFileText, FiImage, FiX } from "react-icons/fi";
-import "../styles/EventForm.css";
+import React, { useState } from 'react';
+import { 
+  Box,
+  Container,
+  Typography,
+  TextField,
+  Button,
+  Avatar,
+  IconButton,
+  Paper,
+  Divider,
+  Chip,
+  InputAdornment,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormHelperText,
+  Grid,
+  Drawer,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText
+} from '@mui/material';
+import {
+  Event,
+  Schedule,
+  LocationOn,
+  Description,
+  Close,
+  Edit,
+  CloudUpload,
+  CheckCircle,
+  Email,
+  Business,
+  Phone
+} from '@mui/icons-material';
+import { styled } from '@mui/material/styles';
 
-const ProfileSidebar = ({ user, onClose }) => {
-  return (
-    <div className="profile-sidebar shadow-lg">
-      <div className="profile-header d-flex justify-content-between align-items-center p-3 border-bottom">
-        <h5 className="mb-0">Profile Details</h5>
-        <button className="btn btn-sm btn-outline-secondary" onClick={onClose}>
-          <FiX size={18} />
-        </button>
-      </div>
-      <div className="profile-info p-4 text-center">
-        <div className="profile-img-container mx-auto mb-3">
-          <img src={user.photoUrl} alt="User" className="profile-img rounded-circle shadow" />
-        </div>
-        <h4 className="mb-2">{user.name}</h4>
-        <p className="text-muted mb-1">
-          <strong>Email:</strong> {user.email}
-        </p>
-        <p className="text-muted">
-          <strong>Role:</strong> {user.role}
-        </p>
-        <button className="btn btn-outline-primary mt-3">Edit Profile</button>
-      </div>
-    </div>
-  );
-};
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+});
 
-const EventForm = ({ onSubmit }) => {
+const EventForm = () => {
   const [eventData, setEventData] = useState({
-    name: "",
-    date: "",
-    timeframe: "",
-    duration: "",
-    location: "",
-    description: "",
-    photo: null,
+    title: '',
+    description: '',
+    startDate: '',
+    endDate: '',
+    location: '',
+    category: '',
+    capacity: '',
+    ticketPrice: '',
+    image: null
   });
 
+  const [previewImage, setPreviewImage] = useState(null);
   const [showProfile, setShowProfile] = useState(false);
-  const [user] = useState({
-    photoUrl: "https://randomuser.me/api/portraits/men/32.jpg",
-    name: "Johnathan Smith",
-    email: "john.smith@business.com",
-    role: "Business Owner",
-  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEventData({ ...eventData, [name]: value });
   };
 
-  const handleFileChange = (e) => {
-    setEventData({ ...eventData, photo: e.target.files[0] });
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setEventData({ ...eventData, image: file });
+      setPreviewImage(URL.createObjectURL(file));
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(eventData);
-    setEventData({
-      name: "",
-      date: "",
-      timeframe: "",
-      duration: "",
-      location: "",
-      description: "",
-      photo: null,
-    });
-  };
-
-  const toggleProfile = () => {
-    setShowProfile(!showProfile);
+    console.log('Event created:', eventData);
+    // Submit logic here
   };
 
   return (
-    <div className="container event-form-container py-4">
-      <div className="row justify-content-center">
-        <div className="col-lg-8">
-          <div className="card shadow-sm border-0">
-            <div className="card-header bg-white border-0 pt-4">
-              <div className="d-flex justify-content-between align-items-center">
-                <h2 className="mb-0 text-primary">Create New Event</h2>
-                <div className="user-profile" onClick={toggleProfile}>
-                  <img
-                    src={user.photoUrl}
-                    alt="User"
-                    className="profile-img rounded-circle shadow-sm"
-                  />
-                </div>
-              </div>
-              <p className="text-muted mt-2">Fill out the form below to create your event</p>
-            </div>
+    <Container maxWidth="lg" sx={{ py: 4 }}>
+      <Paper elevation={3} sx={{ p: 4, borderRadius: 4 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
+          <Typography variant="h4" fontWeight="bold" color="primary">
+            Create New Event
+          </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Chip 
+              label="Business Pro" 
+              color="primary" 
+              variant="outlined" 
+              sx={{ mr: 2 }}
+            />
+            <IconButton onClick={() => setShowProfile(true)}>
+              <Avatar 
+                src="https://randomuser.me/api/portraits/men/45.jpg" 
+                sx={{ width: 48, height: 48 }}
+              />
+            </IconButton>
+          </Box>
+        </Box>
 
-            <div className="card-body">
-              <form onSubmit={handleSubmit}>
-                <div className="mb-4">
-                  <label className="form-label fw-bold">
-                    <FiFileText className="me-2" />
-                    Event Name
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    className="form-control form-control-lg"
-                    placeholder="Enter event name"
-                    value={eventData.name}
+        <Divider sx={{ mb: 4 }} />
+
+        <Box component="form" onSubmit={handleSubmit}>
+          <Grid container spacing={4}>
+            {/* Left Column */}
+            <Grid item xs={12} md={8}>
+              <TextField
+                fullWidth
+                label="Event Title"
+                name="title"
+                value={eventData.title}
+                onChange={handleChange}
+                required
+                sx={{ mb: 3 }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Event color="action" />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+
+              <TextField
+                fullWidth
+                label="Description"
+                name="description"
+                value={eventData.description}
+                onChange={handleChange}
+                multiline
+                rows={6}
+                required
+                sx={{ mb: 3 }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Description color="action" />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+
+              <Grid container spacing={3} sx={{ mb: 3 }}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    label="Start Date & Time"
+                    name="startDate"
+                    type="datetime-local"
+                    value={eventData.startDate}
                     onChange={handleChange}
                     required
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Schedule color="action" />
+                        </InputAdornment>
+                      ),
+                    }}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
                   />
-                </div>
-
-                <div className="row">
-                  <div className="col-md-6 mb-4">
-                    <label className="form-label fw-bold">
-                      <FiCalendar className="me-2" />
-                      Event Date
-                    </label>
-                    <input
-                      type="date"
-                      name="date"
-                      className="form-control form-control-lg"
-                      value={eventData.date}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                  <div className="col-md-6 mb-4">
-                    <label className="form-label fw-bold">
-                      <FiClock className="me-2" />
-                      Timeframe
-                    </label>
-                    <select
-                      name="timeframe"
-                      className="form-select form-select-lg"
-                      value={eventData.timeframe}
-                      onChange={handleChange}
-                      required
-                    >
-                      <option value="">Select Timeframe</option>
-                      <option value="Morning">Morning (8AM - 12PM)</option>
-                      <option value="Afternoon">Afternoon (12PM - 5PM)</option>
-                      <option value="Evening">Evening (5PM - 10PM)</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="row">
-                  <div className="col-md-6 mb-4">
-                    <label className="form-label fw-bold">
-                      <FiClock className="me-2" />
-                      Duration (hours)
-                    </label>
-                    <input
-                      type="number"
-                      name="duration"
-                      className="form-control form-control-lg"
-                      placeholder="2"
-                      min="1"
-                      max="12"
-                      value={eventData.duration}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                  <div className="col-md-6 mb-4">
-                    <label className="form-label fw-bold">
-                      <FiMapPin className="me-2" />
-                      Location
-                    </label>
-                    <input
-                      type="text"
-                      name="location"
-                      className="form-control form-control-lg"
-                      placeholder="Enter event location"
-                      value={eventData.location}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="mb-4">
-                  <label className="form-label fw-bold">
-                    <FiFileText className="me-2" />
-                    Description
-                  </label>
-                  <textarea
-                    name="description"
-                    className="form-control form-control-lg"
-                    rows="4"
-                    placeholder="Enter event description..."
-                    value={eventData.description}
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    label="End Date & Time"
+                    name="endDate"
+                    type="datetime-local"
+                    value={eventData.endDate}
                     onChange={handleChange}
                     required
-                  ></textarea>
-                </div>
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </Grid>
+              </Grid>
 
-                <div className="mb-4">
-                  <label className="form-label fw-bold">
-                    <FiImage className="me-2" />
-                    Event Photo
-                  </label>
-                  <input
-                    type="file"
-                    className="form-control form-control-lg"
+              <TextField
+                fullWidth
+                label="Location"
+                name="location"
+                value={eventData.location}
+                onChange={handleChange}
+                required
+                sx={{ mb: 3 }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <LocationOn color="action" />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Grid>
+
+            {/* Right Column */}
+            <Grid item xs={12} md={4}>
+              <Box sx={{ mb: 3 }}>
+                <Typography variant="subtitle1" gutterBottom>
+                  Event Image
+                </Typography>
+                <Button
+                  component="label"
+                  variant="outlined"
+                  fullWidth
+                  startIcon={<CloudUpload />}
+                  sx={{ height: 200, mb: 1 }}
+                >
+                  {previewImage ? (
+                    <img 
+                      src={previewImage} 
+                      alt="Preview" 
+                      style={{ 
+                        width: '100%', 
+                        height: '100%', 
+                        objectFit: 'cover',
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        borderRadius: 4
+                      }} 
+                    />
+                  ) : (
+                    'Upload Banner Image'
+                  )}
+                  <VisuallyHiddenInput 
+                    type="file" 
                     accept="image/*"
-                    onChange={handleFileChange}
-                    required
+                    onChange={handleImageUpload}
                   />
-                  <div className="form-text">Upload a high-quality image for your event</div>
-                </div>
+                </Button>
+                <Typography variant="caption" color="text.secondary">
+                  Recommended size: 1200x600px (JPG/PNG)
+                </Typography>
+              </Box>
 
-                <div className="d-grid gap-2 mt-4">
-                  <button type="submit" className="btn btn-primary btn-lg py-3">
-                    Create Event
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+              <FormControl fullWidth sx={{ mb: 3 }}>
+                <InputLabel>Category</InputLabel>
+                <Select
+                  label="Category"
+                  name="category"
+                  value={eventData.category}
+                  onChange={handleChange}
+                  required
+                >
+                  <MenuItem value="conference">Conference</MenuItem>
+                  <MenuItem value="workshop">Workshop</MenuItem>
+                  <MenuItem value="concert">Concert</MenuItem>
+                  <MenuItem value="exhibition">Exhibition</MenuItem>
+                  <MenuItem value="networking">Networking</MenuItem>
+                </Select>
+                <FormHelperText>Select event category</FormHelperText>
+              </FormControl>
 
-      {showProfile && <ProfileSidebar user={user} onClose={toggleProfile} />}
-    </div>
+              <TextField
+                fullWidth
+                label="Capacity"
+                name="capacity"
+                type="number"
+                value={eventData.capacity}
+                onChange={handleChange}
+                required
+                sx={{ mb: 3 }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">people</InputAdornment>
+                  ),
+                }}
+              />
+
+              <TextField
+                fullWidth
+                label="Ticket Price"
+                name="ticketPrice"
+                type="number"
+                value={eventData.ticketPrice}
+                onChange={handleChange}
+                required
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">$</InputAdornment>
+                  ),
+                }}
+              />
+            </Grid>
+          </Grid>
+
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 4 }}>
+            <Button
+              variant="contained"
+              size="large"
+              type="submit"
+              startIcon={<CheckCircle />}
+              sx={{ px: 6, py: 1.5, fontSize: '1rem' }}
+            >
+              Publish Event
+            </Button>
+          </Box>
+        </Box>
+      </Paper>
+
+      {/* Profile Drawer */}
+      <Drawer
+        anchor="right"
+        open={showProfile}
+        onClose={() => setShowProfile(false)}
+        PaperProps={{
+          sx: { width: 380 }
+        }}
+      >
+        <Box sx={{ p: 3 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <IconButton onClick={() => setShowProfile(false)}>
+              <Close />
+            </IconButton>
+          </Box>
+          
+          <Box sx={{ textAlign: 'center', mb: 3 }}>
+            <Avatar 
+              src="https://randomuser.me/api/portraits/men/45.jpg" 
+              sx={{ 
+                width: 120, 
+                height: 120,
+                mx: 'auto',
+                mb: 2,
+                border: '4px solid',
+                borderColor: 'primary.main'
+              }}
+            />
+            <Typography variant="h5" gutterBottom>
+              Kalana Mihiranga
+            </Typography>
+            <Chip 
+              label="Business Account" 
+              color="primary" 
+              size="small" 
+              sx={{ mb: 2 }}
+            />
+            <Typography variant="body1" color="text.secondary">
+              Event Masters
+            </Typography>
+          </Box>
+
+          <List>
+            <ListItem>
+              <ListItemIcon>
+                <Email color="primary" />
+              </ListItemIcon>
+              <ListItemText 
+                primary="Email" 
+                secondary="kalana@eventmasters.com" 
+              />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <Business color="primary" />
+              </ListItemIcon>
+              <ListItemText 
+                primary="Company" 
+                secondary="Event Masters Pvt Ltd" 
+              />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <Phone color="primary" />
+              </ListItemIcon>
+              <ListItemText 
+                primary="Contact" 
+                secondary="+94 76 123 4567" 
+              />
+            </ListItem>
+          </List>
+
+          <Button
+            fullWidth
+            variant="outlined"
+            startIcon={<Edit />}
+            sx={{ mt: 3 }}
+          >
+            Edit Profile
+          </Button>
+        </Box>
+      </Drawer>
+    </Container>
   );
 };
 

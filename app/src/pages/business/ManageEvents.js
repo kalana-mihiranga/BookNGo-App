@@ -209,6 +209,13 @@ const ManageEvents = () => {
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
   };
+  const businessUser = {
+    name: "Kalana Mihiranga",
+    email: "kalana@business.com",
+    company: "Event Masters",
+    phone: "+94 76 123 4567",
+    avatar: "https://randomuser.me/api/portraits/men/45.jpg"
+  };
 
   const handleCreateEvent = () => {
     navigate('/create-event');
@@ -313,13 +320,21 @@ const ManageEvents = () => {
         </Box>
       </Drawer>
 
-      {/* Main Content */}
       <Box sx={{ flexGrow: 1 }}>
-        {/* Header with Profile Button */}
+        {/* Header with Personalized Greeting */}
         <Box sx={{ backgroundColor: 'white', boxShadow: 1, py: 3 }}>
           <Container maxWidth="xl">
             <Stack direction="row" justifyContent="space-between" alignItems="center">
-            <Button
+              <Box>
+                <Typography variant="h6" color="text.secondary">
+                  Welcome back,
+                </Typography>
+                <Typography variant="h4" fontWeight="bold" color="primary">
+                  Hello {businessUser.name.split(' ')[0]} {/* Shows first name only */}
+                </Typography>
+              </Box>
+              <Stack direction="row" spacing={2} alignItems="center">
+                <Button
                   variant="contained"
                   startIcon={<Add />}
                   onClick={handleCreateEvent}
@@ -327,13 +342,8 @@ const ManageEvents = () => {
                 >
                   Create Event
                 </Button>
-              <Typography variant="h4" fontWeight="bold" color="primary">
-                Hello Kalana Mihiranga
-              </Typography>
-              <Stack direction="row" spacing={2} alignItems="center">
-               
                 <IconButton onClick={toggleProfile}>
-                  <Avatar src={userProfile.avatar} />
+                  <Avatar src={businessUser.avatar} />
                 </IconButton>
               </Stack>
             </Stack>
