@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../styles/business/BusinessDashboard.css";
+import { Link } from "react-router-dom";
 
 const BusinessDashboard = () => {
   const [events] = useState([
@@ -19,7 +20,7 @@ const BusinessDashboard = () => {
         <h2>Business Panel</h2>
         <ul>
           <li>Dashboard</li>
-          <li>Create Event</li>
+          <li><Link to="/create-event">Create Event</Link></li>
           <li>Manage Events</li>
           <li>View Bookings</li>
         </ul>
