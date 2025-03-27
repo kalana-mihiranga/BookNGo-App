@@ -2,11 +2,8 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../styles/business/BusinessDashboard.css";
 import { Link } from "react-router-dom";
+ import { FaChartBar, FaCalendarAlt, FaUsers, FaPlus, FaCog } from "react-icons/fa";
 
-import { FaChartBar, FaCalendarAlt, FaUsers, FaPlus, } from "react-icons/fa";
-// =======
-// import { FaChartBar, FaCalendarAlt, FaUsers, FaPlus, FaCog } from "react-icons/fa";
-// >>>>>>> main
 
 const BusinessDashboard = () => {
   const [events] = useState([
@@ -28,10 +25,9 @@ const BusinessDashboard = () => {
           <li><FaPlus /> <Link to="/create-event">Create Event</Link></li>
           <li><FaCalendarAlt /> <Link to="/manage-events">Manage Events</Link></li>
           <li><FaUsers /> <Link to="/view-bookings">View Bookings</Link></li>
-// <<<<<<< development
-// =======
-//           <li><FaCog /> <Link to="/settings">Settings</Link></li>
-// >>>>>>> main
+
+       <li><FaCog /> <Link to="/settings">Settings</Link></li>
+
         </ul>
       </aside>
 
