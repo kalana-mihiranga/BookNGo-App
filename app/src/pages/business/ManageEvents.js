@@ -312,7 +312,7 @@ const ManageEvents = () => {
               color="error"
               startIcon={<Logout />}
               fullWidth
-              onClick={() => navigate('/logout')}
+              onClick={() => navigate('/')}
             >
               Logout
             </Button>
