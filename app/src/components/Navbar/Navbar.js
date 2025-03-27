@@ -6,8 +6,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import LoginIcon from '@mui/icons-material/Login';  
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-
-import "./style.css";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const buttonStyles = {
@@ -43,22 +42,24 @@ export default function Navbar() {
 
           <Box sx={{ flexGrow: 1 }} />
 
+
           <Box sx={{ display: 'flex', gap: 1 }}>
-            <Button 
+            <Button  
               variant="outlined" 
               startIcon={<LoginIcon />}
               sx={buttonStyles}
             >
-              Sign In
+                       <Link to="/signin">Sign In</Link>
             </Button>
-
+         
             <Button 
               variant="outlined" 
               startIcon={<PersonAddIcon />}
               sx={buttonStyles}
             >
-              Sign Up
+          <Link to="/signup">Sign Up</Link>
             </Button>
+  
           </Box>
         </Toolbar>
       </AppBar>

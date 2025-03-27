@@ -19,7 +19,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/previos" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/events" element={<Events />} /> 
@@ -34,7 +34,7 @@ function App() {
         <Route path="/crud" element={<EventCRUD />} />
 
         {/* common routes */}
-        <Route path="/landing" element={<Landing />} />
+        <Route path="/" element={<Landing />} />
       </Routes>
     </Router>
   );
