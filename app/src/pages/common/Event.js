@@ -45,8 +45,11 @@ const Event = () => {
 
   // Safe price handling
   const price = cardData.price ?? 0;
-  const bookingPrice = cardData.bookingPrice ?? 0;
-  const totalPrice = (Number(price) * quantity).toFixed(2);
+  const baseBookingPrice = cardData.bookingPrice ?? 0;
+
+  // Booking price increases with quantity (e.g., a multiplier based on quantity)
+  const totalPrice = (baseBookingPrice * quantity).toFixed(2);
+  const bookingPrice = (baseBookingPrice).toFixed(2);
 
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -104,7 +107,6 @@ const Event = () => {
                 Description
               </Typography>
 
-
               {/* Booking Price */}
               <Typography 
                 variant="h6" 
@@ -118,7 +120,7 @@ const Event = () => {
                 color="textSecondary" 
                 className="mb-4"
               >
-                ${Number(bookingPrice).toFixed(2)}
+                ${bookingPrice}
               </Typography>
 
               {/* Quantity Control */}
@@ -149,14 +151,12 @@ const Event = () => {
               {/* Action Buttons */}
               <div className="flex space-x-4">
                 <Button 
-                   
                   variant="contained" 
                   color="primary" 
                   startIcon={<BookmarkAdd />}
                 >
                   Book Now
                 </Button>
-
               </div>
             </Grid>
           </Grid>
