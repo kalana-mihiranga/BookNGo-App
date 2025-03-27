@@ -14,7 +14,9 @@ import Payment from "./pages/tourist/Payment";
 import Home from "./pages/common/Home";
 import BusinessDashboard from "./pages/business/BusinessDashboard";
 import Landing from "./pages/common/Landing";
-
+import Event from "./pages/common/Event";
+import BookingHistory from "./components/tourist/BookedEvents";
+import UserProfile from "./components/tourist/UserProfile";
 function App() {
   return (
     <Router>
@@ -32,9 +34,14 @@ function App() {
         <Route path="/home" element={<HomePage/>}/>
         <Route path="/business-dashboard" element={<BusinessDashboard />} />
         <Route path="/crud" element={<EventCRUD />} />
-
+        <Route path="/event" element={<Event />} />
         {/* common routes */}
         <Route path="/" element={<Landing />} />
+        <Route path="/booking-history" element={<BookingHistory />} />
+        <Route path="/user-profile" element={<UserProfile/>} />
+
+
+
       </Routes>
     </Router>
   );
