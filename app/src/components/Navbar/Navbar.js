@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 export default function Navbar() {
 
   const navigate = useNavigate();
-  const handleButtonClick = () => {
+  const navigateUserProfile = () => {
     navigate('/user-profile');
   };
 
@@ -57,7 +57,7 @@ export default function Navbar() {
             variant="outlined" 
             startIcon={<AccountCircleIcon/>}
             sx={buttonStyles}
-            onClick={handleButtonClick}
+            onClick={navigateUserProfile}
           >
           </Button>
           <Button 
