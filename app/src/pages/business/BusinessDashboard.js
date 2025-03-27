@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../styles/business/BusinessDashboard.css";
 import { Link } from "react-router-dom";
+import { FaChartBar, FaCalendarAlt, FaUsers, FaPlus, FaCog } from "react-icons/fa";
 
 const BusinessDashboard = () => {
   const [events] = useState([
@@ -19,15 +20,29 @@ const BusinessDashboard = () => {
       <aside className="sidebar">
         <h2>Business Panel</h2>
         <ul>
-          <li>Dashboard</li>
-          <li><Link to="/create-event">Create Event</Link></li>
-          <li>Manage Events</li>
-          <li>View Bookings</li>
+          <li><FaChartBar /> <Link to="/dashboard">Dashboard</Link></li>
+          <li><FaPlus /> <Link to="/create-event">Create Event</Link></li>
+          <li><FaCalendarAlt /> <Link to="/manage-events">Manage Events</Link></li>
+          <li><FaUsers /> <Link to="/view-bookings">View Bookings</Link></li>
+          <li><FaCog /> <Link to="/settings">Settings</Link></li>
         </ul>
       </aside>
 
       <main className="dashboard-main">
         <h1>Business Dashboard</h1>
+        
+        <div className="dashboard-stats">
+          <div className="stat-card">
+            <FaCalendarAlt className="stat-icon" />
+            <h3>{events.length}</h3>
+            <p>Total Events</p>
+          </div>
+          <div className="stat-card">
+            <FaUsers className="stat-icon" />
+            <h3>{bookings.length}</h3>
+            <p>Total Bookings</p>
+          </div>
+        </div>
 
         <section className="events-section">
           <h2>Your Events</h2>
