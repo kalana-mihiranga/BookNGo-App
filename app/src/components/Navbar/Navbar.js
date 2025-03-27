@@ -7,9 +7,18 @@ import Button from '@mui/material/Button';
 import LoginIcon from '@mui/icons-material/Login';  
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import "./style.css";
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Navbar() {
+
+  const navigate = useNavigate();
+  const handleButtonClick = () => {
+    navigate('/user-profile');
+  };
+
   const buttonStyles = {
     borderColor: '#143D60',
     color: '#143D60',
@@ -44,6 +53,13 @@ export default function Navbar() {
           <Box sx={{ flexGrow: 1 }} />
 
           <Box sx={{ display: 'flex', gap: 1 }}>
+          <Button 
+            variant="outlined" 
+            startIcon={<AccountCircleIcon/>}
+            sx={buttonStyles}
+            onClick={handleButtonClick}
+          >
+          </Button>
           <Button 
             variant="outlined" 
             startIcon={<NotificationsActiveIcon/>}
