@@ -52,8 +52,8 @@ const Event = () => {
     <div className="bg-gray-50 min-h-screen">
       <Navbar />
       
-      <Container maxWidth={false} className="px-8 py-8">
-        <Paper elevation={3} className="p-6 rounded-lg">
+      <Container maxWidth={false}>
+        <Paper elevation={3} className=" rounded-lg">
           <Grid container spacing={4}>
             {/* Image Section */}
             <Grid item xs={12} md={6}>
@@ -103,14 +103,7 @@ const Event = () => {
               >
                 Description
               </Typography>
-              <Typography 
-                variant="body1" 
-                color="textSecondary" 
-                paragraph
-                className="mb-4"
-              >
-                {cardData.description || 'No description available'}
-              </Typography>
+
 
               {/* Booking Price */}
               <Typography 
