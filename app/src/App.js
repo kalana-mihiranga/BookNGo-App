@@ -14,7 +14,7 @@ import Payment from "./pages/tourist/Payment";
 import Home from "./pages/common/Home";
 import BusinessDashboard from "./pages/business/BusinessDashboard";
 import Landing from "./pages/common/Landing";
-
+import Event from "./pages/common/Event";
 function App() {
   return (
     <Router>
@@ -32,7 +32,7 @@ function App() {
         <Route path="/home" element={<HomePage/>}/>
         <Route path="/business-dashboard" element={<BusinessDashboard />} />
         <Route path="/crud" element={<EventCRUD />} />
-
+        <Route path="/event" element={<Event />} />
         {/* common routes */}
         <Route path="/landing" element={<Landing />} />
       </Routes>
