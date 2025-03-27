@@ -16,10 +16,15 @@ import {
   Box,
   CardMedia,
 } from "@mui/material";
-
+import { useNavigate } from "react-router-dom";
 const Landing = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filterCategory, setFilterCategory] = useState("");
+  const navigate = useNavigate();
+  const handleSeeMoreClick = (card) => {
+    navigate('/event', { state: { cardData: card } });
+  };
+
   const cardData = [
     {
       title: "Adventure Tour 1",
@@ -27,6 +32,9 @@ const Landing = () => {
       category: "Adventure",
       imageUrl:
         "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      description:
+        "Embark on a thrilling adventure through rugged mountain terrains, experiencing breathtaking views and challenging trails. This tour is designed for those seeking excitement and a connection with nature. Our experienced guides ensure safety while you push your limits and create unforgettable memories.",
+      bookingPrice: 200, // Average daily cost in USD
     },
     {
       title: "Beach Getaway 2",
@@ -34,6 +42,9 @@ const Landing = () => {
       category: "Beach",
       imageUrl:
         "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      description:
+        "Unwind on pristine beaches with golden sands and clear blue waters. This getaway offers a serene environment to relax, swim, and enjoy beachside activities. Ideal for travelers looking to escape the hustle and rejuvenate by the sea.",
+      bookingPrice: 150, // Average daily cost in USD
     },
     {
       title: "City Tour 3",
@@ -41,6 +52,9 @@ const Landing = () => {
       category: "City",
       imageUrl:
         "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      description:
+        "Explore the vibrant urban landscape, visiting historical landmarks, cultural sites, and experiencing the city's dynamic atmosphere. Perfect for those interested in history, architecture, and urban life.",
+      bookingPrice: 180, // Average daily cost in USD
     },
     {
       title: "Adventure Tour 12",
@@ -48,6 +62,9 @@ const Landing = () => {
       category: "Adventure",
       imageUrl:
         "https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      description:
+        "Join us for a final exhilarating journey through challenging terrains, pushing your limits and embracing the spirit of adventure. A fitting end to a series of thrilling expeditions.",
+      bookingPrice: 220, // Average daily cost in USD
     },
     {
       title: "Beach Tour 13",
@@ -55,6 +72,9 @@ const Landing = () => {
       category: "Beach",
       imageUrl:
         "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      description:
+        "Experience the tranquility of secluded beaches, away from the crowds. This tour offers peaceful seaside moments, ideal for reflection and relaxation.",
+      bookingPrice: 160, // Average daily cost in USD
     },
     {
       title: "City Tour 14",
@@ -62,50 +82,12 @@ const Landing = () => {
       category: "City",
       imageUrl:
         "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      title: "Adventure Tour 12",
-      content: "Last adventure.",
-      category: "Adventure",
-      imageUrl:
-        "https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      title: "Beach Tour 13",
-      content: "Last beach.",
-      category: "Beach",
-      imageUrl:
-        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      title: "City Tour 14",
-      content: "Last city.",
-      category: "City",
-      imageUrl:
-        "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      title: "Adventure Tour 12",
-      content: "Last adventure.",
-      category: "Adventure",
-      imageUrl:
-        "https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      title: "Beach Tour 13",
-      content: "Last beach.",
-      category: "Beach",
-      imageUrl:
-        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      title: "City Tour 14",
-      content: "Last city.",
-      category: "City",
-      imageUrl:
-        "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      description:
+        "Conclude your urban explorations with a visit to a city rich in history and culture. Discover hidden gems, local cuisine, and the unique charm of this final destination.",
+      bookingPrice: 190, // Average daily cost in USD
     },
   ];
+  
 
   const filteredCards = cardData.filter((card) => {
     const searchMatch = card.title
@@ -239,7 +221,8 @@ const Landing = () => {
                     <Typography variant="caption" color="text.secondary">
                       Category: {card.category}
                     </Typography>
-                    <Button size="small" color="primary">
+                    <Button size="small" color="primary" onClick={() => handleSeeMoreClick(card)}
+                      >
                       See More
                     </Button>
                   </CardContent>
