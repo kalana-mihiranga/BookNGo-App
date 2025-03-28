@@ -1,0 +1,39 @@
+/* Styling for the tab navigation */
+.custom-tabs .nav-link {
+    font-size: 1.1rem;
+    padding: 0.75rem 1.25rem;
+    color: #495057;
+    font-weight: 600;
+    border: 1px solid #ddd;
+    /* border-radius: 8px; */
+    transition: all 0.3s ease;
+}
+
+/* Active tab styling */
+.custom-tabs .nav-link.active {
+    /* background-color: #007bff; */
+    color: rgb(0, 0, 0);
+
+}
+
+/* Hover effect for tabs */
+.custom-tabs .nav-link:hover {
+    background-color: #f1f1f1;
+    /* background-color:rgb(51, 51, 51); */
+    /* color: #007bff;
+    border-color: #007bff; */
+}
+
+/* Tab content styling */
+.tab-content {
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+/* Optional: Add shadow to tab content */
+.tab-pane {
+    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.856);
+}
+.nav-item{
+    margin: 0px;
+}

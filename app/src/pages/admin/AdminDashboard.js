@@ -6,8 +6,8 @@ function AdminDashboard() {
   const navigate = useNavigate();
 
   return (
-    <div className="admin-dashboard">
-      <div className="sidebar p-0">
+    <div className="admin-dashboard col">
+      <div className="sbar p-0">
         <div className="sidebar-header">
           <div className="m-3 d-flex flex-row justify-content-start align-items-center">
             <img
@@ -34,7 +34,7 @@ function AdminDashboard() {
           <li>
             <button
               className="sidebar-menu-link"
-              onClick={() => navigate("/events")}
+              onClick={() => navigate("/admin-dashboard/event-manage")}
             >
               <i className="bi bi-calendar-event"></i> Manage Events
             </button>
@@ -58,9 +58,22 @@ function AdminDashboard() {
         </ul>
       </div>
 
-      <div className="dashboard-content">
-        <div className="header">
-          <div className="header-right">
+      <div className="dashboard-content p-0 ">
+        <div className="header-right d-flex flex-column justify-content-start col-12">
+          <div className="topic d-flex justify-content-start col-12">
+            <h2 className=" p-2 ps-3 m-0">Manage Events</h2>
+            {/* <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item">
+                    <a href="#">
+                      <i class="bi bi-house-door-fill fs-1"></i> Home
+                    </a>
+                  </li>
+                  <li class="breadcrumb-item active" aria-current="page">Library</li>
+                </ol>
+              </nav> */}
+          </div>
+          <div className="col-12">
             <Outlet></Outlet>
           </div>
         </div>

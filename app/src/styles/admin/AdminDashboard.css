@@ -2,14 +2,15 @@
 .admin-dashboard {
   display: flex;
   height: 100vh;
+  width: 100vw;
 }
 
-.sidebar {
-  width: 250px;
+.sbar {
   background-color: #343a40;
   color: white;
-  padding: 5px;
+  /* padding: 5px; */
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  width: 18%;
 }
 
 .sidebar-header h2 {
@@ -63,14 +64,16 @@
  font-weight: bold;
 }
 .dashboard-content {
-  flex: 1;
-  padding: 40px;
-  background-color: #f8f9fa;
+  width: 82%;
+  /* flex: auto; */
+  padding: 0px;
+  /* background-color: #f8f9fa; */
+  background-color: #ffffff;
 }
 
 .header {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   margin-bottom: 30px;
 }
 
@@ -164,22 +167,6 @@ button:focus {
 }
 
 
-/* User profile */
-/* .user-profile {
-max-width: 600px;
-margin: 30px auto;
-padding: 20px;
-background-color: #fff;
-border-radius: 10px;
-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-font-family: Arial, sans-serif;
-}
-
-.profile-header {
-text-align: center;
-margin-bottom: 20px;
-} */
-
 .profile-pic {
 width: 60px;
 height: 60px;
@@ -189,58 +176,7 @@ margin-bottom: 15px;
 border: 2px solid #4CAF50;
 padding-left: 0px;
 }
-/* 
-.profile-header h2 {
-font-size: 24px;
-margin: 10px 0;
-}
 
-.profile-header p {
-font-size: 18px;
-color: #777;
-}
-
-.profile-info {
-margin-top: 20px;
-font-size: 16px;
-color: #333;
-}
-
-.profile-info strong {
-color: #555;
-}
-
-.profile-actions {
-margin-top: 20px;
-text-align: center;
-}
-
-.profile-actions button {
-padding: 10px 20px;
-margin: 10px;
-border: none;
-border-radius: 5px;
-cursor: pointer;
-font-size: 16px;
-}
-
-.edit-btn {
-background-color: #4CAF50;
-color: white;
-}
-
-.logout-btn {
-background-color: #f44336;
-color: white;
-}
-
-.edit-btn:hover {
-background-color: #45a049;
-}
-
-.logout-btn:hover {
-background-color: #e53935;
-} */
 .user-name{
 font-size: 14px !important;
 padding-left: 9px;
@@ -314,15 +250,19 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow effect on click */
 text-decoration: none;
 color: inherit; /* Ensure the color is inherited from the parent */
 }
+.topic{
+  background-color: #f8f9fa;
+}
 
 /* Responsive Design for Mobile */
 @media (max-width: 768px) {
 .sidebar-menu-link {
-  font-size: 14px; /* Slightly smaller font for mobile */
+  font-size: 14px; 
   padding: 10px 15px; /* Adjust padding for smaller screens */
 }
 
 .sidebar-menu-link i {
   font-size: 1.2rem; /* Slightly smaller icons for mobile */
 }
+
 }
