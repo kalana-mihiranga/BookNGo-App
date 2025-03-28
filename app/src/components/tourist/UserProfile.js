@@ -9,8 +9,8 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 const UserProfile = () => {
 
   const [user, setUser] = useState({
-    name: 'John Doe',
-    email: 'john.doe@example.com',
+    name: 'kevin peter',
+    email: 'kevin.peter@gmail.com',
     mobile: '123-456-7890',
     avatarUrl: 'https://www.example.com/avatar.jpg',
   });
@@ -33,20 +33,24 @@ const UserProfile = () => {
     console.log('Updated user data:', formData);
   };
 
+  const handleCancel = () => {
+    setFormData({ ...user });
+    setEditMode(false);
+  };
+
   return (
     <div>
           <Navbar/>
-          <Card sx={{ maxWidth: 400, margin: 'auto', boxShadow: 3, borderRadius: 2 ,my:7 }}>
-      
-      <CardContent sx={{ display: 'flex', alignItems: 'center', padding: 3}}>
-        <Avatar 
-          alt={user.name} 
-          src={user.avatarUrl} 
-          sx={{ width: 100, height: 100, marginRight: 3, border: `3px solid ${blue[500]}` }} 
+          <Card sx={{ minHeight: 300, maxWidth: 500, margin: 'auto', boxShadow: 3, borderRadius: 2, my: 7, p: 3 }}>
+      <CardContent sx={{ display: 'flex', alignItems: 'center' }}>
+        <Avatar
+          alt={user.name}
+          src={user.avatarUrl}
+          sx={{ width: 120, height: 120, marginRight: 3, border: `3px solid ${blue[500]}` }}
         />
         <Box sx={{ flexGrow: 1 }}>
           {editMode ? (
-            <Box>
+            <Box component="form" noValidate autoComplete="off">
               <TextField
                 fullWidth
                 label="Name"
@@ -74,35 +78,37 @@ const UserProfile = () => {
                 onChange={handleChange}
                 sx={{ marginBottom: 2 }}
               />
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 2 }}>
+                <Button variant="contained" color="primary" onClick={handleSubmit}>
+                  Save Changes
+                </Button>
+                <Button variant="outlined" color="secondary" onClick={handleCancel}>
+                  Cancel
+                </Button>
+              </Box>
             </Box>
           ) : (
             <Box>
-              <Typography variant="h6" fontWeight="bold" gutterBottom>{user.name}</Typography>
-              <Typography variant="body2" color="textSecondary" paragraph>{user.email}</Typography>
-              <Typography variant="body2" color="textSecondary" paragraph>{user.mobile}</Typography>
-            </Box>
-          )}
-          <Box sx={{ marginTop: 2 }}>
-            {editMode ? (
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleSubmit}
-                sx={{ marginRight: 2 }}
-              >
-                Save Changes
-              </Button>
-            ) : (
+              <Typography variant="h6" fontWeight="bold" gutterBottom>
+                {user.name}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" paragraph>
+                {user.email}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" paragraph>
+                {user.mobile}
+              </Typography>
               <Button
                 variant="outlined"
                 color="primary"
                 startIcon={<EditIcon />}
                 onClick={() => setEditMode(true)}
+                sx={{ marginTop: 2 }}
               >
                 Edit Profile
               </Button>
-            )}
-          </Box>
+            </Box>
+          )}
         </Box>
       </CardContent>
     </Card>
@@ -117,7 +123,7 @@ const UserProfile = () => {
           id="panel1-header"
         >    
       <Typography variant="h5" component="h5">
-        Booking History
+        Booking Details
       </Typography>
         </AccordionSummary>
         <AccordionDetails>

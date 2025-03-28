@@ -1,100 +1,77 @@
-/* Event Form Container */
 .event-form-container {
   position: relative;
+  min-height: 100vh;
+  background-color: #f8f9fa;
 }
 
-/* Profile Image in the Top Right Corner */
-.user-profile {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  cursor: pointer;
+.profile-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 350px;
+  height: 100vh;
+  background: white;
+  z-index: 1050;
+  transition: all 0.3s ease;
+  overflow-y: auto;
+}
+
+.profile-img-container {
+  width: 120px;
+  height: 120px;
+  border: 4px solid #f1f1f1;
+  border-radius: 50%;
+  overflow: hidden;
 }
 
 .profile-img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: 2px solid #007bff;
-  transition: transform 0.3s ease;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.profile-img:hover {
+.user-profile {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.user-profile:hover {
   transform: scale(1.1);
 }
 
-/* Profile Sidebar */
-.profile-sidebar {
-  position: fixed;
-  top: 10%;
-  right: 0;
-  width: 250px;
-  background-color: #fff;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  z-index: 1000;
-  transition: right 0.3s ease;
+.card {
+  border-radius: 12px;
+  overflow: hidden;
 }
 
-.profile-header {
-  display: flex;
-  justify-content: flex-end;
+.form-control, .form-select {
+  border-radius: 8px;
+  padding: 12px 15px;
+  border: 1px solid #e0e0e0;
 }
 
-.profile-sidebar .btn-close {
-  background: none;
+.form-control:focus, .form-select:focus {
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.1);
+}
+
+.btn-primary {
+  background-color: #4e73df;
   border: none;
-  font-size: 20px;
-  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s;
 }
 
-.profile-info {
-  text-align: center;
-  padding: 10px 0;
+.btn-primary:hover {
+  background-color: #3a5ccc;
+  transform: translateY(-2px);
 }
 
-.profile-info img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 3px solid #007bff;
-  margin-bottom: 10px;
-}
-
-.profile-info h4 {
-  margin-bottom: 10px;
-  color: #333;
-}
-
-.profile-info p {
-  color: #666;
-  font-size: 14px;
-}
-
-/* Event Form Styling */
-form {
-  background-color: #f8f9fa;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-form .form-label {
-  font-weight: bold;
-  color: #555;
-}
-
-button[type="submit"] {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button[type="submit"]:hover {
-  background-color: #0056b3;
+@media (max-width: 768px) {
+  .profile-sidebar {
+    width: 100%;
+  }
 }
