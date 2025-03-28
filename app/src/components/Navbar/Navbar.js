@@ -17,6 +17,9 @@ export default function Navbar() {
   const navigateUserProfile = () => {
     navigate('/user-profile');
   };
+  const navigateToHome = () => {
+    navigate('/');
+  };
 
   const buttonStyles = {
     borderColor: '#143D60',
@@ -45,6 +48,7 @@ export default function Navbar() {
               fontWeight: 'bold',
               cursor: 'pointer'
             }}
+            onClick={navigateToHome}
           >
             BOOKnGO
           </Typography>

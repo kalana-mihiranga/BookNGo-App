@@ -45,7 +45,6 @@ import {
   Search,
   Star,
   Visibility,
-  AccountCircle,
   Email,
   Business,
   Phone,
