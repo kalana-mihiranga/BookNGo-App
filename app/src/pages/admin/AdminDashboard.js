@@ -34,17 +34,17 @@ function AdminDashboard() {
           <li>
             <button
               className="sidebar-menu-link"
-              onClick={() => navigate("/admin-dashboard/event-manage")}
+              onClick={() => navigate("/admin-dashboard/approval")}
             >
-              <i className="bi bi-calendar-event"></i> Manage Events
+              <i className="bi bi-calendar-event"></i> Approval
             </button>
           </li>
           <li>
             <button
               className="sidebar-menu-link"
-              onClick={() => navigate("/businesses")}
+              onClick={() => navigate("/admin-dashboard/user-management")}
             >
-              <i className="bi bi-building"></i> Businesses
+              <i className="bi bi-building"></i> User Management
             </button>
           </li>
           <li>
@@ -60,8 +60,8 @@ function AdminDashboard() {
 
       <div className="dashboard-content p-0 ">
         <div className="header-right d-flex flex-column justify-content-start col-12">
-          <div className="topic d-flex justify-content-start col-12">
-            <h2 className=" p-2 ps-3 m-0">Manage Events</h2>
+          <div className="topic d-flex justify-content-start col-12 ">
+            <h2 className="header-text p-2 ps-3 m-0">Dashboard</h2>
             {/* <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item">

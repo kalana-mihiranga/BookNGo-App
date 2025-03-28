@@ -18,47 +18,6 @@
   color: #f1f1f1;
 }
 
-/* .sidebar-menu {
-  list-style: none;
-  padding: 0;
-  margin-top: 30px;
-}
-
-.sidebar-menu li {
-  margin: 15px 0;
-}
-
-.sidebar-menu a {
-  text-decoration: none;
-  color: #ddd;
-  font-size: 18px;
-  display: block;
-  padding: 10px;
-  border-radius: 5px;
-  transition: background-color 0.3s;
-}
-
-.sidebar-menu a:hover {
-  background-color: #007bff;
-}
-.sidebar-menu-link{
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  text-align: center;
-  width: 14vw;
-  align-items:center ;
-  font-size: 16px !important;
-  font-weight: 450;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  
-}
-.sidebar-menu-link i {
-  font-size: 1.4rem;
-  padding-right: 10px;
-
-} */
 .admin-panel{
   font-size: 30px !important;
  font-weight: bold;

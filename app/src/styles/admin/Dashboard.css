@@ -1,10 +1,14 @@
 .dashboard{
     width: 50vw;
 }
-.left-dashboard{
+/* .left-dashboard{
     width: 75vw;
-}
-.booking-count{
-    width: 10vw;
+} */
+.right-dashboard{
+    width: 18vw;
     height: 10vh;
+    padding-left: 2vw;
+}
+.first-column{
+    width: 61vw;
 }

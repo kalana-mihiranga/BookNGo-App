@@ -1,0 +1,43 @@
+.stat-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .container-fluid{
+     width: 62vw;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  .stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+  }
+  .progress{
+    height: "6px";
+  }
+  .business-tile{
+    width: 15vw;
+    height: 22vh;
+  }
+  .name-of-tile{
+    font-size: 13px !important;
+  }
+  .tile-value{
+    font-size: 15px !important;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .stat-card {
+      margin-bottom: 16px;
+    }
+  }

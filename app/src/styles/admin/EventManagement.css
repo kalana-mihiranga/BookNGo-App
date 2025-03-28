@@ -37,3 +37,10 @@
 .nav-item{
     margin: 0px;
 }
+.table-striped tbody tr td{
+    padding: 0px;
+}
+
+.container-fluid{
+    width:80vw;
+}

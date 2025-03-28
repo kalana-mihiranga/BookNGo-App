@@ -20,6 +20,7 @@ import UserProfile from "./components/tourist/UserProfile";
 import Dashboard from "./pages/admin/Dashboard";
 import Setting from "./pages/admin/Setting";
 import EventManagement from "./pages/admin/EventManagement";
+import UserManagement from "./pages/admin/UserManagement";
 function App() {
   return (
     <Router>
@@ -34,7 +35,8 @@ function App() {
         <Route path="/admin-dashboard" element={<AdminDashboard />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="setting" element={<Setting />} />
-          <Route path="event-manage" element={<EventManagement />} />
+          <Route path="approval" element={<EventManagement />} />
+          <Route path="user-management" element={<UserManagement />} />
         </Route>
         <Route path="/payment/:eventId" element={<Payment />} />
         <Route path="/tourist" element={<Tourist />} />
