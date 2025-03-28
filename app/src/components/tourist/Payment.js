@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../styles/tourist/Payment.css";
+import Navbar from "../Navbar/Navbar";
+import Footer from "../Footer/Footer";
 
 function Payment() {
   const { eventId } = useParams(); // Get event ID from URL
@@ -22,7 +24,9 @@ function Payment() {
   };
 
   return (
-    <div className="payment-container">
+    <div>
+          <Navbar/>
+          <div className="payment-container">
       <div className="payment-card">
         <h2>Secure Debit Card Payment</h2>
         <p>Event ID: <strong>{eventId}</strong></p>
@@ -89,6 +93,11 @@ function Payment() {
         </form>
       </div>
     </div>
+
+          <Footer/>
+    </div>
+
+
   );
 }
 

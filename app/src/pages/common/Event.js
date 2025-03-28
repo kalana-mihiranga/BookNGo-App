@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import { 
@@ -21,6 +21,13 @@ import {
 } from '@mui/icons-material';
 
 const Event = () => {
+
+  const navigate = useNavigate();
+  const navigateToPayment = () => {
+    navigate("/payment"); 
+  };
+
+
   const location = useLocation();
   const { cardData } = location.state || {};
   const [quantity, setQuantity] = useState(1);
@@ -154,6 +161,7 @@ const Event = () => {
                   variant="contained" 
                   color="primary" 
                   startIcon={<BookmarkAdd />}
+                  onClick={navigateToPayment}
                 >
                   Book Now
                 </Button>

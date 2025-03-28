@@ -45,7 +45,6 @@ import {
   Search,
   Star,
   Visibility,
-  AccountCircle,
   Email,
   Business,
   Phone,
@@ -312,7 +311,7 @@ const ManageEvents = () => {
               color="error"
               startIcon={<Logout />}
               fullWidth
-              onClick={() => navigate('/logout')}
+              onClick={() => navigate('/')}
             >
               Logout
             </Button>

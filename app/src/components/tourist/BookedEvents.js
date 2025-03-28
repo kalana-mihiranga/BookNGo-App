@@ -47,6 +47,8 @@ const BookingHistory = () => {
             <TableCell><strong>Quantity</strong></TableCell>
             <TableCell><strong>Total Price</strong></TableCell>
             <TableCell><strong>Booking Date</strong></TableCell>
+            <TableCell><strong>Booking Status</strong></TableCell>
+
           </TableRow>
         </TableHead>
         <TableBody>
@@ -57,6 +59,8 @@ const BookingHistory = () => {
               <TableCell>{event.quantity}</TableCell>
               <TableCell>${event.totalPrice}</TableCell>
               <TableCell>{event.bookingDate}</TableCell>
+              <TableCell>Booked</TableCell>
+
             </TableRow>
           ))}
         </TableBody>
