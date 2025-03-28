@@ -2,14 +2,15 @@
 .admin-dashboard {
   display: flex;
   height: 100vh;
+  width: 100vw;
 }
 
-.sidebar {
-  width: 250px;
+.sbar {
   background-color: #343a40;
   color: white;
-  padding: 20px;
+  /* padding: 5px; */
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  width: 18%;
 }
 
 .sidebar-header h2 {
@@ -17,39 +18,21 @@
   color: #f1f1f1;
 }
 
-.sidebar-menu {
-  list-style: none;
-  padding: 0;
-  margin-top: 30px;
+.admin-panel{
+  font-size: 30px !important;
+ font-weight: bold;
 }
-
-.sidebar-menu li {
-  margin: 15px 0;
-}
-
-.sidebar-menu a {
-  text-decoration: none;
-  color: #ddd;
-  font-size: 18px;
-  display: block;
-  padding: 10px;
-  border-radius: 5px;
-  transition: background-color 0.3s;
-}
-
-.sidebar-menu a:hover {
-  background-color: #007bff;
-}
-
 .dashboard-content {
-  flex: 1;
-  padding: 40px;
-  background-color: #f8f9fa;
+  width: 82%;
+  /* flex: auto; */
+  padding: 0px;
+  /* background-color: #f8f9fa; */
+  background-color: #ffffff;
 }
 
 .header {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   margin-bottom: 30px;
 }
 
@@ -140,4 +123,105 @@ button:hover {
 
 button:focus {
   outline: none;
+}
+
+
+.profile-pic {
+width: 60px;
+height: 60px;
+border-radius: 50%;
+object-fit: cover;
+margin-bottom: 15px;
+border: 2px solid #4CAF50;
+padding-left: 0px;
+}
+
+.user-name{
+font-size: 14px !important;
+padding-left: 9px;
+letter-spacing: 2px;
+word-spacing: 3px;
+}
+.email{
+padding-left: 9px;
+font-size: 10px;
+color: #e2f5a8;
+}
+
+/* side bar */
+/* Sidebar Menu Styling */
+.sidebar-menu {
+list-style: none;
+padding: 0;
+margin-top: 30px;
+font-family: Arial, sans-serif; /* Clean and professional font */
+}
+
+.sidebar-menu li {
+margin: 15px 0;
+padding: 0px !important;
+}
+
+.sidebar-menu-link {
+display: flex;
+flex-direction: row;
+justify-content: start;
+align-items: center;
+width: 100%;
+font-size: 16px;
+font-weight: 500; /* Slightly increased for better visibility */
+padding: 4px 20px; /* More padding for better touch targets */
+border-radius: 8px; /* Rounded corners for a soft look */
+background-color:  #343a40d7;
+/* background-color:  #535b64; */
+color: #ffffff;
+border: 1px solid transparent; /* Border on hover */
+transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.sidebar-menu-link i {
+font-size: 1.4rem;
+padding-right: 15px; /* More space between icon and text */
+color: #ffffff; /* Subtle icon color */
+transition: color 0.3s ease; /* Smooth transition for icon color change */
+}
+
+.sidebar-menu-link:hover {
+background-color:  #535b64; 
+/* background-color: #007bff; Blue background on hover */
+color: #fff; /* White text on hover */
+/* border: 1px solid #007bff; Blue border on hover */
+}
+
+.sidebar-menu-link:hover i {
+color: #fff; /* White icon color on hover */
+}
+.sidebar-menu li{
+padding: 0px;
+margin: 0px;
+}
+.sidebar-menu-link:active {
+background-color: #0056b3; /* Darker blue when clicked */
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow effect on click */
+}
+
+.sidebar-menu a {
+text-decoration: none;
+color: inherit; /* Ensure the color is inherited from the parent */
+}
+.topic{
+  background-color: #f8f9fa;
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+.sidebar-menu-link {
+  font-size: 14px; 
+  padding: 10px 15px; /* Adjust padding for smaller screens */
+}
+
+.sidebar-menu-link i {
+  font-size: 1.2rem; /* Slightly smaller icons for mobile */
+}
+
 }
