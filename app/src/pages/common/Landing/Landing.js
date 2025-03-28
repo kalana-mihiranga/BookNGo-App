@@ -30,26 +30,106 @@ const Landing = () => {
 
   const cardData = [
     {
-      title: "Mountain Adventure",
-      content: "Explore breathtaking mountain landscapes with expert guides",
-      category: "Adventure",
-      imageUrl: "https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&h=300&fit=crop",
-      description: "Experience thrilling hikes with expert guides",
-      bookingPrice: 200
-    },
-    {
-      title: "Beach Paradise",
+      title: "Surfing",
       content: "Relax on pristine white sand beaches with crystal waters",
       category: "Beach",
-      imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&h=300&fit=crop",
+      imageUrl: "https://images.ctfassets.net/xhzuh2up4xai/4qxBb6Nw4NARuV8AUDXZn6/1c594f817ac1aa69e81d8c07bfa90c0e/massive_waves.jpg?fm=jpg&fl=progressive&w=1920&q=75",
       description: "Unwind with crystal clear waters and palm trees",
       bookingPrice: 180
     },
     {
-      title: "City Explorer",
+      title: "Jetskiing",
+      content: "Explore breathtaking mountain landscapes with expert guides",
+      category: "Adventure",
+      imageUrl: "https://jetboatmiami.com/wp-content/uploads/2022/05/i07_Kawasaki-Jet-Ski-Cover.jpg",
+      description: "Experience thrilling hikes with expert guides",
+      bookingPrice: 200
+    },
+    {
+      title: "Parasailing",
+      content: "Relax on pristine white sand beaches with crystal waters",
+      category: "Beach",
+      imageUrl: "https://www.kittyhawk.com/wp-content/uploads/2012/01/parasailing-double-1.jpg",
+      description: "Unwind with crystal clear waters and palm trees",
+      bookingPrice: 180
+    },
+    {
+      title: "kiteboarding",
+      content: "Relax on pristine white sand beaches with crystal waters",
+      category: "Beach",
+      imageUrl: "https://miro.medium.com/v2/resize:fit:1024/1*AWCYtU1Uuay6cwK2AbAc0g.jpeg",
+      description: "Unwind with crystal clear waters and palm trees",
+      bookingPrice: 280
+    },
+    {
+      title: "sea kayaking",
+      content: "Relax on pristine white sand beaches with crystal waters",
+      category: "Beach",
+      imageUrl: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/28/66/08/3f/caption.jpg?w=1200&h=-1&s=1",
+      description: "Unwind with crystal clear waters and palm trees",
+      bookingPrice: 180
+    },
+    {
+      title: "Windsurfing",
+      content: "Relax on pristine white sand beaches with crystal waters",
+      category: "Beach",
+      imageUrl: "https://res.cloudinary.com/manawa/image/private/f_auto,c_limit,w_3840,q_auto/eb3883d20cc177905bc2ad81f471ae67",
+      description: "Unwind with crystal clear waters and palm trees",
+      bookingPrice: 180
+    },
+    {
+      title: "canoeing",
+      content: "Relax on pristine white sand beaches with crystal waters",
+      category: "Beach",
+      imageUrl: "https://bendingbranches.com/cdn/shop/articles/BB_Harder_Five2Nine.jpg?v=1655143550",
+      description: "Unwind with crystal clear waters and palm trees",
+      bookingPrice: 180
+    },
+    {
+      title: "Water Rafting",
+      content: "Relax on pristine white sand beaches with crystal waters",
+      category: "Beach",
+      imageUrl: "https://smokymtnriverrat.com/wp-content/uploads/2024/03/RRW-_-Family-Upper-_-8-_-faded-bottom-white.webp",
+      description: "Unwind with crystal clear waters and palm trees",
+      bookingPrice: 180
+    },
+    {
+      title: "atv ride",
+      content: "Relax on pristine white sand beaches with crystal waters",
+      category: "Mountain",
+      imageUrl: "https://aceraft.com/wp-content/uploads/2019/05/new-river-gorge-atv-tour-ace-adventure-resort-3-scaled.jpg",
+      description: "Unwind with crystal clear waters and palm trees",
+      bookingPrice: 180
+    },
+    {
+      title: "Zipline in Oahu",
+      content: "Relax on pristine white sand beaches with crystal waters",
+      category: "Beach",
+      imageUrl: "https://adventureinhawaii.com/img/kauai/koloa-zipline-1.jpg",
+      description: "Unwind with crystal clear waters and palm trees",
+      bookingPrice: 180
+    },
+    {
+      title: "DJ Party",
+      content: "Relax on pristine white sand beaches with crystal waters",
+      category: "Entertaintment",
+      imageUrl: "https://www.shutterstock.com/image-photo/crowd-raising-their-hands-enjoying-600nw-480758203.jpg",
+      description: "Unwind with crystal clear waters and palm trees",
+      bookingPrice: 180
+    },
+    {
+      title: "Diving",
+      content: "Relax on pristine white sand beaches with crystal waters",
+      category: "Beach",
+      imageUrl: "https://assets.cntraveller.in/photos/632da314969e60ec08d35e8a/4:3/w_4992,h_3744,c_limit/498283106",
+      description: "Unwind with crystal clear waters and palm trees",
+      bookingPrice: 180
+    },
+    {
+      title: "Music Events",
       content: "Discover vibrant urban culture and historic landmarks",
       category: "City",
-      imageUrl: "https://images.unsplash.com/photo-1485872299829-c673f5194813?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&h=300&fit=crop",
+      imageUrl: "https://media.gettyimages.com/id/1242743138/photo/france-arts-festival-music-rock-en-seine.jpg?s=2048x2048&w=gi&k=20&c=-XmluCciBVSa0NtaQe1pYgUu8hCi1qWnz1Mc_SKRc9w=",
       description: "Tour historic landmarks and modern attractions",
       bookingPrice: 150
     },
@@ -57,7 +137,7 @@ const Landing = () => {
       title: "Cultural Journey",
       content: "Immerse yourself in authentic local traditions",
       category: "Culture",
-      imageUrl: "https://images.unsplash.com/photo-1503917988258-f87a78e3c995?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&h=300&fit=crop",
+      imageUrl: "https://media.gettyimages.com/id/2166769048/photo/sri-lanka-religion-buddhism-festival.jpg?s=2048x2048&w=gi&k=20&c=5u29dim0v_Dm7rtw5dgQv2YW59gNy08vxLalYK3JpIk=",
       description: "Experience authentic customs and heritage",
       bookingPrice: 170
     }
@@ -84,7 +164,7 @@ const Landing = () => {
         <HeroSection />
 
         {/* Events Section */}
-        <Container maxWidth="lg" sx={{ py: 4 }}>
+        < >
           {/* Search and Filter */}
           <Box sx={{ 
             mb: 4, 
@@ -192,7 +272,7 @@ const Landing = () => {
               </Grid>
             ))}
           </Grid>
-        </Container>
+        </>
       </Box>
 
       {/* Footer */}
