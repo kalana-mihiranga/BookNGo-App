@@ -42,6 +42,9 @@ function App() {
         <Route path="/user-profile" element={<UserProfile/>} />
         <Route path="/manage-events" element={<ManageEvents/>} />
         <Route path="/payment" element={<Payment/>} />
+        {/* <Route path="/payment" element={<Sidebar/>} /> */}
+
+        
 
 
 

@@ -17,7 +17,7 @@ function SignIn() {
       navigate("/manage-events");
     }if (email === "tourist@example.com" && password === "admin123") {
       // Redirect to Admin Dashboard upon successful login
-      navigate("/tourist");
+      navigate("/");
     }
     else { 
       
