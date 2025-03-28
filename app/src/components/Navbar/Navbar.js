@@ -25,8 +25,8 @@ export default function Navbar() {
     borderColor: '#143D60',
     color: '#143D60',
     '&:hover': {
-      backgroundColor: '#143D60',
-      color: '#A0C878',
+      backgroundColor: '#0F2B42',
+      color: '#0F2B42',
       borderColor: '#143D60',
     }
   };
@@ -36,7 +36,7 @@ export default function Navbar() {
       <AppBar 
         position="static" 
         sx={{ 
-          backgroundColor: '#A0C878',
+          backgroundColor: '#0F2B42',
           color: '#143D60'
         }}
       >
@@ -46,6 +46,7 @@ export default function Navbar() {
             component="div" 
             sx={{ 
               fontWeight: 'bold',
+              color:'white',
               cursor: 'pointer'
             }}
             onClick={navigateToHome}
