@@ -22,6 +22,7 @@ import UserManagement from "./pages/admin/UserManagement";
 import ManageEvents from "./pages/business/ManageEvents";
 import Payment from "./components/tourist/Payment";
 import Landing from "./pages/common/Landing/Landing";
+import TourismDashboard from "./pages/business/DBoard";
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
         <Route path="/business-dashboard" element={<BusinessDashboard />} />
         <Route path="/crud" element={<EventCRUD />} />
         <Route path="/event" element={<Event />} />
+        <Route path="/bd" element={<TourismDashboard />} />
         {/* common routes */}
         <Route path="/" element={<Landing />} />
         <Route path="/booking-history" element={<BookingHistory />} />
