@@ -11,16 +11,16 @@ function SignIn() {
     e.preventDefault();
 
     if (email === "admin@example.com" && password === "admin123") {
-      navigate("/admin-dashboard");
-    }if (email === "bus@example.com" && password === "admin123") {
+      navigate("/admin-dashboard/dashboard");
+    } if (email === "bus@example.com" && password === "admin123") {
       // Redirect to Admin Dashboard upon successful login
       navigate("/manage-events");
-    }if (email === "tourist@example.com" && password === "admin123") {
+    } if (email === "tourist@example.com" && password === "admin123") {
       // Redirect to Admin Dashboard upon successful login
       navigate("/");
     }
-    else { 
-      
+    else {
+
     }
   };
 
@@ -28,19 +28,19 @@ function SignIn() {
     <div className="signin-container">
       <h1>Sign In</h1>
       <form onSubmit={handleSubmit}>
-        <input 
-          type="email" 
-          placeholder="Email" 
-          required 
-          value={email} 
-          onChange={(e) => setEmail(e.target.value)} 
+        <input
+          type="email"
+          placeholder="Email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
-        <input 
-          type="password" 
-          placeholder="Password" 
-          required 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)} 
+        <input
+          type="password"
+          placeholder="Password"
+          required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit">Login</button>
       </form>

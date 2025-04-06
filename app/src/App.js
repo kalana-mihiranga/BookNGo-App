@@ -33,7 +33,7 @@ function App() {
         <Route path="/create-event" element={<EventForm />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/admin-dashboard" element={<AdminDashboard />}>
+        <Route path="/admin" element={<AdminDashboard />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="setting" element={<Setting />} />
           <Route path="approval" element={<EventManagement />} />

@@ -43,116 +43,46 @@ function EventManagement() {
                                             <td>Hotel</td>
                                             <td>Araliya</td>
                                             <td>Nuwara Eliya</td>
-                                            <td class="text-center">
-                                                <button class="btn btn-outline-primary btn-sm" title="View Details" aria-label="View Music Festival details">
-                                                    <i class="bi bi-eye-fill"></i>
+                                            <td class="text-center ">
+                                                <button class="btn btn-primary btn-sm mt-0" title="View Details" aria-label="View Music Festival details">
+                                                    <i className="bi bi-eye pe-1"></i>View
                                                 </button>
                                             </td>
-                                            <td class="text-center">
-                                                <button class="btn btn-success btn-sm me-1" title="Approve" aria-label="Approve Music Festival">
-                                                    <i class="bi bi-check-lg"></i>
-                                                </button>
-                                                <button class="btn btn-danger btn-sm" title="Reject" aria-label="Reject Music Festival">
-                                                    <i class="bi bi-x-lg"></i>
-                                                </button>
+                                            <td className="text-center align-middle">
+                                                <div className="d-flex justify-content-center align-items-center gap-2">
+                                                    <button className="btn btn-success btn-sm d-flex align-items-center mt-0">
+                                                        <i className="bi bi-check-circle me-1"></i> Approve
+                                                    </button>
+                                                    <button className="btn btn-danger btn-sm d-flex align-items-center mt-0">
+                                                        <i className="bi bi-x-circle me-1"></i> Reject
+                                                    </button>
+                                                </div>
                                             </td>
+
                                         </tr>
                                         <tr>
                                             <td>2025-04-15</td>
                                             <td>Hotel</td>
                                             <td>Araliya</td>
                                             <td>Nuwara Eliya</td>
-                                            <td class="text-center">
-                                                <button class="btn btn-outline-primary btn-sm" title="View Details" aria-label="View Music Festival details">
-                                                    <i class="bi bi-eye-fill"></i>
+                                            <td class="text-center ">
+                                                <button class="btn btn-primary btn-sm mt-0" title="View Details" aria-label="View Music Festival details">
+                                                    <i className="bi bi-eye pe-1"></i>View
                                                 </button>
                                             </td>
-                                            <td class="text-center">
-                                                <button class="btn btn-success btn-sm me-1" title="Approve" aria-label="Approve Music Festival">
-                                                    <i class="bi bi-check-lg"></i>
-                                                </button>
-                                                <button class="btn btn-danger btn-sm" title="Reject" aria-label="Reject Music Festival">
-                                                    <i class="bi bi-x-lg"></i>
-                                                </button>
+                                            <td className="text-center align-middle">
+                                                <div className="d-flex justify-content-center align-items-center gap-2">
+                                                    <button className="btn btn-success btn-sm d-flex align-items-center mt-0">
+                                                        <i className="bi bi-check-circle me-1"></i> Approve
+                                                    </button>
+                                                    <button className="btn btn-danger btn-sm d-flex align-items-center mt-0">
+                                                        <i className="bi bi-x-circle me-1"></i> Reject
+                                                    </button>
+                                                </div>
                                             </td>
+
                                         </tr>
-                                        <tr>
-                                            <td>2025-04-15</td>
-                                            <td>Hotel</td>
-                                            <td>Araliya</td>
-                                            <td>Nuwara Eliya</td>
-                                            <td class="text-center">
-                                                <button class="btn btn-outline-primary btn-sm" title="View Details" aria-label="View Music Festival details">
-                                                    <i class="bi bi-eye-fill"></i>
-                                                </button>
-                                            </td>
-                                            <td class="text-center">
-                                                <button class="btn btn-success btn-sm me-1" title="Approve" aria-label="Approve Music Festival">
-                                                    <i class="bi bi-check-lg"></i>
-                                                </button>
-                                                <button class="btn btn-danger btn-sm" title="Reject" aria-label="Reject Music Festival">
-                                                    <i class="bi bi-x-lg"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2025-04-15</td>
-                                            <td>Hotel</td>
-                                            <td>Araliya</td>
-                                            <td>Nuwara Eliya</td>
-                                            <td class="text-center">
-                                                <button class="btn btn-outline-primary btn-sm" title="View Details" aria-label="View Music Festival details">
-                                                    <i class="bi bi-eye-fill"></i>
-                                                </button>
-                                            </td>
-                                            <td class="text-center">
-                                                <button class="btn btn-success btn-sm me-1" title="Approve" aria-label="Approve Music Festival">
-                                                    <i class="bi bi-check-lg"></i>
-                                                </button>
-                                                <button class="btn btn-danger btn-sm" title="Reject" aria-label="Reject Music Festival">
-                                                    <i class="bi bi-x-lg"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2025-04-15</td>
-                                            <td>Hotel</td>
-                                            <td>Araliya</td>
-                                            <td>Nuwara Eliya</td>
-                                            <td class="text-center">
-                                                <button class="btn btn-outline-primary btn-sm" title="View Details" aria-label="View Music Festival details">
-                                                    <i class="bi bi-eye-fill"></i>
-                                                </button>
-                                            </td>
-                                            <td class="text-center">
-                                                <button class="btn btn-success btn-sm me-1" title="Approve" aria-label="Approve Music Festival">
-                                                    <i class="bi bi-check-lg"></i>
-                                                </button>
-                                                <button class="btn btn-danger btn-sm" title="Reject" aria-label="Reject Music Festival">
-                                                    <i class="bi bi-x-lg"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2025-04-15</td>
-                                            <td>Hotel</td>
-                                            <td>Araliya</td>
-                                            <td>Nuwara Eliya</td>
-                                            <td class="text-center">
-                                                <button class="btn btn-outline-primary btn-sm" title="View Details" aria-label="View Music Festival details">
-                                                    <i class="bi bi-eye-fill"></i>
-                                                </button>
-                                            </td>
-                                            <td class="text-center">
-                                                <button class="btn btn-success btn-sm me-1" title="Approve" aria-label="Approve Music Festival">
-                                                    <i class="bi bi-check-lg"></i>
-                                                </button>
-                                                <button class="btn btn-danger btn-sm" title="Reject" aria-label="Reject Music Festival">
-                                                    <i class="bi bi-x-lg"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        
+
                                     </tbody>
                                 </table>
                             </div>
@@ -172,11 +102,67 @@ function EventManagement() {
                             </div>
                         </div>
 
-                        <div class="tab-pane fade" id="approved" role="tabpanel" aria-labelledby="approved-tab">
-                            <div class="alert alert-info">
-                                <i class="bi bi-info-circle-fill me-2"></i>No approved events found.
+                        <div className="tab-pane fade" id="approved" role="tabpanel" aria-labelledby="approved-tab">
+                            <div className="table-responsive">
+                                <table className="table table-hover align-middle">
+                                    <thead className="table-light">
+                                        <tr>
+                                            <th scope="col" className="w-15">Date</th>
+                                            <th scope="col" className="w-25">Event Name</th>
+                                            <th scope="col" className="w-20">Organizer</th>
+                                            <th scope="col" className="w-20">Location</th>
+                                            <th scope="col" className="w-10 text-center">Details</th>
+                                            <th scope="col" className="w-10 text-center">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2025-04-02</td>
+                                            <td>Beach Party</td>
+                                            <td>Club Tropic</td>
+                                            <td>Galle</td>
+                                            <td class="text-center ">
+                                                <button class="btn btn-primary btn-sm mt-0" title="View Details" aria-label="View Music Festival details">
+                                                    <i className="bi bi-eye pe-1"></i>View
+                                                </button>
+                                            </td>
+                                            <td className="text-center align-middle">
+                                                <span className="badge bg-success p-2">Approved</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2025-03-29</td>
+                                            <td>Food Festival</td>
+                                            <td>Ceylon Flavors</td>
+                                            <td>Kandy</td>
+                                            <td class="text-center ">
+                                                <button class="btn btn-primary btn-sm mt-0" title="View Details" aria-label="View Music Festival details">
+                                                    <i className="bi bi-eye pe-1"></i>View
+                                                </button>
+                                            </td>
+                                            <td className="text-center align-middle">
+                                                <span className="badge bg-success p-2">Approved</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div className="d-flex justify-content-between align-items-center mt-3">
+                                <nav aria-label="Page navigation">
+                                    <ul className="pagination pagination-sm mb-0">
+                                        <li className="page-item disabled">
+                                            <a className="page-link" href="#" tabIndex="-1" aria-disabled="true">Previous</a>
+                                        </li>
+                                        <li className="page-item active"><a className="page-link" href="#">1</a></li>
+                                        <li className="page-item">
+                                            <a className="page-link" href="#">Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
                             </div>
                         </div>
+
 
 
                     </div>
