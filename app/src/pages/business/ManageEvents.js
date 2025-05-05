@@ -58,7 +58,9 @@ import {
 } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 
-// Sample data
+// ==============================================
+// SECTION 1: SAMPLE DATA
+// ==============================================
 const sampleEvents = [
   {
     id: 1,
@@ -99,7 +101,6 @@ const userProfile = {
   avatar: "https://randomuser.me/api/portraits/men/32.jpg"
 };
 
-// Analytics data
 const analyticsData = {
   totalRevenue: 65400,
   totalAttendees: 1530,
@@ -121,6 +122,9 @@ const analyticsData = {
   ]
 };
 
+// ==============================================
+// SECTION 2: UTILITY FUNCTIONS & STYLED COMPONENTS
+// ==============================================
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
     right: 10,
@@ -129,7 +133,6 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-// Date formatting functions
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   return date.toLocaleDateString('en-US', { 
@@ -148,6 +151,9 @@ const formatShortDate = (dateString) => {
   });
 };
 
+// ==============================================
+// SECTION 3: REUSABLE COMPONENTS
+// ==============================================
 const AnalyticsCard = ({ icon, title, value, color }) => (
   <Card sx={{ height: '100%' }}>
     <CardContent>
@@ -185,7 +191,11 @@ const AnalyticsChartPlaceholder = ({ title, icon }) => (
   </Card>
 );
 
+// ==============================================
+// SECTION 4: MAIN COMPONENT
+// ==============================================
 const ManageEvents = () => {
+  // State management
   const [tabValue, setTabValue] = useState(0);
   const [events, setEvents] = useState(sampleEvents);
   const [bookings, setBookings] = useState(sampleBookings);
@@ -194,6 +204,18 @@ const ManageEvents = () => {
   const [profileOpen, setProfileOpen] = useState(false);
   const navigate = useNavigate();
 
+  // Business user data
+  const businessUser = {
+    name: "Kalana Mihiranga",
+    email: "kalana@business.com",
+    company: "Event Masters",
+    phone: "+94 76 123 4567",
+    avatar: "https://randomuser.me/api/portraits/men/45.jpg"
+  };
+
+  // ==============================================
+  // SECTION 4.1: EFFECTS & DATA FILTERING
+  // ==============================================
   useEffect(() => {
     const filtered = events.filter(event =>
       event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -203,17 +225,13 @@ const ManageEvents = () => {
     setFilteredEvents(filtered);
   }, [searchTerm, events]);
 
+  // ==============================================
+  // SECTION 4.2: EVENT HANDLERS
+  // ==============================================
   const toggleProfile = () => setProfileOpen(!profileOpen);
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
-  };
-  const businessUser = {
-    name: "Kalana Mihiranga",
-    email: "kalana@business.com",
-    company: "Event Masters",
-    phone: "+94 76 123 4567",
-    avatar: "https://randomuser.me/api/portraits/men/45.jpg"
   };
 
   const handleCreateEvent = () => {
@@ -250,77 +268,86 @@ const ManageEvents = () => {
     }
   };
 
+  // ==============================================
+  // SECTION 4.3: PROFILE DRAWER COMPONENT
+  // ==============================================
+  const ProfileDrawer = () => (
+    <Drawer
+      anchor="right"
+      open={profileOpen}
+      onClose={toggleProfile}
+      sx={{
+        '& .MuiDrawer-paper': {
+          width: 350,
+          boxSizing: 'border-box',
+        },
+      }}
+    >
+      <Box sx={{ p: 3, height: '100%', display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <IconButton onClick={toggleProfile}>
+            <Delete />
+          </IconButton>
+        </Box>
+        
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 4 }}>
+          <Avatar 
+            src={userProfile.avatar} 
+            sx={{ width: 120, height: 120, mb: 2 }}
+          />
+          <Typography variant="h5" gutterBottom>
+            {userProfile.name}
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
+            Event Organizer
+          </Typography>
+        </Box>
+
+        <List>
+          <ListItem>
+            <ListItemIcon>
+              <Email />
+            </ListItemIcon>
+            <ListItemText primary="Email" secondary={userProfile.email} />
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <Business />
+            </ListItemIcon>
+            <ListItemText primary="Company" secondary={userProfile.company} />
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <Phone />
+            </ListItemIcon>
+            <ListItemText primary="Phone" secondary={userProfile.phone} />
+          </ListItem>
+        </List>
+
+        <Box sx={{ mt: 'auto', pt: 2 }}>
+          <Button
+            variant="outlined"
+            color="error"
+            startIcon={<Logout />}
+            fullWidth
+            onClick={() => navigate('/')}
+          >
+            Logout
+          </Button>
+        </Box>
+      </Box>
+    </Drawer>
+  );
+
+  // ==============================================
+  // SECTION 4.4: MAIN RENDER
+  // ==============================================
   return (
     <Box sx={{ backgroundColor: '#f5f7fa', minHeight: '100vh', display: 'flex' }}>
-      {/* Profile Sidebar */}
-      <Drawer
-        anchor="right"
-        open={profileOpen}
-        onClose={toggleProfile}
-        sx={{
-          '& .MuiDrawer-paper': {
-            width: 350,
-            boxSizing: 'border-box',
-          },
-        }}
-      >
-        <Box sx={{ p: 3, height: '100%', display: 'flex', flexDirection: 'column' }}>
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <IconButton onClick={toggleProfile}>
-              <Delete />
-            </IconButton>
-          </Box>
-          
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 4 }}>
-            <Avatar 
-              src={userProfile.avatar} 
-              sx={{ width: 120, height: 120, mb: 2 }}
-            />
-            <Typography variant="h5" gutterBottom>
-              {userProfile.name}
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              Event Organizer
-            </Typography>
-          </Box>
-
-          <List>
-            <ListItem>
-              <ListItemIcon>
-                <Email />
-              </ListItemIcon>
-              <ListItemText primary="Email" secondary={userProfile.email} />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <Business />
-              </ListItemIcon>
-              <ListItemText primary="Company" secondary={userProfile.company} />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <Phone />
-              </ListItemIcon>
-              <ListItemText primary="Phone" secondary={userProfile.phone} />
-            </ListItem>
-          </List>
-
-          <Box sx={{ mt: 'auto', pt: 2 }}>
-            <Button
-              variant="outlined"
-              color="error"
-              startIcon={<Logout />}
-              fullWidth
-              onClick={() => navigate('/')}
-            >
-              Logout
-            </Button>
-          </Box>
-        </Box>
-      </Drawer>
+      <ProfileDrawer />
 
       <Box sx={{ flexGrow: 1 }}>
-        {/* Header with Personalized Greeting */}
+        {/* Header Section */}
         <Box sx={{ backgroundColor: 'white', boxShadow: 1, py: 3 }}>
           <Container maxWidth="xl">
             <Stack direction="row" justifyContent="space-between" alignItems="center">
@@ -329,7 +356,7 @@ const ManageEvents = () => {
                   Welcome back,
                 </Typography>
                 <Typography variant="h4" fontWeight="bold" color="primary">
-                  Hello {businessUser.name.split(' ')[0]} {/* Shows first name only */}
+                  Hello {businessUser.name.split(' ')[0]}
                 </Typography>
               </Box>
               <Stack direction="row" spacing={2} alignItems="center">
@@ -350,7 +377,7 @@ const ManageEvents = () => {
         </Box>
 
         <Container maxWidth="xl" sx={{ py: 4 }}>
-          {/* Tabs */}
+          {/* Tabs and Search Section */}
           <Paper sx={{ mb: 3, borderRadius: 2 }}>
             <Tabs
               value={tabValue}
@@ -365,7 +392,6 @@ const ManageEvents = () => {
             </Tabs>
           </Paper>
 
-          {/* Search and Filter */}
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
             <TextField
               placeholder="Search events..."
@@ -383,284 +409,320 @@ const ManageEvents = () => {
             </Button>
           </Box>
 
-          {/* Content based on selected tab */}
+          {/* Tab Content Section */}
           {tabValue === 0 && (
-            <Grid container spacing={3}>
-              {filteredEvents.map((event) => (
-                <Grid item xs={12} sm={6} md={4} lg={3} key={event.id}>
-                  <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                    <StyledBadge
-                      badgeContent={event.status.toUpperCase()}
-                      color={getStatusColor(event.status)}
-                    >
-                      <CardMedia
-                        component="img"
-                        height="160"
-                        image={event.image}
-                        alt={event.title}
-                      />
-                    </StyledBadge>
-                    <CardContent sx={{ flexGrow: 1 }}>
-                      <Typography gutterBottom variant="h6" component="div">
-                        {event.title}
-                      </Typography>
-                      <Stack direction="row" spacing={1} sx={{ mb: 1 }}>
-                        <Chip label={event.category} size="small" />
-                        <Chip
-                          icon={<LocationOn fontSize="small" />}
-                          label={event.location}
-                          size="small"
-                        />
-                      </Stack>
-                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                        {formatDate(event.date)}
-                      </Typography>
-                      <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                        <Group fontSize="small" color="action" sx={{ mr: 1 }} />
-                        <Typography variant="body2">
-                          {event.attendees}/{event.capacity} attendees
-                        </Typography>
-                      </Box>
-                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <MonetizationOn fontSize="small" color="action" sx={{ mr: 1 }} />
-                        <Typography variant="body2" fontWeight="bold">
-                          ${event.revenue.toLocaleString()}
-                        </Typography>
-                      </Box>
-                    </CardContent>
-                    <Divider />
-                    <Box sx={{ p: 1, display: 'flex', justifyContent: 'space-between' }}>
-                      <Tooltip title="View">
-                        <IconButton onClick={() => handleViewEvent(event.id)}>
-                          <Visibility color="primary" />
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip title="Edit">
-                        <IconButton onClick={() => handleEditEvent(event.id)}>
-                          <Edit color="info" />
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip title="Delete">
-                        <IconButton onClick={() => handleDeleteEvent(event.id)}>
-                          <Delete color="error" />
-                        </IconButton>
-                      </Tooltip>
-                    </Box>
-                  </Card>
-                </Grid>
-              ))}
-            </Grid>
+            <EventsTabContent 
+              filteredEvents={filteredEvents} 
+              handleViewEvent={handleViewEvent}
+              handleEditEvent={handleEditEvent}
+              handleDeleteEvent={handleDeleteEvent}
+              getStatusColor={getStatusColor}
+              handleCreateEvent={handleCreateEvent}
+              searchTerm={searchTerm}
+            />
           )}
 
           {tabValue === 1 && (
-            <Paper sx={{ p: 2 }}>
-              <TableContainer>
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Booking ID</TableCell>
-                      <TableCell>Customer</TableCell>
-                      <TableCell>Event</TableCell>
-                      <TableCell>Date</TableCell>
-                      <TableCell>Tickets</TableCell>
-                      <TableCell>Status</TableCell>
-                      <TableCell>Actions</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {bookings.map((booking) => (
-                      <TableRow key={booking.id}>
-                        <TableCell>#{booking.id}</TableCell>
-                        <TableCell>
-                          <Stack direction="row" alignItems="center" spacing={1}>
-                            <Avatar sx={{ width: 32, height: 32 }} />
-                            <Typography>{booking.customer}</Typography>
-                          </Stack>
-                        </TableCell>
-                        <TableCell>{booking.event}</TableCell>
-                        <TableCell>{formatShortDate(booking.date)}</TableCell>
-                        <TableCell>{booking.tickets}</TableCell>
-                        <TableCell>
-                          <Chip
-                            label={booking.status.toUpperCase()}
-                            size="small"
-                            color={getBookingStatusColor(booking.status)}
-                          />
-                        </TableCell>
-                        <TableCell>
-                          <IconButton>
-                            <MoreVert />
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Paper>
+            <BookingsTabContent 
+              bookings={bookings} 
+              formatShortDate={formatShortDate}
+              getBookingStatusColor={getBookingStatusColor}
+            />
           )}
 
           {tabValue === 2 && (
-            <Box>
-              {/* Summary Cards */}
-              <Grid container spacing={3} sx={{ mb: 3 }}>
-                <Grid item xs={12} sm={6} md={3}>
-                  <AnalyticsCard
-                    icon={<AttachMoney />}
-                    title="Total Revenue"
-                    value={`$${analyticsData.totalRevenue.toLocaleString()}`}
-                    color="success"
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                  <AnalyticsCard
-                    icon={<People />}
-                    title="Total Attendees"
-                    value={analyticsData.totalAttendees}
-                    color="info"
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                  <AnalyticsCard
-                    icon={<Event />}
-                    title="Total Events"
-                    value={analyticsData.totalEvents}
-                    color="warning"
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                  <AnalyticsCard
-                    icon={<CalendarToday />}
-                    title="Upcoming Events"
-                    value={analyticsData.upcomingEvents}
-                    color="primary"
-                  />
-                </Grid>
-              </Grid>
-
-              {/* Charts Row 1 */}
-              <Grid container spacing={3} sx={{ mb: 3 }}>
-                <Grid item xs={12} md={8}>
-                  <AnalyticsChartPlaceholder
-                    title="Revenue Trend (Last 6 Months)"
-                    icon={<Timeline />}
-                  />
-                </Grid>
-                <Grid item xs={12} md={4}>
-                  <AnalyticsChartPlaceholder
-                    title="Event Type Distribution"
-                    icon={<PieChart />}
-                  />
-                </Grid>
-              </Grid>
-
-              {/* Charts Row 2 */}
-              <Grid container spacing={3} sx={{ mb: 3 }}>
-                <Grid item xs={12} md={6}>
-                  <AnalyticsChartPlaceholder
-                    title="Attendee Growth"
-                    icon={<BarChart />}
-                  />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  <Card>
-                    <CardContent>
-                      <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Star color="warning" sx={{ mr: 1 }} /> Top Performing Events
-                      </Typography>
-                      <TableContainer>
-                        <Table>
-                          <TableHead>
-                            <TableRow>
-                              <TableCell>Event</TableCell>
-                              <TableCell align="right">Revenue</TableCell>
-                              <TableCell align="right">Attendees</TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            {analyticsData.topEvents.map((event) => (
-                              <TableRow key={event.name}>
-                                <TableCell>{event.name}</TableCell>
-                                <TableCell align="right">${event.revenue.toLocaleString()}</TableCell>
-                                <TableCell align="right">{event.attendees.toLocaleString()}</TableCell>
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-                      </TableContainer>
-                    </CardContent>
-                  </Card>
-                </Grid>
-              </Grid>
-
-              {/* Recent Activity */}
-              <Card sx={{ mb: 3 }}>
-                <CardContent>
-                  <Typography variant="h6" gutterBottom>
-                    Recent Activity
-                  </Typography>
-                  <List>
-                    <ListItem>
-                      <ListItemIcon>
-                        <Avatar sx={{ bgcolor: 'success.light', color: 'success.dark' }}>
-                          <Add />
-                        </Avatar>
-                      </ListItemIcon>
-                      <ListItemText
-                        primary="New event created - Tech Workshop"
-                        secondary="2 hours ago"
-                      />
-                    </ListItem>
-                    <ListItem>
-                      <ListItemIcon>
-                        <Avatar sx={{ bgcolor: 'info.light', color: 'info.dark' }}>
-                          <People />
-                        </Avatar>
-                      </ListItemIcon>
-                      <ListItemText
-                        primary="120 new attendees registered for Music Festival"
-                        secondary="5 hours ago"
-                      />
-                    </ListItem>
-                    <ListItem>
-                      <ListItemIcon>
-                        <Avatar sx={{ bgcolor: 'warning.light', color: 'warning.dark' }}>
-                          <AttachMoney />
-                        </Avatar>
-                      </ListItemIcon>
-                      <ListItemText
-                        primary="$5,200 in new revenue"
-                        secondary="1 day ago"
-                      />
-                    </ListItem>
-                  </List>
-                </CardContent>
-              </Card>
-            </Box>
-          )}
-
-          {/* Empty state */}
-          {tabValue === 0 && filteredEvents.length === 0 && (
-            <Paper sx={{ p: 4, textAlign: 'center' }}>
-              <Typography variant="h6" gutterBottom>
-                No events found
-              </Typography>
-              <Typography color="text.secondary" sx={{ mb: 2 }}>
-                {searchTerm ? 'Try a different search term' : 'Create your first event to get started'}
-              </Typography>
-              <Button
-                variant="contained"
-                startIcon={<Add />}
-                onClick={handleCreateEvent}
-              >
-                Create Event
-              </Button>
-            </Paper>
+            <AnalyticsTabContent analyticsData={analyticsData} />
           )}
         </Container>
       </Box>
     </Box>
   );
 };
+
+// ==============================================
+// SECTION 5: TAB CONTENT COMPONENTS
+// ==============================================
+const EventsTabContent = ({ 
+  filteredEvents, 
+  handleViewEvent,
+  handleEditEvent,
+  handleDeleteEvent,
+  getStatusColor,
+  handleCreateEvent,
+  searchTerm
+}) => (
+  <>
+    <Grid container spacing={3}>
+      {filteredEvents.map((event) => (
+        <Grid item xs={12} sm={6} md={4} lg={3} key={event.id}>
+          <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+            <StyledBadge
+              badgeContent={event.status.toUpperCase()}
+              color={getStatusColor(event.status)}
+            >
+              <CardMedia
+                component="img"
+                height="160"
+                image={event.image}
+                alt={event.title}
+              />
+            </StyledBadge>
+            <CardContent sx={{ flexGrow: 1 }}>
+              <Typography gutterBottom variant="h6" component="div">
+                {event.title}
+              </Typography>
+              <Stack direction="row" spacing={1} sx={{ mb: 1 }}>
+                <Chip label={event.category} size="small" />
+                <Chip
+                  icon={<LocationOn fontSize="small" />}
+                  label={event.location}
+                  size="small"
+                />
+              </Stack>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                {formatDate(event.date)}
+              </Typography>
+              <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                <Group fontSize="small" color="action" sx={{ mr: 1 }} />
+                <Typography variant="body2">
+                  {event.attendees}/{event.capacity} attendees
+                </Typography>
+              </Box>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <MonetizationOn fontSize="small" color="action" sx={{ mr: 1 }} />
+                <Typography variant="body2" fontWeight="bold">
+                  ${event.revenue.toLocaleString()}
+                </Typography>
+              </Box>
+            </CardContent>
+            <Divider />
+            <Box sx={{ p: 1, display: 'flex', justifyContent: 'space-between' }}>
+              <Tooltip title="View">
+                <IconButton onClick={() => handleViewEvent(event.id)}>
+                  <Visibility color="primary" />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Edit">
+                <IconButton onClick={() => handleEditEvent(event.id)}>
+                  <Edit color="info" />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Delete">
+                <IconButton onClick={() => handleDeleteEvent(event.id)}>
+                  <Delete color="error" />
+                </IconButton>
+              </Tooltip>
+            </Box>
+          </Card>
+        </Grid>
+      ))}
+    </Grid>
+
+    {filteredEvents.length === 0 && (
+      <Paper sx={{ p: 4, textAlign: 'center' }}>
+        <Typography variant="h6" gutterBottom>
+          No events found
+        </Typography>
+        <Typography color="text.secondary" sx={{ mb: 2 }}>
+          {searchTerm ? 'Try a different search term' : 'Create your first event to get started'}
+        </Typography>
+        <Button
+          variant="contained"
+          startIcon={<Add />}
+          onClick={handleCreateEvent}
+        >
+          Create Event
+        </Button>
+      </Paper>
+    )}
+  </>
+);
+
+const BookingsTabContent = ({ bookings, formatShortDate, getBookingStatusColor }) => (
+  <Paper sx={{ p: 2 }}>
+    <TableContainer>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Booking ID</TableCell>
+            <TableCell>Customer</TableCell>
+            <TableCell>Event</TableCell>
+            <TableCell>Date</TableCell>
+            <TableCell>Tickets</TableCell>
+            <TableCell>Status</TableCell>
+            <TableCell>Actions</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {bookings.map((booking) => (
+            <TableRow key={booking.id}>
+              <TableCell>#{booking.id}</TableCell>
+              <TableCell>
+                <Stack direction="row" alignItems="center" spacing={1}>
+                  <Avatar sx={{ width: 32, height: 32 }} />
+                  <Typography>{booking.customer}</Typography>
+                </Stack>
+              </TableCell>
+              <TableCell>{booking.event}</TableCell>
+              <TableCell>{formatShortDate(booking.date)}</TableCell>
+              <TableCell>{booking.tickets}</TableCell>
+              <TableCell>
+                <Chip
+                  label={booking.status.toUpperCase()}
+                  size="small"
+                  color={getBookingStatusColor(booking.status)}
+                />
+              </TableCell>
+              <TableCell>
+                <IconButton>
+                  <MoreVert />
+                </IconButton>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  </Paper>
+);
+
+const AnalyticsTabContent = ({ analyticsData }) => (
+  <Box>
+    {/* Summary Cards */}
+    <Grid container spacing={3} sx={{ mb: 3 }}>
+      <Grid item xs={12} sm={6} md={3}>
+        <AnalyticsCard
+          icon={<AttachMoney />}
+          title="Total Revenue"
+          value={`$${analyticsData.totalRevenue.toLocaleString()}`}
+          color="success"
+        />
+      </Grid>
+      <Grid item xs={12} sm={6} md={3}>
+        <AnalyticsCard
+          icon={<People />}
+          title="Total Attendees"
+          value={analyticsData.totalAttendees}
+          color="info"
+        />
+      </Grid>
+      <Grid item xs={12} sm={6} md={3}>
+        <AnalyticsCard
+          icon={<Event />}
+          title="Total Events"
+          value={analyticsData.totalEvents}
+          color="warning"
+        />
+      </Grid>
+      <Grid item xs={12} sm={6} md={3}>
+        <AnalyticsCard
+          icon={<CalendarToday />}
+          title="Upcoming Events"
+          value={analyticsData.upcomingEvents}
+          color="primary"
+        />
+      </Grid>
+    </Grid>
+
+    {/* Charts Row 1 */}
+    <Grid container spacing={3} sx={{ mb: 3 }}>
+      <Grid item xs={12} md={8}>
+        <AnalyticsChartPlaceholder
+          title="Revenue Trend (Last 6 Months)"
+          icon={<Timeline />}
+        />
+      </Grid>
+      <Grid item xs={12} md={4}>
+        <AnalyticsChartPlaceholder
+          title="Event Type Distribution"
+          icon={<PieChart />}
+        />
+      </Grid>
+    </Grid>
+
+    {/* Charts Row 2 */}
+    <Grid container spacing={3} sx={{ mb: 3 }}>
+      <Grid item xs={12} md={6}>
+        <AnalyticsChartPlaceholder
+          title="Attendee Growth"
+          icon={<BarChart />}
+        />
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <Card>
+          <CardContent>
+            <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center' }}>
+              <Star color="warning" sx={{ mr: 1 }} /> Top Performing Events
+            </Typography>
+            <TableContainer>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Event</TableCell>
+                    <TableCell align="right">Revenue</TableCell>
+                    <TableCell align="right">Attendees</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {analyticsData.topEvents.map((event) => (
+                    <TableRow key={event.name}>
+                      <TableCell>{event.name}</TableCell>
+                      <TableCell align="right">${event.revenue.toLocaleString()}</TableCell>
+                      <TableCell align="right">{event.attendees.toLocaleString()}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </CardContent>
+        </Card>
+      </Grid>
+    </Grid>
+
+    {/* Recent Activity */}
+    <Card sx={{ mb: 3 }}>
+      <CardContent>
+        <Typography variant="h6" gutterBottom>
+          Recent Activity
+        </Typography>
+        <List>
+          <ListItem>
+            <ListItemIcon>
+              <Avatar sx={{ bgcolor: 'success.light', color: 'success.dark' }}>
+                <Add />
+              </Avatar>
+            </ListItemIcon>
+            <ListItemText
+              primary="New event created - Tech Workshop"
+              secondary="2 hours ago"
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <Avatar sx={{ bgcolor: 'info.light', color: 'info.dark' }}>
+                <People />
+              </Avatar>
+            </ListItemIcon>
+            <ListItemText
+              primary="120 new attendees registered for Music Festival"
+              secondary="5 hours ago"
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <Avatar sx={{ bgcolor: 'warning.light', color: 'warning.dark' }}>
+                <AttachMoney />
+              </Avatar>
+            </ListItemIcon>
+            <ListItemText
+              primary="$5,200 in new revenue"
+              secondary="1 day ago"
+            />
+          </ListItem>
+        </List>
+      </CardContent>
+    </Card>
+  </Box>
+);
 
 export default ManageEvents;
