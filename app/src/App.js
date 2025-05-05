@@ -1,4 +1,5 @@
 import React from "react";
+import { SnackbarProvider } from "notistack";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import EventForm from "./components/EventForm";
 import Events from "./components/Events";
@@ -22,38 +23,46 @@ import UserManagement from "./pages/admin/UserManagement";
 import ManageEvents from "./pages/business/ManageEvents";
 import Payment from "./components/tourist/Payment";
 import Landing from "./pages/common/Landing/Landing";
+import TourismDashboard from "./pages/business/DBoard";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/previos" element={<Home />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/create-event" element={<EventForm />} />
-        <Route path="/about" element={<AboutUs />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/admin-dashboard" element={<AdminDashboard />}>
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="setting" element={<Setting />} />
-          <Route path="approval" element={<EventManagement />} />
-          <Route path="user-management" element={<UserManagement />} />
-        </Route>
-        <Route path="/payment/:eventId" element={<Payment />} />
-        <Route path="/tourist" element={<Tourist />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/business-dashboard" element={<BusinessDashboard />} />
-        <Route path="/crud" element={<EventCRUD />} />
-        <Route path="/event" element={<Event />} />
-        {/* common routes */}
-        <Route path="/" element={<Landing />} />
-        <Route path="/booking-history" element={<BookingHistory />} />
-        <Route path="/user-profile" element={<UserProfile />} />
-        <Route path="/manage-events" element={<ManageEvents />} />
-        <Route path="/payment" element={<Payment />} />
-      </Routes>
-    </Router>
+    <SnackbarProvider
+      maxSnack={3}
+      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      autoHideDuration={4000}
+    >
+      <Router>
+        <Routes>
+          <Route path="/previos" element={<Home />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/create-event" element={<EventForm />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />}>
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="setting" element={<Setting />} />
+            <Route path="approval" element={<EventManagement />} />
+            <Route path="user-management" element={<UserManagement />} />
+          </Route>
+          <Route path="/payment/:eventId" element={<Payment />} />
+          <Route path="/tourist" element={<Tourist />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/business-dashboard" element={<BusinessDashboard />} />
+          <Route path="/crud" element={<EventCRUD />} />
+          <Route path="/event" element={<Event />} />
+          <Route path="/bd" element={<TourismDashboard />} />
+          {/* common routes */}
+          <Route path="/" element={<Landing />} />
+          <Route path="/booking-history" element={<BookingHistory />} />
+          <Route path="/user-profile" element={<UserProfile />} />
+          <Route path="/manage-events" element={<ManageEvents />} />
+          <Route path="/payment" element={<Payment />} />
+        </Routes>
+      </Router>
+    </SnackbarProvider>
   );
 }
 
