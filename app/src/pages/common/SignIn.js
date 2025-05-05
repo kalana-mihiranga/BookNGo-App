@@ -1,50 +1,73 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { 
-  Container, 
-  Box, 
-  Typography, 
-  TextField, 
-  Button, 
-  Paper, 
-  Divider 
+import {
+  Container,
+  Box,
+  Typography,
+  TextField,
+  Button,
+  Paper,
+  Divider,
 } from "@mui/material";
-import LoginIcon from '@mui/icons-material/Login';
+import LoginIcon from "@mui/icons-material/Login";
+import { useSnackbar } from "notistack";
 import "../../styles/common/SignIn.css";
 
 function SignIn() {
-  const [email, setEmail] = useState("admin@example.com");
-  const [password, setPassword] = useState("admin123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+  const baseURL = "http://localhost:5000";
 
-  const handleSubmit = (e) => {
+  const clearForm = () => {
+    setEmail("");
+    setPassword("");
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (email === "admin@example.com" && password === "admin123") {
-      navigate("/admin-dashboard");
+    if (!email.trim() || !password.trim()) {
+      enqueueSnackbar("Email and password are required", { variant: "warning" });
+      return;
     }
-    if (email === "bus@example.com" && password === "admin123") {
-      navigate("/manage-events");
-    }
-    if (email === "tourist@example.com" && password === "admin123") {
-      navigate("/");
+
+    const payload = {
+      email: email,
+      password: password,
+    };
+
+    try {
+      const response = await axios.post(`${baseURL}/api/signin`, payload);
+      // console.log(response.data);
+      const successMessage = response.data?.message || "Signin successful!";
+      enqueueSnackbar(successMessage, { variant: "success" });
+      // clearForm();
+    } catch (error) {
+      const errorMsg =
+        error.response?.data?.error ||
+        error.response?.data?.message ||
+        "Signin failed. Please try again.";
+      enqueueSnackbar(errorMsg, { variant: "error" });
     }
   };
 
   return (
     <Container maxWidth="xs">
-      <Paper 
-        elevation={3} 
-        sx={{ 
-          mt: 8, 
-          p: 4, 
-          display: "flex", 
-          flexDirection: "column", 
-          alignItems: "center" 
+      <Paper
+        elevation={3}
+        sx={{
+          mt: 8,
+          p: 4,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
         <Typography variant="h5" component="h1" gutterBottom>
-          SignIn
+          Sign In
         </Typography>
 
         <Box component="form" onSubmit={handleSubmit} sx={{ width: "100%", mt: 1 }}>
@@ -80,10 +103,10 @@ function SignIn() {
             size="small"
             fullWidth
             variant="contained"
-            sx={{ py: 1, mt: 2, backgroundColor: '#143D60' }}
+            sx={{ py: 1, mt: 2, backgroundColor: "#143D60" }}
             startIcon={<LoginIcon />}
           >
-            SignIn
+            Sign In
           </Button>
         </Box>
 
@@ -92,7 +115,7 @@ function SignIn() {
         <Typography variant="body2">
           New here?{" "}
           <Link to="/signup" style={{ textDecoration: "none", color: "#1976d2" }}>
-            SignUp
+            Sign Up
           </Link>
         </Typography>
       </Paper>
