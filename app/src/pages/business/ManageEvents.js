@@ -96,11 +96,11 @@ const sampleBookings = [
 ];
 
 const userProfile = {
-  name: "Kalana Mihiranga",
-  email: "kalana.johnson@business.com",
-  company: "EventPro Inc.",
-  phone: "+1 (555) 123-4567",
-  avatar: "https://randomuser.me/api/portraits/men/32.jpg"
+  name: "Lagoonria Pvt Ltd",
+  email: "hello@lagoonria.com",
+  company: "Lagoonria Pvt Ltd.",
+  phone: "+94 715842525",
+  avatar: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.vecteezy.com%2Fvector-art%2F36280650-default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration&psig=AOvVaw1uvGc3hCMiqvqintzxivsE&ust=1746624519551000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNiv4cL5jo0DFQAAAAAdAAAAABAE"
 };
 
 const analyticsData = {
@@ -193,8 +193,6 @@ const AnalyticsChartPlaceholder = ({ title, icon }) => (
   </Card>
 );
 
-
-
 const ManageEvents = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -212,7 +210,7 @@ const ManageEvents = () => {
     email: "kalana@business.com",
     company: "Event Masters",
     phone: "+94 76 123 4567",
-    avatar: "https://randomuser.me/api/portraits/men/45.jpg"
+    avatar: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.vecteezy.com%2Fvector-art%2F36280650-default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration&psig=AOvVaw1uvGc3hCMiqvqintzxivsE&ust=1746624519551000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNiv4cL5jo0DFQAAAAAdAAAAABAE"
   };
 
   // ==============================================
