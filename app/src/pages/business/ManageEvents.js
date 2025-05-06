@@ -57,6 +57,8 @@ import {
   Event
 } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
+import EventFormDialog from "../../components/BusinessEventCreate"; // adjust path as needed
+
 
 // ==============================================
 // SECTION 1: SAMPLE DATA
@@ -191,11 +193,11 @@ const AnalyticsChartPlaceholder = ({ title, icon }) => (
   </Card>
 );
 
-// ==============================================
-// SECTION 4: MAIN COMPONENT
-// ==============================================
+
+
 const ManageEvents = () => {
-  // State management
+  const [dialogOpen, setDialogOpen] = useState(false);
+
   const [tabValue, setTabValue] = useState(0);
   const [events, setEvents] = useState(sampleEvents);
   const [bookings, setBookings] = useState(sampleBookings);
@@ -360,13 +362,10 @@ const ManageEvents = () => {
                 </Typography>
               </Box>
               <Stack direction="row" spacing={2} alignItems="center">
-                <Button
-                  variant="contained"
+                <Button variant="contained"                   
                   startIcon={<Add />}
-                  onClick={handleCreateEvent}
-                  sx={{ px: 4, py: 1.5 }}
-                >
-                  Create Event
+                  onClick={() => setDialogOpen(true)}>
+                    EVENT
                 </Button>
                 <IconButton onClick={toggleProfile}>
                   <Avatar src={businessUser.avatar} />
@@ -435,6 +434,7 @@ const ManageEvents = () => {
           )}
         </Container>
       </Box>
+      <EventFormDialog open={dialogOpen} onClose={() => setDialogOpen(false)} />
     </Box>
   );
 };

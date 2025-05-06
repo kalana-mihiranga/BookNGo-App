@@ -1,7 +1,6 @@
 import React from "react";
 import { SnackbarProvider } from "notistack";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import EventForm from "./components/EventForm";
 import Events from "./components/Events";
 import Contact from "./pages/common/Contact";
 import Tourist from "./components/tourist/index";
@@ -38,7 +37,6 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/events" element={<Events />} />
-          <Route path="/create-event" element={<EventForm />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />}>
@@ -50,7 +48,9 @@ function App() {
           <Route path="/payment/:eventId" element={<Payment />} />
           <Route path="/tourist" element={<Tourist />} />
           <Route path="/home" element={<HomePage />} />
+          {/* unuseful */}
           <Route path="/business-dashboard" element={<BusinessDashboard />} />
+          {/* unuseful */}
           <Route path="/crud" element={<EventCRUD />} />
           <Route path="/event" element={<Event />} />
           <Route path="/bd" element={<TourismDashboard />} />

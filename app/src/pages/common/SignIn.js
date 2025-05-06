@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Container,
@@ -13,13 +12,13 @@ import {
 import LoginIcon from "@mui/icons-material/Login";
 import { useSnackbar } from "notistack";
 import "../../styles/common/SignIn.css";
+import axiosInstance from "../../utils/axiosInstance";
 
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
-  const baseURL = "http://localhost:5000";
 
   const clearForm = () => {
     setEmail("");
@@ -40,11 +39,23 @@ function SignIn() {
     };
 
     try {
-      const response = await axios.post(`${baseURL}/api/signin`, payload);
-      // console.log(response.data);
+      const response = await axiosInstance.post("/api/signin", payload);
       const successMessage = response.data?.message || "Signin successful!";
       enqueueSnackbar(successMessage, { variant: "success" });
-      // clearForm();
+
+      localStorage.setItem("authToken", response.data.token);
+      localStorage.setItem("userRole", response.data.role);
+
+      clearForm();
+
+      const role = response.data.role;
+      if (role === "ADMIN") {
+        navigate("/admin-dashboard");
+      } else if (role === "BUSINESS") {
+        navigate("/manage-events");
+      } else if (role === "TOURIST") {
+        navigate("/user-profile");
+      }
     } catch (error) {
       const errorMsg =
         error.response?.data?.error ||
