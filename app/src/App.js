@@ -2,30 +2,38 @@ import React from "react";
 import { SnackbarProvider } from "notistack";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AuthGuard from "./components/AuthGuard";
+
+// Common Pages
 import Unauthorized from "./pages/common/Unauthorized";
-import EventForm from "./components/EventForm";
-import Events from "./components/Events";
 import Contact from "./pages/common/Contact";
-import Tourist from "./components/tourist/index";
-import HomePage from "./components/home/HomePage";
-import EventCRUD from "./components/EventCRUD";
 import AboutUs from "./pages/common/AboutUs";
-import AdminDashboard from "./pages/admin/AdminDashboard";
 import SignIn from "./pages/common/SignIn";
 import SignUp from "./pages/common/SignUp";
 import Home from "./pages/common/Home";
-import BusinessDashboard from "./pages/business/BusinessDashboard";
 import Event from "./pages/common/Event";
-import BookingHistory from "./components/tourist/BookedEvents";
-import UserProfile from "./components/tourist/UserProfile";
+import Landing from "./pages/common/Landing/Landing";
+import Events from "./components/Events"; // Using existing Events component instead of EventsList
+
+// Admin Pages
+import AdminDashboard from "./pages/admin/AdminDashboard";
 import Dashboard from "./pages/admin/Dashboard";
 import Setting from "./pages/admin/Setting";
 import EventManagement from "./pages/admin/EventManagement";
 import UserManagement from "./pages/admin/UserManagement";
+
+// Business Pages
+import BusinessDashboard from "./pages/business/BusinessDashboard";
 import ManageEvents from "./pages/business/ManageEvents";
-import Payment from "./components/tourist/Payment";
-import Landing from "./pages/common/Landing/Landing";
+import EventForm from "./components/EventForm"; // Using existing component
+import EventCRUD from "./components/EventCRUD"; // Using existing component
 import TourismDashboard from "./pages/business/DBoard";
+
+// Tourist Pages
+import Tourist from "./components/tourist/index";
+import BookingHistory from "./components/tourist/BookedEvents";
+import UserProfile from "./components/tourist/UserProfile";
+import Payment from "./components/tourist/Payment";
+import HomePage from "./components/home/HomePage";
 
 function App() {
   return (
