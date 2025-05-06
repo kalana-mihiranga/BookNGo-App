@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import {
   Container,
@@ -15,6 +14,7 @@ import {
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import axiosInstance from "../../utils/axiosInstance";
 
 function SignUp() {
   const [tabValue, setTabValue] = useState(0);
@@ -27,7 +27,6 @@ function SignUp() {
 
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
-  const baseURL = "http://localhost:5000";
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
@@ -79,7 +78,7 @@ function SignUp() {
     };
 
     try {
-      const response = await axios.post(`${baseURL}/api/signup`, payload);
+      const response = await axiosInstance.post("/api/signup", payload);
       const successMessage = response.data?.message || "Signup successful!";
       enqueueSnackbar(successMessage, { variant: "success" });
       setTimeout(() => {
