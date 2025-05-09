@@ -1,56 +1,147 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import '../../styles/common/SignIn.css';
+import {
+  Container,
+  Box,
+  Typography,
+  TextField,
+  Button,
+  Paper,
+  Divider,
+} from "@mui/material";
+import LoginIcon from "@mui/icons-material/Login";
+import { useSnackbar } from "notistack";
+import "../../styles/common/SignIn.css";
 
 function SignIn() {
-  const [email, setEmail] = useState("admin@example.com");
-  const [password, setPassword] = useState("admin123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+  const baseURL = "http://localhost:5000";
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
-    if (email === "admin@example.com" && password === "admin123") {
-      navigate("/admin-dashboard/dashboard");
-    } if (email === "bus@example.com" && password === "admin123") {
-      // Redirect to Admin Dashboard upon successful login
-      navigate("/manage-events");
-    } if (email === "tourist@example.com" && password === "admin123") {
-      // Redirect to Admin Dashboard upon successful login
-      navigate("/");
+    if (!email.trim() || !password.trim()) {
+      enqueueSnackbar("Email and password are required", { variant: "warning" });
+      setIsLoading(false);
+      return;
     }
-    else {
 
+    try {
+      const response = await axios.post(`${baseURL}/api/signin`, {
+        email,
+        password
+      });
+
+      // Store authentication data
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('userRole', response.data.role);
+      localStorage.setItem('userId', response.data.id);
+
+      enqueueSnackbar(response.data.message, { variant: "success" });
+
+      // Redirect based on role
+      switch(response.data.role) {
+        case 'ADMIN':
+          navigate('/admin/dashboard');
+          break;
+        case 'TOURIST':
+          navigate('/business/dashboard');
+          break;
+        case 'BUSINESS':
+          navigate('/manage-events');
+          break;
+        default:
+          navigate('/');
+      }
+
+    } catch (error) {
+      const errorMsg = error.response?.data?.message || "Signin failed. Please try again.";
+      enqueueSnackbar(errorMsg, { variant: "error" });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="signin-container">
-      <h1>Sign In</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Login</button>
-      </form>
+    <Container maxWidth="xs">
+      <Paper
+        elevation={3}
+        sx={{
+          mt: 8,
+          p: 4,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Typography variant="h5" component="h1" gutterBottom>
+          Sign In
+        </Typography>
 
-      <p>Want to create an event? <Link to="/create-event">Click here</Link></p>
+        <Box component="form" onSubmit={handleSubmit} sx={{ width: "100%", mt: 1 }}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            value={email}
+            size="small"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            value={password}
+            size="small"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button
+            type="submit"
+            size="small"
+            fullWidth
+            variant="contained"
+            disabled={isLoading}
+            sx={{ 
+              py: 1, 
+              mt: 2, 
+              backgroundColor: "#143D60",
+              '&:disabled': {
+                backgroundColor: '#cccccc'
+              }
+            }}
+            startIcon={<LoginIcon />}
+          >
+            {isLoading ? 'Signing In...' : 'Sign In'}
+          </Button>
+        </Box>
 
-      <div className="signup-link">
-        <p>New here? <Link to="/signup">Sign Up</Link></p>
-      </div>
-    </div>
+        <Divider sx={{ width: "100%", my: 2 }}>OR</Divider>
+
+        <Typography variant="body2">
+          New here?{" "}
+          <Link to="/signup" style={{ textDecoration: "none", color: "#1976d2" }}>
+            Sign Up
+          </Link>
+        </Typography>
+      </Paper>
+    </Container>
   );
 }
 
