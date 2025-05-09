@@ -62,9 +62,6 @@ function EventManagement() {
             </button>
           </li>
           <li className="nav-item" role="presentation">
-            {/* <button className="nav-link d-flex align-items-center" id="approved-tab" data-bs-toggle="tab" data-bs-target="#approved" type="button" role="tab" aria-controls="approved" aria-selected="false">
-              <i className="bi bi-check-circle me-2"></i>Approved History
-            </button> */}
             <button
               className={`nav-link ${activeTab === 'approved' ? 'active' : ''}`}
               id="approved-tab"
@@ -74,7 +71,7 @@ function EventManagement() {
               role="tab"
               onClick={() => {
                 setActiveTab('approved');
-                fetchApprovedEvents(); // fetch only when clicked
+                fetchApprovedEvents(); 
               }}
             >
               <i className="bi bi-check-circle me-2"></i>Approved History
