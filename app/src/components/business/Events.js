@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
-import '../styles/Events.css';
+import '../../styles/business/Events.css';
 
 function Events() {
   const [events, setEvents] = useState([]);
