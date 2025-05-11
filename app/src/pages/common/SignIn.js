@@ -17,51 +17,53 @@ import axiosInstance from "../../utils/axiosInstance";
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
-  const clearForm = () => {
-    setEmail("");
-    setPassword("");
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     if (!email.trim() || !password.trim()) {
       enqueueSnackbar("Email and password are required", { variant: "warning" });
+      setIsLoading(false);
       return;
     }
 
-    const payload = {
-      email: email,
-      password: password,
-    };
-
     try {
-      const response = await axiosInstance.post("/api/signin", payload);
-      const successMessage = response.data?.message || "Signin successful!";
-      enqueueSnackbar(successMessage, { variant: "success" });
+      const response = await axios.post(`${baseURL}/api/signin`, {
+        email,
+        password
+      });
 
-      localStorage.setItem("authToken", response.data.token);
-      localStorage.setItem("userRole", response.data.role);
+      // Store authentication data
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('userRole', response.data.role);
+      localStorage.setItem('userId', response.data.id);
 
-      clearForm();
+      enqueueSnackbar(response.data.message, { variant: "success" });
 
-      const role = response.data.role;
-      if (role === "ADMIN") {
-        navigate("/admin-dashboard");
-      } else if (role === "BUSINESS") {
-        navigate("/manage-events");
-      } else if (role === "TOURIST") {
-        navigate("/user-profile");
+      // Redirect based on role
+      switch(response.data.role) {
+        case 'ADMIN':
+          navigate('/admin/dashboard');
+          break;
+        case 'TOURIST':
+          navigate('/business/dashboard');
+          break;
+        case 'BUSINESS':
+          navigate('/manage-events');
+          break;
+        default:
+          navigate('/');
       }
+
     } catch (error) {
-      const errorMsg =
-        error.response?.data?.error ||
-        error.response?.data?.message ||
-        "Signin failed. Please try again.";
+      const errorMsg = error.response?.data?.message || "Signin failed. Please try again.";
       enqueueSnackbar(errorMsg, { variant: "error" });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -114,10 +116,18 @@ function SignIn() {
             size="small"
             fullWidth
             variant="contained"
-            sx={{ py: 1, mt: 2, backgroundColor: "#143D60" }}
+            disabled={isLoading}
+            sx={{ 
+              py: 1, 
+              mt: 2, 
+              backgroundColor: "#143D60",
+              '&:disabled': {
+                backgroundColor: '#cccccc'
+              }
+            }}
             startIcon={<LoginIcon />}
           >
-            Sign In
+            {isLoading ? 'Signing In...' : 'Sign In'}
           </Button>
         </Box>
 
