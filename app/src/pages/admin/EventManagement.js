@@ -13,7 +13,7 @@ function EventManagement() {
 
   useEffect(() => {
     fetchPendingApprovals();
-    fetchApprovedEvents();
+    fetchApprovedEvents(); 
   }, []);
 
   const fetchPendingApprovals = async () => {
@@ -71,7 +71,7 @@ function EventManagement() {
               role="tab"
               onClick={() => {
                 setActiveTab('approved');
-                fetchApprovedEvents(); 
+                fetchApprovedEvents();
               }}
             >
               <i className="bi bi-check-circle me-2"></i>Approved History
