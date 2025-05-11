@@ -1,232 +1,199 @@
-import React from "react";
+import React, { useState } from "react";
 import {
-  Grid,
   Box,
+  Grid,
   Typography,
   Card,
   CardContent,
+  Avatar,
+  TextField,
+  Button,
   Table,
+  TableBody,
+  TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  TableCell,
-  TableBody,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  Avatar,
-  Stack,
+  Paper,
 } from "@mui/material";
 import {
   AttachMoney,
   People,
   Event,
   CalendarToday,
-  Timeline,
-  PieChart,
-  BarChart,
   Star,
   Add,
+  Search,
+  FilterList,
+  TrendingUp,
+  PieChart,
 } from "@mui/icons-material";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart as RePieChart, Pie, Cell, BarChart, Bar } from "recharts";
 
-const AnalyticsCard = ({ icon, title, value, color }) => (
-  <Card sx={{ height: "100%" }}>
-    <CardContent>
-      <Stack direction="row" alignItems="center" spacing={2}>
-        <Avatar sx={{ bgcolor: `${color}.light`, color: `${color}.dark` }}>
-          {icon}
-        </Avatar>
-        <Box>
-          <Typography color="text.secondary" variant="body2">
-            {title}
-          </Typography>
-          <Typography variant="h5" fontWeight="bold">
-            {typeof value === "number" ? value.toLocaleString() : value}
-          </Typography>
-        </Box>
-      </Stack>
-    </CardContent>
-  </Card>
-);
+const summaryData = [
+  { icon: <AttachMoney />, title: "Revenue", value: "$65,400", color: "success" },
+  { icon: <People />, title: "Attendees", value: "1,530", color: "info" },
+  { icon: <Event />, title: "Events", value: "8", color: "warning" },
+  { icon: <CalendarToday />, title: "Upcoming", value: "3", color: "primary" },
+];
 
-const AnalyticsChartPlaceholder = ({ title, icon }) => (
-  <Card sx={{ height: "100%" }}>
-    <CardContent
-      sx={{ height: "100%", display: "flex", flexDirection: "column" }}
-    >
-      <Typography
-        variant="h6"
-        gutterBottom
-        sx={{ display: "flex", alignItems: "center" }}
-      >
-        {icon} {title}
-      </Typography>
-      <Box
-        sx={{
-          flexGrow: 1,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <img
-          src={`https://via.placeholder.com/400x200?text=${encodeURIComponent(
-            title
-          )}`}
-          alt={title}
-          style={{ maxWidth: "100%", borderRadius: 4 }}
-        />
-      </Box>
-    </CardContent>
-  </Card>
-);
+const revenueTrend = [
+  { month: "Jan", value: 5000 },
+  { month: "Feb", value: 8000 },
+  { month: "Mar", value: 12000 },
+  { month: "Apr", value: 9000 },
+  { month: "May", value: 15000 },
+  { month: "Jun", value: 16400 },
+];
 
-const AnalyticsTabContent = ({ analyticsData }) => (
-  <Box>
-    {/* Summary Cards */}
-    <Grid container spacing={3} sx={{ mb: 3 }}>
-      <Grid item xs={12} sm={6} md={3}>
-        <AnalyticsCard
-          icon={<AttachMoney />}
-          title="Total Revenue"
-          value={`$${analyticsData.totalRevenue.toLocaleString()}`}
-          color="success"
-        />
-      </Grid>
-      <Grid item xs={12} sm={6} md={3}>
-        <AnalyticsCard
-          icon={<People />}
-          title="Total Attendees"
-          value={analyticsData.totalAttendees}
-          color="info"
-        />
-      </Grid>
-      <Grid item xs={12} sm={6} md={3}>
-        <AnalyticsCard
-          icon={<Event />}
-          title="Total Events"
-          value={analyticsData.totalEvents}
-          color="warning"
-        />
-      </Grid>
-      <Grid item xs={12} sm={6} md={3}>
-        <AnalyticsCard
-          icon={<CalendarToday />}
-          title="Upcoming Events"
-          value={analyticsData.upcomingEvents}
-          color="primary"
-        />
-      </Grid>
-    </Grid>
+const eventTypes = [
+  { name: "Conference", value: 35 },
+  { name: "Workshop", value: 25 },
+  { name: "Concert", value: 20 },
+  { name: "Exhibition", value: 15 },
+  { name: "Other", value: 5 },
+];
 
-    {/* Charts Row 1 */}
-    <Grid container spacing={3} sx={{ mb: 3 }}>
-      <Grid item xs={12} md={8}>
-        <AnalyticsChartPlaceholder
-          title="Revenue Trend (Last 6 Months)"
-          icon={<Timeline />}
-        />
-      </Grid>
-      <Grid item xs={12} md={4}>
-        <AnalyticsChartPlaceholder
-          title="Event Type Distribution"
-          icon={<PieChart />}
-        />
-      </Grid>
-    </Grid>
+const topEvents = [
+  { name: "Tech Conference", revenue: 24500, attendees: 245 },
+  { name: "Music Festival", revenue: 36000, attendees: 1200 },
+  { name: "Food Expo", revenue: 18500, attendees: 320 },
+];
 
-    {/* Charts Row 2 */}
-    <Grid container spacing={3} sx={{ mb: 3 }}>
-      <Grid item xs={12} md={6}>
-        <AnalyticsChartPlaceholder
-          title="Attendee Growth"
-          icon={<BarChart />}
-        />
+const recentActivity = [
+  { icon: <Add />, title: "New event created - Tech Workshop", time: "2 hours ago", color: "success" },
+  { icon: <People />, title: "120 new attendees for Music Festival", time: "5 hours ago", color: "info" },
+  { icon: <AttachMoney />, title: "$5,200 in new revenue", time: "1 day ago", color: "warning" },
+];
+
+const COLORS = ["#8884d8", "#82ca9d", "#ffc658", "#ff8042", "#a4de6c"];
+
+const AnalyticsPage = () => {
+  const [search, setSearch] = useState("");
+  const filteredEvents = topEvents.filter(event => event.name.toLowerCase().includes(search.toLowerCase()));
+
+  return (
+    <Box sx={{ p: 3, backgroundColor: '#f9f9f9', minHeight: '100vh', widows: '100%' }}>
+      {/* Summary Cards */}
+      <Grid container spacing={2} sx={{ mb: 3, display: 'flex', justifyContent: 'space-between' }}>
+        {summaryData.map((item, i) => (
+          <Grid key={i} item xs={12} sm={6} md={3}>
+            <Card sx={{ width: '100%', width: '300px' }}>
+              <CardContent sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                <Avatar color={item.color}>{item.icon}</Avatar>
+                <Box>
+                  <Typography variant="body2" color="text.secondary">{item.title}</Typography>
+                  <Typography variant="h6">{item.value}</Typography>
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
       </Grid>
-      <Grid item xs={12} md={6}>
-        <Card>
-          <CardContent>
-            <Typography
-              variant="h6"
-              gutterBottom
-              sx={{ display: "flex", alignItems: "center" }}
-            >
-              <Star color="warning" sx={{ mr: 1 }} /> Top Performing Events
-            </Typography>
-            <TableContainer>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Event</TableCell>
-                    <TableCell align="right">Revenue</TableCell>
-                    <TableCell align="right">Attendees</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {analyticsData.topEvents.map((event) => (
-                    <TableRow key={event.name}>
-                      <TableCell>{event.name}</TableCell>
-                      <TableCell align="right">
-                        ${event.revenue.toLocaleString()}
-                      </TableCell>
-                      <TableCell align="right">
-                        {event.attendees.toLocaleString()}
-                      </TableCell>
+
+      {/* Charts */}
+      <Grid container sx={{ mb: 3, width: '100%', display: 'flex', justifyContent: 'space-between' }}>
+        <Grid item sx={{ width: '70%' }} >
+          <Card>
+            <CardContent>
+              <Typography variant="h6" mb={2} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <TrendingUp /> Revenue Trend
+              </Typography>
+              <ResponsiveContainer width="100%" height={200}>
+                <LineChart data={revenueTrend}>
+                  <XAxis dataKey="month" />
+                  <YAxis />
+                  <Tooltip />
+                  <Line type="monotone" dataKey="value" stroke="#8884d8" strokeWidth={2} />
+                </LineChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item sx={{ width: '28%' }}>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" mb={2} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <PieChart /> Event Types
+              </Typography>
+              <ResponsiveContainer width="100%" height={200}>
+                <RePieChart>
+                  <Pie data={eventTypes} dataKey="value" outerRadius={80} label>
+                    {eventTypes.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                </RePieChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
+
+      {/* Top Events */}
+      <Grid container spacing={2} sx={{ mb: 3, widows: '100%', display: 'flex', justifyContent: 'space-between' }}>
+        <Grid item sx={{ width: '50%' }}>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" mb={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                <Star color="warning" sx={{ mr: 1 }} /> Top Events
+              </Typography>
+              <TableContainer component={Paper}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Event</TableCell>
+                      <TableCell align="right">Revenue</TableCell>
+                      <TableCell align="right">Attendees</TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </CardContent>
-        </Card>
+                  </TableHead>
+                  <TableBody>
+                    {filteredEvents.map((event, i) => (
+                      <TableRow key={i}>
+                        <TableCell>{event.name}</TableCell>
+                        <TableCell align="right">${event.revenue.toLocaleString()}</TableCell>
+                        <TableCell align="right">{event.attendees.toLocaleString()}</TableCell>
+                      </TableRow>
+                    ))}
+                    {filteredEvents.length === 0 && (
+                      <TableRow>
+                        <TableCell colSpan={3} align="center">No results</TableCell>
+                      </TableRow>
+                    )}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        {/* Recent Activity */}
+        <Grid item sx={{ width: '48%' }}>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" mb={2}>Recent Activity</Typography>
+              <List>
+                {recentActivity.map((item, i) => (
+                  <ListItem key={i}>
+                    <ListItemIcon>
+                      <Avatar sx={{ bgcolor: `${item.color}.light`, color: `${item.color}.dark` }}>
+                        {item.icon}
+                      </Avatar>
+                    </ListItemIcon>
+                    <ListItemText primary={item.title} secondary={item.time} />
+                  </ListItem>
+                ))}
+              </List>
+            </CardContent>
+          </Card>
+        </Grid>
       </Grid>
-    </Grid>
+    </Box>
+  );
+};
 
-    {/* Recent Activity */}
-    <Card sx={{ mb: 3 }}>
-      <CardContent>
-        <Typography variant="h6" gutterBottom>
-          Recent Activity
-        </Typography>
-        <List>
-          <ListItem>
-            <ListItemIcon>
-              <Avatar sx={{ bgcolor: "success.light", color: "success.dark" }}>
-                <Add />
-              </Avatar>
-            </ListItemIcon>
-            <ListItemText
-              primary="New event created - Tech Workshop"
-              secondary="2 hours ago"
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <Avatar sx={{ bgcolor: "info.light", color: "info.dark" }}>
-                <People />
-              </Avatar>
-            </ListItemIcon>
-            <ListItemText
-              primary="120 new attendees registered for Music Festival"
-              secondary="5 hours ago"
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <Avatar sx={{ bgcolor: "warning.light", color: "warning.dark" }}>
-                <AttachMoney />
-              </Avatar>
-            </ListItemIcon>
-            <ListItemText
-              primary="$5,200 in new revenue"
-              secondary="1 day ago"
-            />
-          </ListItem>
-        </List>
-      </CardContent>
-    </Card>
-  </Box>
-);
-
-export default AnalyticsTabContent;
+export default AnalyticsPage;
