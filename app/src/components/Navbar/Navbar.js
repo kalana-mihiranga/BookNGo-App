@@ -56,7 +56,7 @@ export default function Navbar() {
           <Box sx={{ flexGrow: 1 }} />
 
           <Box sx={{ display: "flex", gap: 1 }}>
-            {/* <Button
+            <Button
               variant="outlined"
               startIcon={<AccountCircleIcon />}
               sx={buttonStyles}
@@ -66,7 +66,7 @@ export default function Navbar() {
               variant="outlined"
               startIcon={<NotificationsActiveIcon />}
               sx={buttonStyles}
-            ></Button> */}
+            ></Button>
 
             <Button
               variant="outlined"
