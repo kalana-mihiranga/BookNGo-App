@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Avatar, Button, Box, Typography, Card, CardContent, TextField, Accordion, AccordionSummary, AccordionDetails, } from '@mui/material';
+import { Avatar, Button, Box, Typography, Card, CardContent, TextField, Accordion, AccordionSummary, AccordionDetails, Snackbar, Alert } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { blue } from '@mui/material/colors';
 import Navbar from '../Navbar/Navbar';
@@ -20,12 +20,19 @@ const UserProfile = () => {
   const [formData, setFormData] = useState({...user});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   // Fetch user data from API
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/tourist/touristProfile/1');
+        const token = localStorage.getItem('token');
+        const response = await axios.get('http://localhost:5000/api/tourist/touristProfile/1', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
         if (response.data.status) {
           setUser(response.data.data);
           setFormData(response.data.data);
@@ -33,7 +40,7 @@ const UserProfile = () => {
           setError('Failed to fetch user data');
         }
       } catch (err) {
-        setError(err.message);
+        setError(err.response?.data?.message || err.message);
       } finally {
         setLoading(false);
       }
@@ -52,17 +59,36 @@ const UserProfile = () => {
 
   const handleSubmit = async () => {
     try {
-      // Here you would typically make a PUT/PATCH request to update the user data
-      // For example:
-      // const response = await axios.put('http://localhost:5000/api/tourist/touristProfile/1', formData);
+      const token = localStorage.getItem('token');
+      const response = await axios.put(
+        `http://localhost:5000/api/updateProfile/1`, 
+        {
+          name: formData.name,
+          email: formData.email,
+          contactNo: formData.contactNo,
+          imageUrl: formData.imageUrl
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        }
+      );
       
-      // For now, we'll just update the local state
-      setUser(formData);
-      setEditMode(false);
-      console.log('Updated user data:', formData);
+      if (response.data.status) {
+        setUser(response.data.data);
+        setEditMode(false);
+        setSuccess(true);
+        setSnackbarOpen(true);
+      } else {
+        setError(response.data.message || 'Failed to update profile');
+        setSnackbarOpen(true);
+      }
     } catch (err) {
       console.error('Error updating user:', err);
-      setError('Failed to update user data');
+      setError(err.response?.data?.message || 'Failed to update user data');
+      setSnackbarOpen(true);
     }
   };
 
@@ -71,11 +97,15 @@ const UserProfile = () => {
     setEditMode(false);
   };
 
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  if (error) {
+  if (error && !editMode) {
     return <div>Error: {error}</div>;
   }
 
@@ -100,6 +130,7 @@ const UserProfile = () => {
                   value={formData.name}
                   onChange={handleChange}
                   sx={{ marginBottom: 2 }}
+                  required
                 />
                 <TextField
                   fullWidth
@@ -109,6 +140,8 @@ const UserProfile = () => {
                   value={formData.email}
                   onChange={handleChange}
                   sx={{ marginBottom: 2 }}
+                  required
+                  type="email"
                 />
                 <TextField
                   fullWidth
@@ -154,7 +187,7 @@ const UserProfile = () => {
         </CardContent>
       </Card>
 
-      {/* history */}
+      {/* Booking History */}
       <div>
         <Accordion>
           <AccordionSummary
@@ -175,6 +208,22 @@ const UserProfile = () => {
       </div>
 
       <Footer/>
+
+      {/* Snackbar for notifications */}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={success ? 'success' : 'error'}
+          sx={{ width: '100%' }}
+        >
+          {success ? 'Profile updated successfully!' : error}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
