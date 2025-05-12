@@ -105,11 +105,19 @@ function App() {
               <BookingHistory />
             </AuthGuard>
           } />
+
+{/* 
           <Route path="/user-profile" element={
             <AuthGuard requiredRole="TOURIST">
               <UserProfile />
             </AuthGuard>
-          } />
+          } /> */}
+
+
+  <Route path="/user-profile" element={<UserProfile />} />
+
+
+
           <Route path="/payment" element={
             <AuthGuard requiredRole="TOURIST">
               <Payment />
