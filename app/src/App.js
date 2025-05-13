@@ -1,11 +1,11 @@
 import React from "react";
 import { SnackbarProvider } from "notistack";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import AuthGuard from "./components/AuthGuard";
-
-// Common Pages
-import Unauthorized from "./pages/common/Unauthorized";
+import Events from "./components/business/Events";
 import Contact from "./pages/common/Contact";
+import Tourist from "./components/tourist/index";
+import HomePage from "./components/home/HomePage";
+import EventCRUD from "./components/business/EventCRUD";
 import AboutUs from "./pages/common/AboutUs";
 import SignIn from "./pages/common/SignIn";
 import SignUp from "./pages/common/SignUp";
@@ -24,9 +24,8 @@ import UserManagement from "./pages/admin/UserManagement";
 // Business Pages
 import BusinessDashboard from "./pages/business/BusinessDashboard";
 import ManageEvents from "./pages/business/ManageEvents";
-import EventForm from "./components/EventForm"; // Using existing component
-import EventCRUD from "./components/EventCRUD"; // Using existing component
-import TourismDashboard from "./pages/business/DBoard";
+import Payment from "./components/tourist/Payment";
+import Landing from "./pages/common/Landing/Landing";
 
 // Tourist Pages
 import Tourist from "./components/tourist/index";
@@ -66,73 +65,17 @@ function App() {
             <Route path="approval" element={<EventManagement />} />
             <Route path="user-management" element={<UserManagement />} />
           </Route>
-
-          {/* Business Protected Routes */}
-          <Route path="/business-dashboard" element={
-            <AuthGuard requiredRole="BUSINESS">
-              <BusinessDashboard />
-            </AuthGuard>
-          } />
-          <Route path="/manage-events" element={
-            <AuthGuard requiredRole="BUSINESS">
-              <ManageEvents />
-            </AuthGuard>
-          } />
-          <Route path="/bd" element={
-            <AuthGuard requiredRole="BUSINESS">
-              <TourismDashboard />
-            </AuthGuard>
-          } />
-          <Route path="/create-event" element={
-            <AuthGuard requiredRole="BUSINESS">
-              <EventForm />
-            </AuthGuard>
-          } />
-          <Route path="/crud" element={
-            <AuthGuard requiredRole="BUSINESS">
-              <EventCRUD />
-            </AuthGuard>
-          } />
-
-          {/* Tourist Protected Routes */}
-          <Route path="/tourist" element={
-            <AuthGuard requiredRole="TOURIST">
-              <Tourist />
-            </AuthGuard>
-          } />
-          <Route path="/booking-history" element={
-            <AuthGuard requiredRole="TOURIST">
-              <BookingHistory />
-            </AuthGuard>
-          } />
-
-{/* 
-          <Route path="/user-profile" element={
-            <AuthGuard requiredRole="TOURIST">
-              <UserProfile />
-            </AuthGuard>
-          } /> */}
-
-
-  <Route path="/user-profile" element={<UserProfile />} />
-
-
-
-          <Route path="/payment" element={
-            <AuthGuard requiredRole="TOURIST">
-              <Payment />
-            </AuthGuard>
-          } />
-          <Route path="/payment/:eventId" element={
-            <AuthGuard requiredRole="TOURIST">
-              <Payment />
-            </AuthGuard>
-          } />
-          <Route path="/home" element={
-            <AuthGuard requiredRole="TOURIST">
-              <HomePage />
-            </AuthGuard>
-          } />
+          <Route path="/payment/:eventId" element={<Payment />} />
+          <Route path="/tourist" element={<Tourist />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/crud" element={<EventCRUD />} />
+          <Route path="/event" element={<Event />} />
+          {/* common routes */}
+          <Route path="/" element={<Landing />} />
+          <Route path="/booking-history" element={<BookingHistory />} />
+          <Route path="/user-profile" element={<UserProfile />} />
+          <Route path="/manage-events" element={<ManageEvents />} />
+          <Route path="/payment" element={<Payment />} />
         </Routes>
       </Router>
     </SnackbarProvider>
