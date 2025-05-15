@@ -26,7 +26,7 @@ function AdminDashboard() {
           <li>
             <button
               className="sidebar-menu-link"
-              onClick={() => navigate("/admin-dashboard/dashboard")}
+              onClick={() => navigate("/admin/dashboard")}
             >
               <i className="bi bi-house-door-fill"></i> Dashboard
             </button>
@@ -34,7 +34,7 @@ function AdminDashboard() {
           <li>
             <button
               className="sidebar-menu-link"
-              onClick={() => navigate("/admin-dashboard/approval")}
+              onClick={() => navigate("/admin/approval")}
             >
               <i className="bi bi-calendar-event"></i> Approval
             </button>
@@ -42,7 +42,7 @@ function AdminDashboard() {
           <li>
             <button
               className="sidebar-menu-link"
-              onClick={() => navigate("/admin-dashboard/user-management")}
+              onClick={() => navigate("/admin/user-management")}
             >
               <i className="bi bi-building"></i> User Management
             </button>
@@ -50,7 +50,7 @@ function AdminDashboard() {
           <li>
             <button
               className="sidebar-menu-link"
-              onClick={() => navigate("/admin-dashboard/setting")}
+              onClick={() => navigate("/admin/setting")}
             >
               <i className="bi bi-gear-fill"></i> Settings
             </button>
@@ -61,7 +61,6 @@ function AdminDashboard() {
       <div className="dashboard-content p-0 ">
         <div className="header-right d-flex flex-column justify-content-start col-12">
           <div className="topic d-flex justify-content-start col-12 ">
-            <h2 className="header-text p-2 ps-3 m-0">Dashboard</h2>
             {/* <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item">
