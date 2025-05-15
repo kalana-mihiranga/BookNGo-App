@@ -21,6 +21,7 @@ import UserManagement from "./pages/admin/UserManagement";
 import ManageEvents from "./pages/business/ManageEvents";
 import Payment from "./components/tourist/Payment";
 import Landing from "./pages/common/Landing/Landing";
+import BusinessEvents from "./components/tourist/BusinessEvents";
 
 function App() {
   return (
@@ -54,6 +55,8 @@ function App() {
           <Route path="/user-profile" element={<UserProfile />} />
           <Route path="/manage-events" element={<ManageEvents />} />
           <Route path="/payment" element={<Payment />} />
+          <Route path="/test" element={<BusinessEvents/>} />
+
         </Routes>
       </Router>
     </SnackbarProvider>

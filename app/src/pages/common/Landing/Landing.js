@@ -21,6 +21,7 @@ import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../utils/axiosInstance";
 
 const Landing = () => {
+
   const [searchQuery, setSearchQuery] = useState("");
   const [filterCategory, setFilterCategory] = useState("");
   const [priceRange, setPriceRange] = useState([0, 500]);
@@ -37,15 +38,7 @@ const Landing = () => {
 
   const fetchEvents = async () => {
     try {
-      const response = await axiosInstance.get(
-        "/api/business/getPaginatedEvents",
-        {
-          params: {
-            page: page,
-            limit: limit,
-          },
-        }
-      );
+      const response = await axiosInstance.get("/api/tourist/getAllEvents");
       setTotalPages(response.data.totalPages)
       setEvents(response.data.events || []);
     } catch (error) {
@@ -59,9 +52,9 @@ const Landing = () => {
 
 
 
-  const handleSeeMoreClick = (event) => {
-    navigate("/event", { state: { eventData: event } });
-  };
+const handleSeeMoreClick = (event) => {
+  navigate('/event', { state: { eventId: event.eventId } });
+};
 
   const filteredEvents = events.filter((event) => {
     const searchMatch =

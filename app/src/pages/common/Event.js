@@ -1,340 +1,255 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Navbar from '../../components/Navbar/Navbar';
-import Footer from '../../components/Footer/Footer';
-import { 
-  Button, 
-  CardMedia, 
-  Grid, 
-  IconButton, 
-  Typography, 
-  Paper, 
-  Chip,
-  Container,
+import axiosInstance from '../../utils/axiosInstance';
+import {
   Box,
+  Typography,
+  Container,
+  Card,
+  CardMedia,
+  CardContent,
+  Chip,
+  Button,
   Divider,
-  Stack,
-  Avatar,
   List,
   ListItem,
-  ListItemAvatar,
-  ListItemText
+  ListItemText,
+  TextField,
+  IconButton,
+  Paper,
+  CircularProgress
 } from '@mui/material';
-import { 
-  Add, 
-  Remove,
-  BookmarkAdd, 
-  Category, 
-  LocalOffer,
-  CalendarToday,
+import {
   LocationOn,
-  Info,
+  CalendarToday,
+  Schedule,
   Person,
-  Star,
-  AccessTime,
-  Group
+  AttachMoney,
+  Add,
+  Remove
 } from '@mui/icons-material';
 
 const Event = () => {
   const navigate = useNavigate();
-  const navigateToPayment = () => {
-    navigate("/payment"); 
-  };
-
   const location = useLocation();
-  const { cardData } = location.state || {};
+  const { eventId } = location.state || {};
+  const [event, setEvent] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [selectedTicket, setSelectedTicket] = useState(null);
   const [quantity, setQuantity] = useState(1);
 
-  if (!cardData) {
-    return (
-      <Box sx={{ 
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#f5f5f5'
-      }}>
-        <Typography variant="h4" color="textSecondary">
-          No event data available.
-        </Typography>
-      </Box>
-    );
-  }
+  useEffect(() => {
+    if (eventId) {
+      axiosInstance.get(`/api/business/getEventById/${eventId}`)
+        .then(res => {
+          setEvent(res.data.body);
+          setLoading(false);
+        })
+        .catch(err => {
+          console.error(err);
+          setLoading(false);
+        });
+    }
+  }, [eventId]);
 
-  const handleDecreaseQuantity = () => {
-    setQuantity(Math.max(1, quantity - 1));
+  const handleBook = () => {
+    navigate('/payment', {
+      state: {
+        eventId: event.id,
+        eventName: event.name,
+        ticketType: selectedTicket.name,
+        quantity,
+        price: selectedTicket.price,
+        discount: event.discount,
+        total: (selectedTicket.price * quantity * (1 - event.discount/100)).toFixed(2)
+      }
+    });
   };
 
-  const handleIncreaseQuantity = () => {
-    setQuantity(quantity + 1);
-  };
+  if (loading) return (
+    <Box display="flex" justifyContent="center" mt={4}>
+      <CircularProgress />
+    </Box>
+  );
 
-  // Safe price handling
-  const price = cardData.price ?? 0;
-  const baseBookingPrice = cardData.bookingPrice ?? 0;
-  const totalPrice = (baseBookingPrice * quantity).toFixed(2);
-  const bookingPrice = (baseBookingPrice).toFixed(2);
-
-  // Sample event details
-  const eventDetails = [
-    { icon: <AccessTime />, primary: "Duration", secondary: "3 hours" },
-    { icon: <Group />, primary: "Group Size", secondary: "Max 15 people" }
-  ];
-
-  // Sample guide info
-  const guideInfo = {
-    name: "Alex Johnson",
-    bio: "Professional tour guide with 8 years experience",
-    avatar: "https://randomuser.me/api/portraits/men/32.jpg"
-  };
+  if (!event) return (
+    <Box textAlign="center" mt={4}>
+      <Typography>Event not found</Typography>
+    </Box>
+  );
 
   return (
-    <Box sx={{ backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
-      <Navbar />
-      
-      <Container maxWidth="lg" sx={{ py: 4 }}>
-        <Paper elevation={3} sx={{ borderRadius: 2, overflow: 'hidden' }}>
-          <Grid container spacing={0}>
-            {/* Image Section (now smaller) */}
-            <Grid item xs={12} md={5}>
-              <Box sx={{ p: 2 }}>
-                <CardMedia
-                  component="img"
-                  image={cardData.imageUrl}
-                  alt={cardData.title}
-                  sx={{
-                    height: 300,
-                    width: '100%',
-                    objectFit: 'cover',
-                    borderRadius: 2
-                  }}
-                />
-                
-                {/* Additional content below image */}
-                <Box sx={{ mt: 3 }}>
-                  <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
-                    <Group sx={{ verticalAlign: 'middle', mr: 1 }} />
-                    What's Included
-                  </Typography>
-                  <List dense>
-                    <ListItem>
-                      <ListItemAvatar>
-                        <Avatar sx={{ bgcolor: 'primary.main', width: 24, height: 24 }}>
-                          <Star sx={{ fontSize: 16 }} />
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText primary="Professional guide" />
-                    </ListItem>
-                    <ListItem>
-                      <ListItemAvatar>
-                        <Avatar sx={{ bgcolor: 'primary.main', width: 24, height: 24 }}>
-                          <Star sx={{ fontSize: 16 }} />
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText primary="All equipment provided" />
-                    </ListItem>
-                    <ListItem>
-                      <ListItemAvatar>
-                        <Avatar sx={{ bgcolor: 'primary.main', width: 24, height: 24 }}>
-                          <Star sx={{ fontSize: 16 }} />
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText primary="Refreshments included" />
-                    </ListItem>
-                  </List>
-                </Box>
-              </Box>
-            </Grid>
+    <Container maxWidth="md" sx={{ width: '90%', py: 3 }}>
+      <Card sx={{ mb: 3, borderRadius: 2 }}>
+        <CardMedia
+          component="img"
+          height="240"
+          image={event.bannerUrl}
+          alt={event.name}
+        />
+        
+        <CardContent>
+          <Box display="flex" alignItems="center" mb={1}>
+            <Chip 
+              label={event.type} 
+              size="small" 
+              color="primary" 
+              sx={{ mr: 1 }} 
+            />
+            <Chip 
+              label={event.category} 
+              size="small" 
+              color="secondary" 
+            />
+          </Box>
 
-            {/* Event Details Section (now wider) */}
-            <Grid item xs={12} md={7} sx={{ p: 4 }}>
-              <Typography 
-                variant="h4" 
-                component="h1" 
-                gutterBottom 
-                sx={{ 
-                  fontWeight: 'bold',
-                  color: 'text.primary',
-                  mb: 3
+          <Typography variant="h4" fontWeight="600" mb={2}>
+            {event.name}
+          </Typography>
+
+          <Box display="flex" alignItems="center" mb={1}>
+            <LocationOn color="primary" sx={{ mr: 1 }} />
+            <Typography>
+              {event.location}, {event.country}
+            </Typography>
+          </Box>
+
+          <Box display="flex" alignItems="center" mb={2}>
+            <CalendarToday color="primary" sx={{ mr: 1 }} />
+            <Typography sx={{ mr: 2 }}>
+              {new Date(event.date).toLocaleDateString()}
+            </Typography>
+            <Schedule color="primary" sx={{ mr: 1 }} />
+            <Typography>
+              {event.startTime} - {event.endTime}
+            </Typography>
+          </Box>
+
+          <Typography paragraph mb={3}>
+            {event.description}
+          </Typography>
+
+          <Box display="flex" alignItems="center" mb={2}>
+            <Person color="primary" sx={{ mr: 1 }} />
+            <Typography>
+              Contact: {event.cordinatorName} ({event.cordinatorContact})
+            </Typography>
+          </Box>
+
+          <Divider sx={{ my: 2 }} />
+
+          <Typography variant="h6" mb={2}>Ticket Options</Typography>
+          
+          <Box display="flex" flexDirection="column" gap={2} mb={3}>
+            {event.priceCategories.map(ticket => (
+              <Paper 
+                key={ticket.id}
+                elevation={selectedTicket?.id === ticket.id ? 3 : 1}
+                onClick={() => setSelectedTicket(ticket)}
+                sx={{
+                  p: 2,
+                  borderRadius: 2,
+                  cursor: 'pointer',
+                  border: selectedTicket?.id === ticket.id ? '2px solid #1976d2' : 'none'
                 }}
               >
-                {cardData.title || 'Untitled Event'}
-              </Typography>
-
-              {/* Meta Information */}
-              <Stack direction="row" spacing={2} sx={{ mb: 3 }}>
-                <Chip 
-                  icon={<Category />} 
-                  label={cardData.category || 'Uncategorized'}
-                  color="primary"
-                  variant="outlined"
-                />
-                <Chip 
-                  icon={<LocalOffer />} 
-                  label={`$${Number(price).toFixed(2)} per ticket`}
-                  color="secondary"
-                />
-              </Stack>
-
-              {/* Event Highlights */}
-              <Box sx={{ 
-                backgroundColor: 'primary.light',
-                p: 2,
-                borderRadius: 1,
-                mb: 3
-              }}>
-                <List dense>
-                  {eventDetails.map((item, index) => (
-                    <ListItem key={index}>
-                      <ListItemAvatar>
-                        <Avatar sx={{ 
-                          bgcolor: 'primary.main', 
-                          width: 24, 
-                          height: 24 
-                        }}>
-                          {item.icon}
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText 
-                        primary={item.primary} 
-                        secondary={item.secondary}
-                        primaryTypographyProps={{ variant: 'subtitle2' }}
-                      />
-                    </ListItem>
-                  ))}
-                </List>
-              </Box>
-
-              {/* Guide Information */}
-              <Box sx={{ mb: 3 }}>
-                <Typography variant="h6" sx={{ mb: 1, fontWeight: 'bold' }}>
-                  <Person sx={{ verticalAlign: 'middle', mr: 1 }} />
-                  Your Guide
-                </Typography>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <Avatar 
-                    src={guideInfo.avatar} 
-                    sx={{ width: 56, height: 56, mr: 2 }}
-                  />
-                  <Box>
-                    <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-                      {guideInfo.name}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {guideInfo.bio}
-                    </Typography>
-                  </Box>
-                </Box>
-              </Box>
-
-              <Divider sx={{ my: 3 }} />
-
-              {/* Description Section */}
-              <Box sx={{ mb: 3 }}>
-                <Typography 
-                  variant="h6" 
-                  sx={{ 
-                    fontWeight: 'bold',
-                    mb: 2,
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 1
-                  }}
-                >
-                  <Info color="primary" /> Event Description
-                </Typography>
-                <Typography 
-                  variant="body1" 
-                  sx={{ 
-                    color: 'text.secondary',
-                    lineHeight: 1.6
-                  }}
-                >
-                  {cardData.description || 'No description available for this event.'}
-                </Typography>
-              </Box>
-
-              <Divider sx={{ my: 3 }} />
-
-              {/* Booking Section */}
-              <Box>
-                <Typography 
-                  variant="h6" 
-                  sx={{ 
-                    fontWeight: 'bold',
-                    mb: 2
-                  }}
-                >
-                  Booking Details
-                </Typography>
-                
-                <Box sx={{ mb: 3 }}>
-                  <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                    Price per ticket: ${bookingPrice}
-                  </Typography>
-                  
-                  {/* Quantity Control */}
-                  <Box sx={{ 
-                    display: 'flex', 
-                    alignItems: 'center',
-                    gap: 3,
-                    mb: 3
-                  }}>
-                    <Typography variant="subtitle1">Quantity:</Typography>
-                    <Box sx={{ 
-                      display: 'flex', 
-                      alignItems: 'center',
-                      border: '1px solid',
-                      borderColor: 'divider',
-                      borderRadius: '50px'
-                    }}>
-                      <IconButton 
-                        onClick={handleDecreaseQuantity} 
-                        color="primary"
-                        size="small"
-                      >
-                        <Remove />
-                      </IconButton>
-                      <Typography sx={{ px: 2 }}>{quantity}</Typography>
-                      <IconButton 
-                        onClick={handleIncreaseQuantity} 
-                        color="primary"
-                        size="small"
-                      >
-                        <Add />
-                      </IconButton>
-                    </Box>
-                  </Box>
-                  
-                  <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                    Total: ${totalPrice}
+                <Box display="flex" justifyContent="space-between">
+                  <Typography fontWeight="500">{ticket.name}</Typography>
+                  <Typography color="primary" fontWeight="600">
+                    ${ticket.price}
                   </Typography>
                 </Box>
+              </Paper>
+            ))}
+          </Box>
 
-                {/* Action Buttons */}
-                <Button 
-                  variant="contained" 
-                  color="primary" 
-                  size="large"
-                  startIcon={<BookmarkAdd />}
-                  onClick={navigateToPayment}
-                  fullWidth
-                  sx={{
-                    py: 1.5,
-                    fontSize: '1rem',
-                    fontWeight: 'bold'
-                  }}
+          {selectedTicket && (
+            <>
+              <Typography mb={1}>Quantity:</Typography>
+              <Box display="flex" alignItems="center" mb={3}>
+                <IconButton 
+                  onClick={() => setQuantity(q => Math.max(1, q - 1))}
+                  size="small"
                 >
-                  Book Now
-                </Button>
+                  <Remove />
+                </IconButton>
+                <TextField
+                  value={quantity}
+                  onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                  size="small"
+                  sx={{ width: 60, mx: 1 }}
+                  inputProps={{ min: 1 }}
+                />
+                <IconButton 
+                  onClick={() => setQuantity(q => q + 1)}
+                  size="small"
+                >
+                  <Add />
+                </IconButton>
               </Box>
-            </Grid>
-          </Grid>
-        </Paper>
-      </Container>
-      
-      <Footer />
-    </Box>
+
+              <Box bgcolor="#f5f5f5" p={2} borderRadius={2} mb={3}>
+                <Box display="flex" justifyContent="space-between" mb={1}>
+                  <Typography>Subtotal:</Typography>
+                  <Typography>${(selectedTicket.price * quantity).toFixed(2)}</Typography>
+                </Box>
+                {event.discount > 0 && (
+                  <Box display="flex" justifyContent="space-between" mb={1}>
+                    <Typography>Discount ({event.discount}%):</Typography>
+                    <Typography color="green">
+                      -${(selectedTicket.price * quantity * event.discount/100).toFixed(2)}
+                    </Typography>
+                  </Box>
+                )}
+                <Divider sx={{ my: 1 }} />
+                <Box display="flex" justifyContent="space-between">
+                  <Typography fontWeight="600">Total:</Typography>
+                  <Typography fontWeight="600">
+                    ${(selectedTicket.price * quantity * (1 - event.discount/100)).toFixed(2)}
+                  </Typography>
+                </Box>
+              </Box>
+
+              <Button 
+                variant="contained" 
+                fullWidth 
+                size="large"
+                onClick={handleBook}
+              >
+                Book Now
+              </Button>
+            </>
+          )}
+        </CardContent>
+      </Card>
+
+      <Card sx={{ mb: 3, borderRadius: 2 }}>
+        <CardContent>
+          <Typography variant="h6" mb={2}>Event Details</Typography>
+          
+          <Typography fontWeight="500" mb={1}>Specifications:</Typography>
+          <List dense>
+            {event.specifications.map(spec => (
+              <ListItem key={spec.id} sx={{ py: 0 }}>
+                <ListItemText primary={`• ${spec.specName}`} />
+              </ListItem>
+            ))}
+          </List>
+
+          <Typography fontWeight="500" mt={2} mb={1}>Conditions:</Typography>
+          <List dense>
+            {event.conditions.map(cond => (
+              <ListItem key={cond.id} sx={{ py: 0 }}>
+                <ListItemText primary={`• ${cond.condition}`} />
+              </ListItem>
+            ))}
+          </List>
+
+          <Typography fontWeight="500" mt={2}>Refund Policy:</Typography>
+          <Typography>{event.refundPolicy}</Typography>
+        </CardContent>
+      </Card>
+    </Container>
   );
 };
 
