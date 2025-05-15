@@ -17,6 +17,7 @@ import {
   TextField,
   IconButton,
   Paper,
+  Grid,
   CircularProgress
 } from '@mui/material';
 import {
@@ -24,10 +25,10 @@ import {
   CalendarToday,
   Schedule,
   Person,
-  AttachMoney,
-  Add,
-  Remove
+  AttachMoney
 } from '@mui/icons-material';
+import Navbar from '../../components/Navbar/Navbar';
+import Footer from '../../components/Footer/Footer';
 
 const Event = () => {
   const navigate = useNavigate();
@@ -67,6 +68,9 @@ const Event = () => {
   };
 
   if (loading) return (
+
+
+
     <Box display="flex" justifyContent="center" mt={4}>
       <CircularProgress />
     </Box>
@@ -78,179 +82,253 @@ const Event = () => {
     </Box>
   );
 
-  return (
-    <Container maxWidth="md" sx={{ width: '90%', py: 3 }}>
-      <Card sx={{ mb: 3, borderRadius: 2 }}>
-        <CardMedia
-          component="img"
-          height="240"
-          image={event.bannerUrl}
-          alt={event.name}
-        />
+return (
+  <Box>
+    <Navbar />
+
+    <Container maxWidth="md" sx={{ py: 4 }}>
+      <Grid container spacing={4}>
+
         
-        <CardContent>
-          <Box display="flex" alignItems="center" mb={1}>
-            <Chip 
-              label={event.type} 
-              size="small" 
-              color="primary" 
-              sx={{ mr: 1 }} 
+        {/* Image Section */}
+        <Grid item xs={12} md={5}>
+          <Card sx={{ borderRadius: 2, overflow: 'hidden', height: 'auto' }}>
+            <CardMedia
+              component="img"
+              image={event.bannerUrl}
+              alt={event.name}
+              sx={{ height: 300, objectFit: 'cover' }}
             />
-            <Chip 
-              label={event.category} 
-              size="small" 
-              color="secondary" 
-            />
+          </Card>
+          <Card>
+{/* Enhanced Event Details Section */}
+<Box>
+  <Grid  spacing={3}>
+    {/* Specifications */}
+    <Grid item xs={12} md={6}>
+      <Paper
+        variant="outlined"
+        sx={{
+          p: 3,
+          borderRadius: 2,
+          bgcolor: "#f9fafb",
+          borderColor: "divider"
+        }}
+      >
+        <Typography
+          variant="subtitle1"
+          fontWeight="600"
+          color="primary"
+          gutterBottom
+        >
+          Specifications
+        </Typography>
+        {event.specifications.length > 0 ? (
+          <List dense disablePadding>
+            {event.specifications.map((spec) => (
+              <ListItem key={spec.id} disableGutters>
+                <ListItemText primary={`• ${spec.specName}`} />
+              </ListItem>
+            ))}
+          </List>
+        ) : (
+          <Typography variant="body2" color="text.secondary">
+            No specifications listed.
+          </Typography>
+        )}
+      </Paper>
+    </Grid>
+
+    {/* Conditions */}
+    <Grid item xs={12} md={6}>
+      <Paper
+        variant="outlined"
+        sx={{
+          p: 3,
+          borderRadius: 2,
+          bgcolor: "#f9fafb",
+          borderColor: "divider"
+        }}
+      >
+        <Typography
+          variant="subtitle1"
+          fontWeight="600"
+          color="secondary"
+          gutterBottom
+        >
+          Conditions
+        </Typography>
+        {event.conditions.length > 0 ? (
+          <List dense disablePadding>
+            {event.conditions.map((cond) => (
+              <ListItem key={cond.id} disableGutters>
+                <ListItemText primary={`• ${cond.condition}`} />
+              </ListItem>
+            ))}
+          </List>
+        ) : (
+          <Typography variant="body2" color="text.secondary">
+            No conditions specified.
+          </Typography>
+        )}
+      </Paper>
+    </Grid>
+  </Grid>
+
+  {/* Refund Policy */}
+  <Box>
+    <Paper
+      variant="outlined"
+      sx={{ p: 3, borderRadius: 2, bgcolor: "#f9f9f9", borderColor: "divider" }}
+    >
+      <Typography
+        variant="subtitle1"
+        fontWeight="600"
+        color="error"
+        gutterBottom
+      >
+        Refund Policy
+      </Typography>
+      <Typography variant="body2">
+        {event.refundPolicy || "No refund policy specified."}
+      </Typography>
+    </Paper>
+  </Box>
+</Box>
+
+          </Card>
+        </Grid>
+
+        {/* Event Info */}
+        <Grid item xs={12} md={7}>
+          <Box display="flex" gap={1} mb={2}>
+            <Chip label={event.type} color="primary" />
+            <Chip label={event.category} color="secondary" />
           </Box>
 
-          <Typography variant="h4" fontWeight="600" mb={2}>
+          <Typography variant="h4" fontWeight={600} gutterBottom>
             {event.name}
           </Typography>
 
-          <Box display="flex" alignItems="center" mb={1}>
-            <LocationOn color="primary" sx={{ mr: 1 }} />
-            <Typography>
-              {event.location}, {event.country}
-            </Typography>
+          <Box display="flex" alignItems="center" gap={1} mb={1}>
+            <LocationOn fontSize="small" color="primary" />
+            <Typography>{event.location}, {event.country}</Typography>
           </Box>
 
-          <Box display="flex" alignItems="center" mb={2}>
-            <CalendarToday color="primary" sx={{ mr: 1 }} />
-            <Typography sx={{ mr: 2 }}>
-              {new Date(event.date).toLocaleDateString()}
-            </Typography>
-            <Schedule color="primary" sx={{ mr: 1 }} />
-            <Typography>
-              {event.startTime} - {event.endTime}
-            </Typography>
+          <Box display="flex" alignItems="center" gap={1} mb={2}>
+            <CalendarToday fontSize="small" color="primary" />
+            <Typography>{new Date(event.date).toLocaleDateString()}</Typography>
+            <Schedule fontSize="small" color="primary" />
+            <Typography>{event.startTime} - {event.endTime}</Typography>
           </Box>
 
-          <Typography paragraph mb={3}>
+          <Typography variant="body1" mb={2}>
             {event.description}
           </Typography>
 
-          <Box display="flex" alignItems="center" mb={2}>
-            <Person color="primary" sx={{ mr: 1 }} />
-            <Typography>
-              Contact: {event.cordinatorName} ({event.cordinatorContact})
-            </Typography>
-          </Box>
-
           <Divider sx={{ my: 2 }} />
 
-          <Typography variant="h6" mb={2}>Ticket Options</Typography>
-          
-          <Box display="flex" flexDirection="column" gap={2} mb={3}>
+          {/* Tickets */}
+          <Typography variant="h6" mb={1}>Choose Your Ticket</Typography>
+          <Box display="flex" flexDirection="column" gap={1}>
             {event.priceCategories.map(ticket => (
-              <Paper 
+              <Paper
                 key={ticket.id}
-                elevation={selectedTicket?.id === ticket.id ? 3 : 1}
+                elevation={selectedTicket?.id === ticket.id ? 2 : 0}
                 onClick={() => setSelectedTicket(ticket)}
                 sx={{
                   p: 2,
-                  borderRadius: 2,
+                  borderRadius: 1,
+                  border: selectedTicket?.id === ticket.id ? '2px solid #1976d2' : '1px solid #ddd',
                   cursor: 'pointer',
-                  border: selectedTicket?.id === ticket.id ? '2px solid #1976d2' : 'none'
+                  transition: '0.2s ease',
+                  '&:hover': {
+                    borderColor: '#1976d2',
+                    boxShadow: '0 0 6px rgba(25, 118, 210, 0.2)'
+                  }
                 }}
               >
                 <Box display="flex" justifyContent="space-between">
-                  <Typography fontWeight="500">{ticket.name}</Typography>
-                  <Typography color="primary" fontWeight="600">
-                    ${ticket.price}
+                  <Typography>{ticket.name}</Typography>
+                  <Typography fontWeight={600} color="primary">
+                    ${ticket.price.toFixed(2)}
                   </Typography>
                 </Box>
               </Paper>
             ))}
           </Box>
 
+          {/* Quantity and Summary */}
           {selectedTicket && (
             <>
-              <Typography mb={1}>Quantity:</Typography>
-              <Box display="flex" alignItems="center" mb={3}>
-                <IconButton 
-                  onClick={() => setQuantity(q => Math.max(1, q - 1))}
-                  size="small"
-                >
-                  <Remove />
-                </IconButton>
-                <TextField
-                  value={quantity}
-                  onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
-                  size="small"
-                  sx={{ width: 60, mx: 1 }}
-                  inputProps={{ min: 1 }}
-                />
-                <IconButton 
-                  onClick={() => setQuantity(q => q + 1)}
-                  size="small"
-                >
-                  <Add />
-                </IconButton>
+              <Box mt={3}>
+                <Typography variant="subtitle1" gutterBottom>Quantity</Typography>
+                <Box display="flex" alignItems="center">
+                  <Button
+                    variant="outlined"
+                    onClick={() => setQuantity(q => Math.max(1, q - 1))}
+                    sx={{ minWidth: 40 }}
+                  >−</Button>
+                  <TextField
+                    value={quantity}
+                    onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                    sx={{
+                      width: 80,
+                      mx: 1,
+                      '& input': { textAlign: 'center' }
+                    }}
+                    size="small"
+                  />
+                  <Button
+                    variant="outlined"
+                    onClick={() => setQuantity(q => q + 1)}
+                    sx={{ minWidth: 40 }}
+                  >+</Button>
+                </Box>
               </Box>
 
-              <Box bgcolor="#f5f5f5" p={2} borderRadius={2} mb={3}>
+              {/* Price Summary */}
+              <Box mt={3} p={2} bgcolor="#f5f5f5" borderRadius={2}>
                 <Box display="flex" justifyContent="space-between" mb={1}>
-                  <Typography>Subtotal:</Typography>
+                  <Typography>Subtotal</Typography>
                   <Typography>${(selectedTicket.price * quantity).toFixed(2)}</Typography>
                 </Box>
                 {event.discount > 0 && (
                   <Box display="flex" justifyContent="space-between" mb={1}>
-                    <Typography>Discount ({event.discount}%):</Typography>
-                    <Typography color="green">
-                      -${(selectedTicket.price * quantity * event.discount/100).toFixed(2)}
+                    <Typography>Discount ({event.discount}%)</Typography>
+                    <Typography color="success.main">
+                      -${(selectedTicket.price * quantity * event.discount / 100).toFixed(2)}
                     </Typography>
                   </Box>
                 )}
                 <Divider sx={{ my: 1 }} />
-                <Box display="flex" justifyContent="space-between">
-                  <Typography fontWeight="600">Total:</Typography>
-                  <Typography fontWeight="600">
-                    ${(selectedTicket.price * quantity * (1 - event.discount/100)).toFixed(2)}
+                <Box display="flex" justifyContent="space-between" fontWeight={600}>
+                  <Typography>Total</Typography>
+                  <Typography>
+                    ${(selectedTicket.price * quantity * (1 - event.discount / 100)).toFixed(2)}
                   </Typography>
                 </Box>
               </Box>
 
-              <Button 
-                variant="contained" 
-                fullWidth 
+              <Button
+                variant="contained"
+                fullWidth
                 size="large"
+                sx={{ mt: 2 }}
                 onClick={handleBook}
               >
                 Book Now
               </Button>
             </>
           )}
-        </CardContent>
-      </Card>
-
-      <Card sx={{ mb: 3, borderRadius: 2 }}>
-        <CardContent>
-          <Typography variant="h6" mb={2}>Event Details</Typography>
-          
-          <Typography fontWeight="500" mb={1}>Specifications:</Typography>
-          <List dense>
-            {event.specifications.map(spec => (
-              <ListItem key={spec.id} sx={{ py: 0 }}>
-                <ListItemText primary={`• ${spec.specName}`} />
-              </ListItem>
-            ))}
-          </List>
-
-          <Typography fontWeight="500" mt={2} mb={1}>Conditions:</Typography>
-          <List dense>
-            {event.conditions.map(cond => (
-              <ListItem key={cond.id} sx={{ py: 0 }}>
-                <ListItemText primary={`• ${cond.condition}`} />
-              </ListItem>
-            ))}
-          </List>
-
-          <Typography fontWeight="500" mt={2}>Refund Policy:</Typography>
-          <Typography>{event.refundPolicy}</Typography>
-        </CardContent>
-      </Card>
+        </Grid>
+      </Grid>
     </Container>
-  );
+
+    <Footer />
+  </Box>
+);
+
 };
 
 export default Event;

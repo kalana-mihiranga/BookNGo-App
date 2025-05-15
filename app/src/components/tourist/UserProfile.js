@@ -1,67 +1,83 @@
 import React, { useState, useEffect } from 'react';
-import { Avatar, Button, Box, Typography, Card, CardContent, TextField, Accordion, AccordionSummary, AccordionDetails, Snackbar, Alert } from '@mui/material';
+import { 
+  Avatar, 
+  Button, 
+  Box, 
+  Typography, 
+  Card, 
+  CardContent, 
+  TextField, 
+  Accordion, 
+  AccordionSummary, 
+  AccordionDetails, 
+  Snackbar, 
+  Alert 
+} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { blue } from '@mui/material/colors';
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
 import BookingHistory from './BookedEvents';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import axios from 'axios';
+import axiosInstance from '../../utils/axiosInstance';
 
 const UserProfile = () => {
+  // Initial user state (will be updated after fetching profile)
   const [user, setUser] = useState({
     name: '',
     email: '',
     contactNo: '',
     imageUrl: ''
   });
-
+  
+  // State for controlling edit mode and form data
   const [editMode, setEditMode] = useState(false);
-  const [formData, setFormData] = useState({...user});
-  const [loading, setLoading] = useState(true);
+  const [formData, setFormData] = useState({ ...user });
+  
+  // States for error, success, and Snackbar notifications
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
-  // Fetch user data from API
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:5000/api/tourist/touristProfile/1', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        if (response.data.status) {
-          setUser(response.data.data);
-          setFormData(response.data.data);
-        } else {
-          setError('Failed to fetch user data');
-        }
-      } catch (err) {
-        setError(err.response?.data?.message || err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // Profile and loading state for fetching profile data
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-    fetchUserData();
+  // Fetch profile data on component mount
+  useEffect(() => {
+    axiosInstance.get('/api/tourist/touristProfile/1')
+      .then(res => {
+        // Assuming the API response structure is { data: { id, name, email, ... } }
+        setProfile(res.data.data);
+        setUser(res.data.data);     // Update user state for display
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error('Error fetching profile:', err);
+        setLoading(false);
+      });
   }, []);
 
+  // Update formData when user changes (so form pre-fills with fetched data)
+  useEffect(() => {
+    setFormData({ ...user });
+  }, [user]);
+
+  // Handler for input change on the form
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [name]: value,
     }));
   };
 
+  // Handler for profile update submission
   const handleSubmit = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.put(
-        `http://localhost:5000/api/updateProfile/1`, 
+      const response = await axiosInstance.put(
+        `/api/updateProfile/1`, 
         {
           name: formData.name,
           email: formData.email,
@@ -77,7 +93,7 @@ const UserProfile = () => {
       );
       
       if (response.data.status) {
-        setUser(response.data.data);
+        setUser(response.data.data);      // Update with new profile data
         setEditMode(false);
         setSuccess(true);
         setSnackbarOpen(true);
@@ -92,11 +108,13 @@ const UserProfile = () => {
     }
   };
 
+  // Handler to cancel edit mode
   const handleCancel = () => {
     setFormData({ ...user });
     setEditMode(false);
   };
 
+  // Handler for closing Snackbar
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
   };
@@ -111,13 +129,28 @@ const UserProfile = () => {
 
   return (
     <div>
-      <Navbar/>
-      <Card sx={{ minHeight: 300, maxWidth: 500, margin: 'auto', boxShadow: 3, borderRadius: 2, my: 7, p: 3 }}>
+      <Navbar />
+      <Card 
+        sx={{ 
+          minHeight: 300, 
+          maxWidth: 500, 
+          margin: 'auto', 
+          boxShadow: 3, 
+          borderRadius: 2, 
+          my: 7, 
+          p: 3 
+        }}
+      >
         <CardContent sx={{ display: 'flex', alignItems: 'center' }}>
           <Avatar
             alt={user.name}
-            src={user.imageUrl}
-            sx={{ width: 120, height: 120, marginRight: 3, border: `3px solid ${blue[500]}` }}
+            src={user.imageUrl || '/default-avatar.png'} // Fallback image if imageUrl is empty
+            sx={{ 
+              width: 120, 
+              height: 120, 
+              marginRight: 3, 
+              border: `3px solid ${blue[500]}` 
+            }}
           />
           <Box sx={{ flexGrow: 1 }}>
             {editMode ? (
@@ -187,27 +220,27 @@ const UserProfile = () => {
         </CardContent>
       </Card>
 
-      {/* Booking History */}
+      {/* Booking History Section */}
       <div>
         <Accordion>
           <AccordionSummary
-            expandIcon={<ArrowDownwardIcon/>}
+            expandIcon={<ArrowDownwardIcon />}
             aria-controls="panel1-content"
             id="panel1-header"
-          >    
+          >
             <Typography variant="h5" component="h5">
               Booking Details
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              <BookingHistory/>
+              <BookingHistory />
             </Typography>
           </AccordionDetails>
         </Accordion>
       </div>
 
-      <Footer/>
+      <Footer />
 
       {/* Snackbar for notifications */}
       <Snackbar
