@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Container,
@@ -12,7 +13,6 @@ import {
 import LoginIcon from "@mui/icons-material/Login";
 import { useSnackbar } from "notistack";
 import "../../styles/common/SignIn.css";
-import axiosInstance from "../../utils/axiosInstance";
 
 function SignIn() {
   const [email, setEmail] = useState("");
@@ -46,7 +46,7 @@ function SignIn() {
       enqueueSnackbar(response.data.message, { variant: "success" });
 
       // Redirect based on role
-      switch (response.data.role) {
+      switch(response.data.role) {
         case 'ADMIN':
           navigate('/admin/dashboard');
           break;
@@ -118,9 +118,9 @@ function SignIn() {
             fullWidth
             variant="contained"
             disabled={isLoading}
-            sx={{
-              py: 1,
-              mt: 2,
+            sx={{ 
+              py: 1, 
+              mt: 2, 
               backgroundColor: "#143D60",
               '&:disabled': {
                 backgroundColor: '#cccccc'
