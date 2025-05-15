@@ -56,7 +56,7 @@ function App() {
           <Route path="/unauthorized" element={<Unauthorized />} />
 
           {/* Admin Protected Routes */}
-          <Route path="/admin-dashboard" element={
+          <Route path="/admin" element={
             <AuthGuard requiredRole="ADMIN">
               <AdminDashboard />
             </AuthGuard>
