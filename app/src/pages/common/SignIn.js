@@ -54,8 +54,9 @@ function SignIn() {
       } else if (role === "BUSINESS") {
         navigate("/manage-events");
       } else if (role === "TOURIST") {
-        navigate("/user-profile");
+        navigate("/");
       }
+      logUserdata();
     } catch (error) {
       const errorMsg =
         error.response?.data?.error ||
@@ -64,6 +65,20 @@ function SignIn() {
       enqueueSnackbar(errorMsg, { variant: "error" });
     }
   };
+
+
+const logUserdata = async () => {
+  try {
+    const response = await axiosInstance.get("/api/tourist/userDetails");
+    console.log("Logged in user details:", response.data.user);
+     localStorage.setItem("userId", response.data.user.id);
+    return response.data.user;
+  } catch (err) {
+    console.error("Failed to fetch user data", err);
+  }
+};
+
+
 
   return (
     <Container maxWidth="xs">

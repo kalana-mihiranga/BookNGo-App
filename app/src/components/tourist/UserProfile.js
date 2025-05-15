@@ -22,34 +22,33 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import axiosInstance from '../../utils/axiosInstance';
 
 const UserProfile = () => {
-  // Initial user state (will be updated after fetching profile)
+
   const [user, setUser] = useState({
     name: '',
     email: '',
     contactNo: '',
     imageUrl: ''
   });
-  
-  // State for controlling edit mode and form data
+
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({ ...user });
-  
-  // States for error, success, and Snackbar notifications
+
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
-  // Profile and loading state for fetching profile data
+
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Fetch profile data on component mount
+
   useEffect(() => {
-    axiosInstance.get('/api/tourist/touristProfile/1')
+    const userId = localStorage.getItem("userId");
+  axiosInstance.get(`/api/tourist/touristProfile/${userId}`)
       .then(res => {
-        // Assuming the API response structure is { data: { id, name, email, ... } }
+
         setProfile(res.data.data);
-        setUser(res.data.data);     // Update user state for display
+        setUser(res.data.data);   
         setLoading(false);
       })
       .catch(err => {
