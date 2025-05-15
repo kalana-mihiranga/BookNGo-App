@@ -1,196 +1,86 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Button,
   Container,
+  Divider,
   Drawer,
   IconButton,
   Paper,
   Stack,
   Tab,
   Tabs,
+  TextField,
   Typography,
-  Avatar,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from "@mui/material";
+  Avatar
+} from '@mui/material';
 import {
   Add,
   CalendarToday,
+  Delete,
   Group,
   MonetizationOn,
-  Email,
-  Business,
-  Phone,
-  Logout,
-  AccessTime,
-} from "@mui/icons-material";
-import CloseIcon from "@mui/icons-material/Close";
-import EventFormDialog from "../../components/business/BusinessEventCreate";
-import BookingsTabContent from "./components/BookingsTabContent";
-import EventsTabContent from "./components/EventTabContent";
-import AnalyticsTabContent from "./components/AnalyticsTabContent";
-import axiosInstance from "../../utils/axiosInstance";
-import { useSnackbar } from "notistack";
-import { logout } from "../../utils/logout";
-import ConfirmLogoutDialog from "../../components/logout/ConfirmLogoutDialog";
+  Search,
+  FilterList
+} from '@mui/icons-material';
+import EventsTab from './EventsTab';
+import BookingsTab from './BookingsTab';
+import AnalyticsTab from './AnalyticsTab';
+import ProfileDrawer from './ProfileDrawer';
+import EventsTabContent from './EventsTabContent'; 
 
 const ManageEvents = () => {
-  const [dialogOpen, setDialogOpen] = useState(false);
   const [tabValue, setTabValue] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
   const [profileOpen, setProfileOpen] = useState(false);
-  const [details, setDetails] = useState({});
-  const [confirmLogoutOpen, setConfirmLogoutOpen] = useState(false);
   const navigate = useNavigate();
 
-  const { enqueueSnackbar } = useSnackbar();
-
-  const handleLogout = () => {
-    logout(navigate, enqueueSnackbar);
+  const businessUser = {
+    name: "Kalana Mihiranga",
+    email: "kalana@business.com",
+    company: "Event Masters",
+    phone: "+94 76 123 4567",
+    avatar: "https://randomuser.me/api/portraits/men/45.jpg"
   };
-
-  const avatar = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Ffree-photos-vectors%2Fdefault-user&psig=AOvVaw10UdcwpPCLtdoDa25YWk53&ust=1747024093817000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCPjv9oXKmo0DFQAAAAAdAAAAABAE";
-  const phone = "+94 71 2543635"
-
-  const fetchDetails = async () => {
-    try {
-      const response = await axiosInstance.get("/api/business/getBusinessBasicDetails");
-      if (response.data.data) {
-        setDetails(response.data.data);
-      }
-    } catch (error) {
-      console.error("Failed to fetch details", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchDetails();
-  }, []);
 
   const toggleProfile = () => setProfileOpen(!profileOpen);
   const handleTabChange = (event, newValue) => setTabValue(newValue);
-
-  const ProfileDrawer = () => (
-    <Drawer
-      anchor="right"
-      open={profileOpen}
-      onClose={toggleProfile}
-      sx={{
-        "& .MuiDrawer-paper": {
-          width: 350,
-          boxSizing: "border-box",
-        },
-      }}
-    >
-      <Box
-        sx={{ p: 3, height: "100%", display: "flex", flexDirection: "column" }}
-      >
-        <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-          <IconButton onClick={toggleProfile}>
-            <CloseIcon />
-          </IconButton>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            mb: 4,
-          }}
-        >
-          <Avatar
-            src={avatar}
-            sx={{ width: 120, height: 120, mb: 2 }}
-          />
-          <Typography variant="h5" gutterBottom>
-            {details.name}
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            Event Organizer
-          </Typography>
-        </Box>
-        <List>
-          <ListItem>
-            <ListItemIcon>
-              <Email />
-            </ListItemIcon>
-            <ListItemText primary="Email" secondary={details.email} />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <Business />
-            </ListItemIcon>
-            <ListItemText primary="Company" secondary={details.name} />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <Phone />
-            </ListItemIcon>
-            <ListItemText primary="Phone" secondary={phone} />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <AccessTime />
-            </ListItemIcon>
-            <ListItemText primary="Account Created" secondary={new Date(details.createdAt).toLocaleDateString()} />
-          </ListItem>
-        </List>
-        <Box sx={{ mt: "auto", pt: 2 }}>
-          <Button
-            variant="outlined"
-            color="error"
-            startIcon={<Logout />}
-            fullWidth
-            onClick={() => setConfirmLogoutOpen(true)}
-          >
-            Logout
-          </Button>
-        </Box>
-      </Box>
-    </Drawer>
-  );
+  const handleCreateEvent = () => navigate('/create-event');
 
   return (
-    <Box
-      sx={{ backgroundColor: "#f5f7fa", minHeight: "100vh", display: "flex" }}
-    >
-      <ProfileDrawer />
-
-      <ConfirmLogoutDialog
-        open={confirmLogoutOpen}
-        onClose={() => setConfirmLogoutOpen(false)}
-        onConfirm={handleLogout}
+    <Box sx={{ backgroundColor: '#f5f7fa', minHeight: '100vh', display: 'flex' }}>
+      <ProfileDrawer 
+        open={profileOpen} 
+        onClose={toggleProfile} 
+        userProfile={businessUser}
+        navigate={navigate}
       />
 
       <Box sx={{ flexGrow: 1 }}>
-        <Box sx={{ backgroundColor: "white", boxShadow: 1, py: 3 }}>
+        {/* Header Section */}
+        <Box sx={{ backgroundColor: 'white', boxShadow: 1, py: 3 }}>
           <Container maxWidth="xl">
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-            >
+            <Stack direction="row" justifyContent="space-between" alignItems="center">
               <Box>
                 <Typography variant="h6" color="text.secondary">
                   Welcome back,
                 </Typography>
                 <Typography variant="h4" fontWeight="bold" color="primary">
-                  Hello {details.name ? details.name.split(" ")[0] : "User"}
+                  Hello {businessUser.name.split(' ')[0]}
                 </Typography>
               </Box>
               <Stack direction="row" spacing={2} alignItems="center">
                 <Button
                   variant="contained"
                   startIcon={<Add />}
-                  onClick={() => setDialogOpen(true)}
+                  onClick={handleCreateEvent}
+                  sx={{ px: 4, py: 1.5 }}
                 >
-                  EVENT
+                  Create Event
                 </Button>
                 <IconButton onClick={toggleProfile}>
-                  <Avatar src={avatar} />
+                  <Avatar src={businessUser.avatar} />
                 </IconButton>
               </Stack>
             </Stack>
@@ -198,6 +88,7 @@ const ManageEvents = () => {
         </Box>
 
         <Container maxWidth="xl" sx={{ py: 4 }}>
+          {/* Tabs and Search Section */}
           <Paper sx={{ mb: 3, borderRadius: 2 }}>
             <Tabs
               value={tabValue}
@@ -212,15 +103,29 @@ const ManageEvents = () => {
             </Tabs>
           </Paper>
 
-          {tabValue === 0 && <EventsTabContent />}
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
+            <TextField
+              placeholder={tabValue === 0 ? "Search events..." : tabValue === 1 ? "Search bookings..." : "Search..."}
+              variant="outlined"
+              size="small"
+              InputProps={{
+                startAdornment: <Search color="action" sx={{ mr: 1 }} />
+              }}
+              sx={{ width: 300 }}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <Button variant="outlined" startIcon={<FilterList />}>
+              Filters
+            </Button>
+          </Box>
 
-          {tabValue === 1 && <BookingsTabContent />}
-
-          {tabValue === 2 && <AnalyticsTabContent />}
+          {/* Tab Content Section */}
+          {tabValue === 0 && <EventsTab searchTerm={searchTerm} />}
+          {tabValue === 1 && <BookingsTab searchTerm={searchTerm} />}
+          {tabValue === 2 && <AnalyticsTab />}
         </Container>
       </Box>
-
-      <EventFormDialog open={dialogOpen} onClose={() => setDialogOpen(false)} />
     </Box>
   );
 };
