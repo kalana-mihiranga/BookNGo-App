@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Container,
@@ -13,6 +12,7 @@ import {
 import LoginIcon from "@mui/icons-material/Login";
 import { useSnackbar } from "notistack";
 import "../../styles/common/SignIn.css";
+import axiosInstance from "../../utils/axiosInstance";
 
 function SignIn() {
   const [email, setEmail] = useState("");
