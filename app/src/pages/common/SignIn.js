@@ -13,6 +13,7 @@ import LoginIcon from "@mui/icons-material/Login";
 import { useSnackbar } from "notistack";
 import "../../styles/common/SignIn.css";
 import axiosInstance from "../../utils/axiosInstance";
+import axios from "axios";
 
 function SignIn() {
   const [email, setEmail] = useState("");
@@ -45,21 +46,15 @@ function SignIn() {
 
       enqueueSnackbar(response.data.message, { variant: "success" });
 
-      // Redirect based on role
-      switch (response.data.role) {
-        case 'ADMIN':
-          navigate('/admin/dashboard');
-          break;
-        case 'TOURIST':
-          navigate('/business/dashboard');
-          break;
-        case 'BUSINESS':
-          navigate('/manage-events');
-          break;
-        default:
-          navigate('/');
+      const role = response.data.role;
+      if (role === "ADMIN") {
+        navigate("/admin-dashboard");
+      } else if (role === "BUSINESS") {
+        navigate("/manage-events");
+      } else if (role === "TOURIST") {
+        navigate("/");
       }
-
+      logUserdata();
     } catch (error) {
       const errorMsg = error.response?.data?.message || "Signin failed. Please try again.";
       enqueueSnackbar(errorMsg, { variant: "error" });
@@ -67,6 +62,20 @@ function SignIn() {
       setIsLoading(false);
     }
   };
+
+
+const logUserdata = async () => {
+  try {
+    const response = await axiosInstance.get("/api/tourist/userDetails");
+    console.log("Logged in user details:", response.data.user);
+     localStorage.setItem("userId", response.data.user.id);
+    return response.data.user;
+  } catch (err) {
+    console.error("Failed to fetch user data", err);
+  }
+};
+
+
 
   return (
     <Container maxWidth="xs">

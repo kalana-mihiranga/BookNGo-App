@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import axiosInstance from "../../utils/axiosInstance";
 import { 
   Container,
   Typography,
@@ -7,38 +8,51 @@ import {
   Button,
   Paper,
   Box,
-  InputAdornment,
-  IconButton
+  IconButton,
+  CircularProgress,
+  Alert
 } from "@mui/material";
 import {
   CreditCard,
-  Event,
+  Event as EventIcon,
   Security,
   Person,
   Visibility,
-  VisibilityOff
+  VisibilityOff,
+  CheckCircle
 } from "@mui/icons-material";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 
 function Payment() {
-  const { eventId } = useParams();
+  const { state } = useLocation();
+  const navigate = useNavigate();
   const [paymentDetails, setPaymentDetails] = useState({
     cardNumber: "",
     expiryDate: "",
     cvv: "",
     cardholderName: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(null);
   const [showCvv, setShowCvv] = useState(false);
+
+  const bookingData = state || {};
+  const { eventId, priceCategoryId, ticketCount, paymentAmount } = bookingData;
+
+  useEffect(() => {
+    if (!eventId || !priceCategoryId || !ticketCount || !paymentAmount) {
+      navigate('/');
+    }
+  }, [eventId, priceCategoryId, ticketCount, paymentAmount, navigate]);
 
   const handleChange = (e) => {
     let { name, value } = e.target;
     
-    // Format card number with spaces
     if (name === "cardNumber") {
       value = value.replace(/\s/g, '').replace(/(\d{4})/g, '$1 ').trim();
     }
-    // Format expiry date with slash
     if (name === "expiryDate" && value.length === 2 && !paymentDetails.expiryDate.includes('/')) {
       value += '/';
     }
@@ -50,63 +64,77 @@ function Payment() {
     setShowCvv(!showCvv);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Payment Successful!");
+    setLoading(true);
+    setError(null);
+
+    try {
+      const payload = {
+        eventId,
+        priceCategoryId,
+        ticketCount,
+        paymentAmount,
+        paymentMethod: "Credit Card",
+        cardLastFour: paymentDetails.cardNumber.replace(/\s/g, '').slice(-4)
+      };
+
+      const response = await axiosInstance.post('/api/tourist/eventBooking', payload);
+      setSuccess(true);
+      //EMAIL SERVICE
+      
+    } catch (err) {
+      setError(err.response?.data?.message || "An error occurred during payment.");
+    } finally {
+      setLoading(false);
+    }
   };
 
+  if (success) {
+    return (
+      <Box sx={{ 
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column'
+      }}>
+        <Navbar />
+        <Container maxWidth="sm" sx={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <Box textAlign="center">
+            <CheckCircle color="success" sx={{ fontSize: 60, mb: 2 }} />
+            <Typography variant="h6" gutterBottom>
+              Payment Successful
+            </Typography>
+            <Button 
+              variant="contained" 
+              onClick={() => navigate('/')}
+              sx={{ mt: 3 }}
+              fullWidth
+            >
+              Back to Home
+            </Button>
+          </Box>
+        </Container>
+        <Footer />
+      </Box>
+    );
+  }
+
   return (
-    <Box sx={{ 
-      backgroundColor: '#f5f5f5', 
-      minHeight: '100vh',
-      display: 'flex',
-      flexDirection: 'column'
-    }}>
+    <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Navbar />
-      
-      <Container 
-        maxWidth="sm" 
-        sx={{ 
-          py: 4,
-          flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center'
-        }}
-      >
-        <Paper 
-          elevation={3} 
-          sx={{ 
-            p: 4, 
-            borderRadius: 2,
-            width: '100%'
-          }}
-        >
-          <Typography 
-            variant="h4" 
-            component="h1" 
-            gutterBottom 
-            sx={{ 
-              fontWeight: 'bold', 
-              mb: 3,
-              color: 'primary.main',
-              textAlign: 'center'
-            }}
-          >
-            Secure Payment
+      <Container maxWidth="sm" sx={{ py: 2, flex: 1 }}>
+        <Paper elevation={3} sx={{ p: 3 }}>
+          <Typography variant="h6" gutterBottom sx={{ textAlign: 'center' }}>
+            Payment Details
           </Typography>
           
-          <Typography 
-            variant="subtitle1" 
-            sx={{ 
-              mb: 3,
-              textAlign: 'center',
-              color: 'text.secondary'
-            }}
-          >
-            Booking for Event #{eventId}
-          </Typography>
-          
+          <Box sx={{ backgroundColor: '#f5f5f5', p: 2, mb: 3, borderRadius: 1 }}>
+            <Typography>Tickets: {ticketCount}</Typography>
+            <Typography fontWeight="bold">Total: ${paymentAmount?.toFixed(2)}</Typography>
+          </Box>
+
+          {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+
           <form onSubmit={handleSubmit}>
             <TextField
               fullWidth
@@ -118,11 +146,7 @@ function Payment() {
               required
               sx={{ mb: 2 }}
               InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Person color="action" />
-                  </InputAdornment>
-                ),
+                startAdornment: <Person color="action" />
               }}
             />
             
@@ -137,15 +161,11 @@ function Payment() {
               inputProps={{ maxLength: 19 }}
               sx={{ mb: 2 }}
               InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <CreditCard color="action" />
-                  </InputAdornment>
-                ),
+                startAdornment: <CreditCard color="action" />
               }}
             />
             
-            <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+            <Box display="flex" gap={2} mb={2}>
               <TextField
                 fullWidth
                 label="Expiry Date"
@@ -157,11 +177,7 @@ function Payment() {
                 required
                 inputProps={{ maxLength: 5 }}
                 InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Event color="action" />
-                    </InputAdornment>
-                  ),
+                  startAdornment: <EventIcon color="action" />
                 }}
               />
               <TextField
@@ -175,23 +191,12 @@ function Payment() {
                 required
                 inputProps={{ maxLength: 3 }}
                 InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Security color="action" />
-                    </InputAdornment>
-                  ),
+                  startAdornment: <Security color="action" />,
                   endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle cvv visibility"
-                        onClick={toggleCvvVisibility}
-                        edge="end"
-                        size="small"
-                      >
-                        {showCvv ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
+                    <IconButton onClick={toggleCvvVisibility} edge="end" size="small">
+                      {showCvv ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  )
                 }}
               />
             </Box>
@@ -201,31 +206,14 @@ function Payment() {
               fullWidth
               variant="contained"
               size="large"
-              sx={{ 
-                mt: 3,
-                py: 1.5,
-                fontWeight: 'bold'
-              }}
+              disabled={loading}
+              sx={{ mt: 1, py: 1 }}
             >
-              Confirm Payment
+              {loading ? <CircularProgress size={24} /> : 'Pay Now'}
             </Button>
           </form>
-          
-          <Box sx={{ 
-            mt: 3,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 1
-          }}>
-            <Security color="success" fontSize="small" />
-            <Typography variant="caption" color="text.secondary">
-              Your payment is secured with 256-bit encryption
-            </Typography>
-          </Box>
         </Paper>
       </Container>
-      
       <Footer />
     </Box>
   );

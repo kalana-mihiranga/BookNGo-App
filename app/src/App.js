@@ -12,7 +12,7 @@ import SignUp from "./pages/common/SignUp";
 import Home from "./pages/common/Home";
 import Event from "./pages/common/Event";
 import Landing from "./pages/common/Landing/Landing";
-import Events from "./components/Events"; // Using existing Events component instead of EventsList
+
 
 // Admin Pages
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -22,18 +22,20 @@ import EventManagement from "./pages/admin/EventManagement";
 import UserManagement from "./pages/admin/UserManagement";
 
 // Business Pages
-import BusinessDashboard from "./pages/business/BusinessDashboard";
+// import BusinessDashboard from "./pages/business/BusinessDashboard";
 import ManageEvents from "./pages/business/ManageEvents";
-import EventForm from "./components/EventForm"; // Using existing component
-import EventCRUD from "./components/EventCRUD"; // Using existing component
-import TourismDashboard from "./pages/business/DBoard";
+// import EventForm from "./components/EventForm"; 
+// import EventCRUD from "./components/EventCRUD"; 
+// import TourismDashboard from "./pages/business/DBoard";
 
 // Tourist Pages
 import Tourist from "./components/tourist/index";
 import BookingHistory from "./components/tourist/BookedEvents";
 import UserProfile from "./components/tourist/UserProfile";
 import Payment from "./components/tourist/Payment";
+import BusinessEvents from "./components/tourist/BusinessEvents";
 import HomePage from "./components/home/HomePage";
+
 
 function App() {
   return (
@@ -48,7 +50,6 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/events" element={<Events />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/event" element={<Event />} />
@@ -67,10 +68,27 @@ function App() {
             <Route path="user-management" element={<UserManagement />} />
           </Route>
 
+          <Route path="/payment/:eventId" element={<Payment />} />
+          <Route path="/tourist" element={<Tourist />} />
+          <Route path="/home" element={<HomePage />} />
+          {/* <Route path="/crud" element={<EventCRUD/>} /> */}
+          <Route path="/event" element={<Event />} />
+          {/* common routes */}
+          <Route path="/" element={<Landing />} />
+          <Route path="/booking-history" element={<BookingHistory />} />
+          <Route path="/user-profile" element={<UserProfile />} />
+          <Route path="/manage-events" element={<ManageEvents />} />
+          <Route path="/payment" element={
+                <AuthGuard>
+               <Payment />
+                </AuthGuard>} />
+          <Route path="/test" element={<BusinessEvents/>} />
+
+
           {/* Business Protected Routes */}
           <Route path="/business-dashboard" element={
             <AuthGuard requiredRole="BUSINESS">
-              <BusinessDashboard />
+              {/* <BusinessDashboard /> */}
             </AuthGuard>
           } />
           <Route path="/manage-events" element={
@@ -80,17 +98,17 @@ function App() {
           } />
           <Route path="/bd" element={
             <AuthGuard requiredRole="BUSINESS">
-              <TourismDashboard />
+              {/* <TourismDashboard /> */}
             </AuthGuard>
           } />
           <Route path="/create-event" element={
             <AuthGuard requiredRole="BUSINESS">
-              <EventForm />
+              {/* <EventForm /> */}
             </AuthGuard>
           } />
           <Route path="/crud" element={
             <AuthGuard requiredRole="BUSINESS">
-              <EventCRUD />
+              {/* <EventCRUD /> */}
             </AuthGuard>
           } />
 
@@ -125,6 +143,7 @@ function App() {
               <HomePage />
             </AuthGuard>
           } />
+
         </Routes>
       </Router>
     </SnackbarProvider>
