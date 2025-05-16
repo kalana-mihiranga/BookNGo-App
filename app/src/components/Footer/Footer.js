@@ -32,7 +32,7 @@ export default function Footer() {
             <PlaceIcon sx={{ verticalAlign: 'middle', mr: 1, color: ICON_COLOR }} /> 123 Main Street, City, Country
           </Typography>
           <Typography variant="body2" sx={{ mb: 1, color: TEXT_COLOR }}>
-            <EmailIcon sx={{ verticalAlign: 'middle', mr: 1, color: ICON_COLOR }} /> info@example.com
+            <EmailIcon sx={{ verticalAlign: 'middle', mr: 1, color: ICON_COLOR }} /> info@bookngo.com
           </Typography>
           <Typography variant="body2" sx={{ mb: 1, color: TEXT_COLOR }}>
             <PhoneIcon sx={{ verticalAlign: 'middle', mr: 1, color: ICON_COLOR }} /> +1 123 456 7890

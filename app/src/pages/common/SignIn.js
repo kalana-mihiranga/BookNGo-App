@@ -45,16 +45,18 @@ function SignIn() {
 
       localStorage.setItem("authToken", response.data.token);
       localStorage.setItem("userRole", response.data.role);
+      localStorage.setItem("userId", response.data.userId);
+
 
       clearForm();
 
       const role = response.data.role;
       if (role === "ADMIN") {
-        navigate("/admin-dashboard");
+        navigate("/admin/dashboard");
       } else if (role === "BUSINESS") {
         navigate("/manage-events");
       } else if (role === "TOURIST") {
-        navigate("/user-profile");
+        navigate("/");
       }
     } catch (error) {
       const errorMsg =
