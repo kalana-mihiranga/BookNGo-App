@@ -52,7 +52,7 @@ function SignIn() {
 
       const role = response.data.role;
       if (role === "ADMIN") {
-        navigate("/admin-dashboard");
+        navigate("/admin/dashboard");
       } else if (role === "BUSINESS") {
         navigate("/manage-events");
       } else if (role === "TOURIST") {

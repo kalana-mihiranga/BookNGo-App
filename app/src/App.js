@@ -49,16 +49,16 @@ function App() {
           <Route path="/booking-history" element={<BookingHistory />} />
           <Route path="/user-profile" element={<UserProfile />} />
            <Route path="/manage-events" element={
-            <AuthGuard requiredRole="BUSINESS">
+            // <AuthGuard requiredRole="BUSINESS">
               <ManageEvents />
-            </AuthGuard>
+            // </AuthGuard>
           } />
           {/* admin routes */}
           <Route path="/payment" element={<Payment />} />
           <Route path="/admin" element={
-            <AuthGuard requiredRole="ADMIN">
+            // <AuthGuard requiredRole="ADMIN">
               <AdminDashboard />
-             </AuthGuard>
+            //  </AuthGuard>
           }>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="setting" element={<Setting />} />
