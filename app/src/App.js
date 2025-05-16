@@ -37,11 +37,16 @@ function App() {
           <Route path="/events" element={<Events />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/admin-dashboard" element={<AdminDashboard />}>
+           <Route path="/admin" element={
+            <AuthGuard requiredRole="ADMIN">
+              <AdminDashboard />
+             </AuthGuard>
+          }>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="setting" element={<Setting />} />
             <Route path="approval" element={<EventManagement />} />
-            <Route path="user-management" element={<UserManagement />} />
+            <Route path="event-management" element={<UserManagement />} />
+            <Route path="business-management" element={<BusinessManagement />} />
           </Route>
           <Route path="/payment/:eventId" element={<Payment />} />
           <Route path="/tourist" element={<Tourist />} />

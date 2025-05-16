@@ -225,3 +225,7 @@ color: inherit; /* Ensure the color is inherited from the parent */
 }
 
 }
+.sidebar-menu-link.active {
+  background-color: #535b64; /* Blue background */
+  color: white; /* White text */
+}
