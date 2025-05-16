@@ -11,17 +11,23 @@ function AdminDashboard() {
     <div className="admin-dashboard col">
       <div className="sbar p-0">
         <div className="sidebar-header">
-          <div className="m-3 d-flex flex-row justify-content-start align-items-center">
+          <div className="m-3 me-0 d-flex flex-row justify-content-start align-items-center">
             <img
               className="profile-pic m-0 ms-0"
               src="https://images.pexels.com/photos/14653174/pexels-photo-14653174.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
               alt="Profile"
             />
-            <div>
-              <p className="user-name pb-0 mb-0">Admin</p>
-              <p className="email pb-0 mb-0">adminuser@gmail.com</p>
+            <div class="d-flex justify-content-end">
+              <div>
+                <p className="user-name pb-0 mb-0">Admin</p>
+                <p className="email pb-0 mb-0">adminuser@gmail.com</p>
+              </div>
+              <button className="logout logout  m-0 p-2 pe-3 ps-3 ms-4 ">
+                <i className="bi bi-box-arrow-right fs-4"></i>
+              </button>
             </div>
           </div>
+
         </div>
 
         <ul className="sidebar-menu pt-0 mt-0">
