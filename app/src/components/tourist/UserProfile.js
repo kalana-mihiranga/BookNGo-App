@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { blue } from '@mui/material/colors';
-import Navbar from '../Navbar/Navbar';
+import Navbar from '../../components/tourist/NavBar';
 import Footer from '../Footer/Footer';
 import BookingHistory from './BookedEvents';
 import axiosInstance from '../../utils/axiosInstance';

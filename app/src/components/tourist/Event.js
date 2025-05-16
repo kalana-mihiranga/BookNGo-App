@@ -23,7 +23,7 @@ import {
   CalendarToday,
   Schedule
 } from '@mui/icons-material';
-import Navbar from '../../components/Navbar/Navbar';
+import Navbar from '../../components/tourist/NavBar';
 import Footer from '../../components/Footer/Footer';
 
 const Event = () => {
