@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axiosInstance from '../../utils/axiosInstance';
 import {
@@ -7,7 +7,6 @@ import {
   Container,
   Card,
   CardMedia,
-  CardContent,
   Chip,
   Button,
   Divider,
@@ -15,7 +14,6 @@ import {
   ListItem,
   ListItemText,
   TextField,
-  IconButton,
   Paper,
   Grid,
   CircularProgress
@@ -23,9 +21,7 @@ import {
 import {
   LocationOn,
   CalendarToday,
-  Schedule,
-  Person,
-  AttachMoney
+  Schedule
 } from '@mui/icons-material';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';

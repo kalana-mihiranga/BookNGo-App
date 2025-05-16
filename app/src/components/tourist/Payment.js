@@ -8,7 +8,6 @@ import {
   Button,
   Paper,
   Box,
-  InputAdornment,
   IconButton,
   CircularProgress,
   Alert
