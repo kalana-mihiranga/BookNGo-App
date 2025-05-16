@@ -22,6 +22,7 @@ import Setting from "./pages/admin/Setting";
 import EventManagement from "./pages/admin/EventManagement";
 import UserManagement from "./pages/admin/UserManagement";
 import BusinessManagement from "./pages/admin/BusinessManagement";
+import AuthGuard from "./components/AuthGuard";
 
 function App() {
   return (
@@ -38,7 +39,23 @@ function App() {
           <Route path="/events" element={<Events />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<Contact />} />
-           <Route path="/admin" element={
+          <Route path="/payment/:eventId" element={<Payment />} />
+          <Route path="/tourist" element={<Tourist />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/crud" element={<EventCRUD />} />
+          <Route path="/event" element={<Event />} />
+          {/* common routes */}
+          <Route path="/" element={<Landing />} />
+          <Route path="/booking-history" element={<BookingHistory />} />
+          <Route path="/user-profile" element={<UserProfile />} />
+           <Route path="/manage-events" element={
+            <AuthGuard requiredRole="BUSINESS">
+              <ManageEvents />
+            </AuthGuard>
+          } />
+          {/* admin routes */}
+          <Route path="/payment" element={<Payment />} />
+          <Route path="/admin" element={
             <AuthGuard requiredRole="ADMIN">
               <AdminDashboard />
              </AuthGuard>
@@ -49,17 +66,6 @@ function App() {
             <Route path="event-management" element={<UserManagement />} />
             <Route path="business-management" element={<BusinessManagement />} />
           </Route>
-          <Route path="/payment/:eventId" element={<Payment />} />
-          <Route path="/tourist" element={<Tourist />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/crud" element={<EventCRUD />} />
-          <Route path="/event" element={<Event />} />
-          {/* common routes */}
-          <Route path="/" element={<Landing />} />
-          <Route path="/booking-history" element={<BookingHistory />} />
-          <Route path="/user-profile" element={<UserProfile />} />
-          <Route path="/manage-events" element={<ManageEvents />} />
-          <Route path="/payment" element={<Payment />} />
         </Routes>
       </Router>
     </SnackbarProvider>
