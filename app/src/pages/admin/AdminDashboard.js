@@ -1,10 +1,18 @@
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import "../../styles/admin/AdminDashboard.css";
+import { useSnackbar } from "notistack";
+import { logout } from "../../../src/utils/logout";
 
 function AdminDashboard() {
   const navigate = useNavigate();
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
+
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleLogout = () => {
+    logout(navigate, enqueueSnackbar);
+  };
 
 
   return (
@@ -22,7 +30,7 @@ function AdminDashboard() {
                 <p className="user-name pb-0 mb-0">Admin</p>
                 <p className="email pb-0 mb-0">adminuser@gmail.com</p>
               </div>
-              <button className="logout logout  m-0 p-2 pe-3 ps-3 ms-4 ">
+              <button onClick={handleLogout} className="logout logout  m-0 p-2 pe-3 ps-3 ms-4 ">
                 <i className="bi bi-box-arrow-right fs-4"></i>
               </button>
             </div>
