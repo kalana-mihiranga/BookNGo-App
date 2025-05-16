@@ -78,7 +78,10 @@ function App() {
           <Route path="/booking-history" element={<BookingHistory />} />
           <Route path="/user-profile" element={<UserProfile />} />
           <Route path="/manage-events" element={<ManageEvents />} />
-          <Route path="/payment" element={<Payment />} />
+          <Route path="/payment" element={
+                <AuthGuard>
+               <Payment />
+                </AuthGuard>} />
           <Route path="/test" element={<BusinessEvents/>} />
 
 
