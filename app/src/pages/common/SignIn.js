@@ -45,6 +45,8 @@ function SignIn() {
 
       localStorage.setItem("authToken", response.data.token);
       localStorage.setItem("userRole", response.data.role);
+      localStorage.setItem("userId", response.data.userId);
+
 
       clearForm();
 
