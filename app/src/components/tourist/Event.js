@@ -81,7 +81,7 @@ return (
   sx={{
     py: 4,
     px: 2,
-    width: '70%',
+    width: '80%',
     maxWidth: '1280px',
     mx: 'auto',
   }}>
@@ -248,7 +248,7 @@ return (
                 <Box display="flex" justifyContent="space-between">
                   <Typography>{ticket.name}</Typography>
                   <Typography fontWeight={600} color="primary">
-                    ${ticket.price.toFixed(2)}
+                    Lkr {ticket.price.toFixed(2)}
                   </Typography>
                 </Box>
               </Paper>
@@ -303,7 +303,7 @@ return (
                   <Typography>Total</Typography>
                   <Typography>
                     {/* ${(selectedTicket.price * quantity * (1 - event.discount / 100)).toFixed(2)} */}
-                    ${(selectedTicket.price * quantity).toFixed(2)}
+                    Lkr {(selectedTicket.price * quantity).toFixed(2)}
 
                   </Typography>
                 </Box>

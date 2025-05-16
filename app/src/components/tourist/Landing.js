@@ -217,7 +217,7 @@ const handleSeeMoreClick = (event) => {
                       {event.location} • {new Date(event.date).toLocaleDateString()}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      Price: ${event.price}
+                      Price: Lkr {event.price}
                     </Typography>
                   </CardContent>
                   <CardContent
