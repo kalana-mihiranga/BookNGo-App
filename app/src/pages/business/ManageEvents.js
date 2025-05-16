@@ -71,10 +71,13 @@ const ManageEvents = () => {
                 </Typography>
               </Box>
               <Stack direction="row" spacing={2} alignItems="center">
-                <Button variant="contained"                   
+                <Button
+                  variant="contained"
                   startIcon={<Add />}
-                  onClick={() => setDialogOpen(true)}>
-                    EVENT
+                  onClick={handleCreateEvent}
+                  sx={{ px: 4, py: 1.5 }}
+                >
+                  Create Event
                 </Button>
                 <IconButton onClick={toggleProfile}>
                   <Avatar src={businessUser.avatar} />
@@ -123,7 +126,6 @@ const ManageEvents = () => {
           {tabValue === 2 && <AnalyticsTab />}
         </Container>
       </Box>
-      <EventFormDialog open={dialogOpen} onClose={() => setDialogOpen(false)} />
     </Box>
   );
 };
