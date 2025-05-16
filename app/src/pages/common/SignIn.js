@@ -45,6 +45,8 @@ function SignIn() {
 
       localStorage.setItem("authToken", response.data.token);
       localStorage.setItem("userRole", response.data.role);
+      localStorage.setItem("userId", response.data.userId);
+
 
       clearForm();
 
@@ -54,7 +56,7 @@ function SignIn() {
       } else if (role === "BUSINESS") {
         navigate("/manage-events");
       } else if (role === "TOURIST") {
-        navigate("/user-profile");
+        navigate("/");
       }
     } catch (error) {
       const errorMsg =
