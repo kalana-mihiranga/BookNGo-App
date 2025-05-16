@@ -14,11 +14,13 @@ import {
   IconButton,
   TextField,
   Button,
-  Pagination
+  Pagination,
 } from "@mui/material";
-import { MoreVert, Search, FilterList } from "@mui/icons-material";
-import Chip from '@mui/material/Chip';
+import { Visibility, Search, FilterList } from "@mui/icons-material";
+import Chip from "@mui/material/Chip";
+import { Tooltip } from "@mui/material";
 import axiosInstance from "../../../utils/axiosInstance";
+import BookingViewDialog from "../../../components/business/BookingViewDialog";
 
 const BookingsTabContent = () => {
   const [search, setSearch] = useState("");
@@ -28,12 +30,21 @@ const BookingsTabContent = () => {
   const [limit] = useState(4);
   const [totalPages, setTotalPages] = useState(0);
 
+  const [selectedBookingId, setSelectedBookingId] = useState(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const handleViewBooking = (id) => {
+    setSelectedBookingId(id);
+    setDialogOpen(true);
+  };
+
   const fetchBookings = async () => {
     try {
-      const res = await axiosInstance.get(`/api/business/getPaginatedBookings?page=${page}&limit=${limit}`);
+      const res = await axiosInstance.get(
+        `/api/business/getPaginatedBookings?page=${page}&limit=${limit}`
+      );
       setBookings(res.data.bookings);
       setFiltered(res.data.bookings);
-      console.log(res.data.totalPages)
       setTotalPages(res.data.totalPages);
     } catch (error) {
       console.error("Failed to fetch bookings", error);
@@ -74,13 +85,15 @@ const BookingsTabContent = () => {
           variant="outlined"
           size="small"
           InputProps={{
-            startAdornment: <Search color="action" sx={{ mr: 1 }} />, 
+            startAdornment: <Search color="action" sx={{ mr: 1 }} />,
           }}
           sx={{ width: 300 }}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <Button variant="outlined" startIcon={<FilterList />}>Filters</Button>
+        <Button variant="outlined" startIcon={<FilterList />}>
+          Filters
+        </Button>
       </Box>
 
       <Paper>
@@ -110,11 +123,19 @@ const BookingsTabContent = () => {
                   <TableCell>{booking.event.name}</TableCell>
                   <TableCell>{formatShortDate(booking.paymentDate)}</TableCell>
                   <TableCell>{booking.ticketCount}</TableCell>
-                  <TableCell><Chip label={`LKR ${booking.paymentAmount}`} color="success" variant="outlined" /></TableCell>
                   <TableCell>
-                    <IconButton>
-                      <MoreVert />
-                    </IconButton>
+                    <Chip
+                      label={`LKR ${booking.paymentAmount}`}
+                      color="success"
+                      variant="outlined"
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <Tooltip title="View Booking">
+                      <IconButton onClick={() => handleViewBooking(booking.id)}>
+                        <Visibility color="primary" />
+                      </IconButton>
+                    </Tooltip>
                   </TableCell>
                 </TableRow>
               ))}
@@ -141,6 +162,12 @@ const BookingsTabContent = () => {
           />
         </Box>
       )}
+
+      <BookingViewDialog
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        bookingId={selectedBookingId}
+      />
     </Box>
   );
 };
