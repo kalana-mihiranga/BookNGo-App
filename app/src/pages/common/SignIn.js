@@ -54,7 +54,7 @@ function SignIn() {
       } else if (role === "BUSINESS") {
         navigate("/manage-events");
       } else if (role === "TOURIST") {
-        navigate("/user-profile");
+        navigate("/");
       }
     } catch (error) {
       const errorMsg =
