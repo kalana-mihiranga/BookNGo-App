@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import "../../styles/admin/AdminDashboard.css";
 
 function AdminDashboard() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const isActive = (path) => location.pathname === path;
+
 
   return (
     <div className="admin-dashboard col">
@@ -16,8 +18,8 @@ function AdminDashboard() {
               alt="Profile"
             />
             <div>
-              <p className="user-name pb-0 mb-0">Nuwan Saranath</p>
-              <p className="email pb-0 mb-0">nuwansaranath@gmail.com</p>
+              <p className="user-name pb-0 mb-0">Admin</p>
+              <p className="email pb-0 mb-0">adminuser@gmail.com</p>
             </div>
           </div>
         </div>
@@ -25,7 +27,7 @@ function AdminDashboard() {
         <ul className="sidebar-menu pt-0 mt-0">
           <li>
             <button
-              className="sidebar-menu-link"
+              className={`sidebar-menu-link ${isActive("/admin/dashboard") ? "active" : ""}`}
               onClick={() => navigate("/admin/dashboard")}
             >
               <i className="bi bi-house-door-fill"></i> Dashboard
@@ -33,7 +35,7 @@ function AdminDashboard() {
           </li>
           <li>
             <button
-              className="sidebar-menu-link"
+              className={`sidebar-menu-link ${isActive("/admin/approval") ? "active" : ""}`}
               onClick={() => navigate("/admin/approval")}
             >
               <i className="bi bi-calendar-event"></i> Approval
@@ -41,18 +43,18 @@ function AdminDashboard() {
           </li>
           <li>
             <button
-              className="sidebar-menu-link"
-              onClick={() => navigate("/admin/user-management")}
+              className={`sidebar-menu-link ${isActive("/admin/event-management") ? "active" : ""}`}
+              onClick={() => navigate("/admin/event-management")}
             >
-              <i className="bi bi-building"></i> User Management
+              <i className="bi bi-calendar-range"></i> Event Management
             </button>
           </li>
           <li>
             <button
-              className="sidebar-menu-link"
-              onClick={() => navigate("/admin/setting")}
+              className={`sidebar-menu-link ${isActive("/admin/business-management") ? "active" : ""}`}
+              onClick={() => navigate("/admin/business-management")}
             >
-              <i className="bi bi-gear-fill"></i> Settings
+              <i className="bi bi-building"></i> Business Management
             </button>
           </li>
         </ul>

@@ -29,7 +29,7 @@ const BusinessAndUserStats = () => {
     useEffect(() => {
         const fetchBusinessCount = async () => {
             try {
-                const res = await axios.get("http://localhost:5000/api/business/count");
+                const res = await axios.get("http://localhost:5000/api/admin/business/count");
                 setBusinessCount(res.data.businessCount);
             } catch (err) {
                 console.error("Failed to fetch business count:", err);
@@ -41,7 +41,7 @@ const BusinessAndUserStats = () => {
     useEffect(() => {
         const fetchTouristCount = async () => {
             try {
-                const res = await axios.get("http://localhost:5000/api/tourist/count");
+                const res = await axios.get("http://localhost:5000/api/admin/tourist/count");
                 setTouristCount(res.data.touristCount);
             } catch (err) {
                 console.error("Failed to fetch tourist count", err);

@@ -12,7 +12,7 @@ import SignUp from "./pages/common/SignUp";
 import Home from "./pages/common/Home";
 import Event from "./pages/common/Event";
 import Landing from "./pages/common/Landing/Landing";
-import Events from "./components/Events"; // Using existing Events component instead of EventsList
+// import Events from "./components/Events"; // Using existing Events component instead of EventsList
 
 // Admin Pages
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -20,13 +20,14 @@ import Dashboard from "./pages/admin/Dashboard";
 import Setting from "./pages/admin/Setting";
 import EventManagement from "./pages/admin/EventManagement";
 import UserManagement from "./pages/admin/UserManagement";
+import BusinessManagement from "./pages/admin/BusinessManagement";
 
 // Business Pages
-import BusinessDashboard from "./pages/business/BusinessDashboard";
+// import BusinessDashboard from "./pages/business/BusinessDashboard";
 import ManageEvents from "./pages/business/ManageEvents";
 import EventForm from "./components/EventForm"; // Using existing component
-import EventCRUD from "./components/EventCRUD"; // Using existing component
-import TourismDashboard from "./pages/business/DBoard";
+// import EventCRUD from "./components/EventCRUD"; // Using existing component
+// import TourismDashboard from "./pages/business/DBoard";
 
 // Tourist Pages
 import Tourist from "./components/tourist/index";
@@ -48,7 +49,7 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/events" element={<Events />} />
+          {/* <Route path="/events" element={<Events />} /> */}
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/event" element={<Event />} />
@@ -56,21 +57,22 @@ function App() {
           <Route path="/unauthorized" element={<Unauthorized />} />
 
           {/* Admin Protected Routes */}
-          <Route path="/admin-dashboard" element={
-            <AuthGuard requiredRole="ADMIN">
+          <Route path="/admin" element={
+            // <AuthGuard requiredRole="ADMIN">
               <AdminDashboard />
-            </AuthGuard>
+            // </AuthGuard>
           }>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="setting" element={<Setting />} />
             <Route path="approval" element={<EventManagement />} />
-            <Route path="user-management" element={<UserManagement />} />
+            <Route path="event-management" element={<UserManagement />} />
+            <Route path="business-management" element={<BusinessManagement />} />
           </Route>
 
           {/* Business Protected Routes */}
           <Route path="/business-dashboard" element={
             <AuthGuard requiredRole="BUSINESS">
-              <BusinessDashboard />
+              {/* <BusinessDashboard /> */}
             </AuthGuard>
           } />
           <Route path="/manage-events" element={
@@ -80,7 +82,7 @@ function App() {
           } />
           <Route path="/bd" element={
             <AuthGuard requiredRole="BUSINESS">
-              <TourismDashboard />
+              {/* <TourismDashboard /> */}
             </AuthGuard>
           } />
           <Route path="/create-event" element={
@@ -90,7 +92,7 @@ function App() {
           } />
           <Route path="/crud" element={
             <AuthGuard requiredRole="BUSINESS">
-              <EventCRUD />
+              {/* <EventCRUD /> */}
             </AuthGuard>
           } />
 

@@ -13,7 +13,7 @@ function EventManagement() {
 
   useEffect(() => {
     fetchPendingApprovals();
-    fetchApprovedEvents(); 
+    fetchApprovedEvents();
   }, []);
 
   const fetchPendingApprovals = async () => {
@@ -86,7 +86,7 @@ function EventManagement() {
                 <thead className="table-light">
                   <tr>
                     <th>Created Date</th>
-                    <th>Event Name</th>
+                    <th>Event / Business Name</th>
                     <th>Category</th>
                     <th>Action</th>
                     <th className="text-center">Details</th>
@@ -102,7 +102,9 @@ function EventManagement() {
                     pendingEvents.map((approval) => (
                       <tr key={approval.id}>
                         <td>{new Date(approval.createdAt).toLocaleDateString()}</td>
-                        <td>{approval.event?.name || 'N/A'}</td>
+                        <td> {approval.event?.name
+                          || approval.business?.user?.name
+                          || 'N/A'}</td>
                         <td>{approval?.approvalCategory || 'N/A'}</td>
                         <td>{approval?.action || 'N/A'}</td>
                         <td className="text-center">
@@ -112,6 +114,7 @@ function EventManagement() {
                           <div className="d-flex justify-content-center gap-2">
                             <button
                               className="btn btn-success btn-sm"
+                              style={{ width: '80px', height: '35px' }}
                               onClick={() => {
                                 setSelectedApproval(approval);
                                 setActionType('approve');
@@ -120,6 +123,7 @@ function EventManagement() {
                             >Approve</button>
                             <button
                               className="btn btn-danger btn-sm"
+                              style={{ width: '80px', height: '35px' }}
                               onClick={() => {
                                 setSelectedApproval(approval);
                                 setActionType('reject');
@@ -142,7 +146,7 @@ function EventManagement() {
                 <thead className="table-light">
                   <tr>
                     <th>Date</th>
-                    <th>Event Name</th>
+                    <th>Event / Business Name</th>
                     <th>Category</th>
                     <th>Action</th>
                     <th>Auth By</th>
@@ -165,7 +169,9 @@ function EventManagement() {
                           hour12: true,
                         })}
                       </td>
-                      <td>{event.event?.name || 'N/A'}</td>
+                      <td> {event.event?.name
+                          || event.business?.user?.name
+                          || 'N/A'}</td>
                       <td>{event?.approvalCategory || 'N/A'}</td>
                       <td>{event?.action || 'N/A'}</td>
                       <td>{event?.authorizedBy || 'N/A'}</td>
