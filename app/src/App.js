@@ -14,13 +14,15 @@ import Home from "./pages/common/Home";
 import Event from "./pages/common/Event";
 import BookingHistory from "./components/tourist/BookedEvents";
 import UserProfile from "./components/tourist/UserProfile";
+import ManageEvents from "./pages/business/ManageEvents";
+import Payment from "./components/tourist/Payment";
+import Landing from "./pages/common/Landing/Landing";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 import Dashboard from "./pages/admin/Dashboard";
 import Setting from "./pages/admin/Setting";
 import EventManagement from "./pages/admin/EventManagement";
 import UserManagement from "./pages/admin/UserManagement";
-import ManageEvents from "./pages/business/ManageEvents";
-import Payment from "./components/tourist/Payment";
-import Landing from "./pages/common/Landing/Landing";
+import BusinessManagement from "./pages/admin/BusinessManagement";
 
 function App() {
   return (
