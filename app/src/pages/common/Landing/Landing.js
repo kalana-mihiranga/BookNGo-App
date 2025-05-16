@@ -137,12 +137,12 @@ const handleSeeMoreClick = (event) => {
                     onChange={(e) => setLocation(e.target.value)}
                   >
                     <MenuItem value="">All Locations</MenuItem>
-                    <MenuItem value="Mumbai">Mumbai</MenuItem>
-                    <MenuItem value="Delhi">Delhi</MenuItem>
-                    <MenuItem value="Bangalore">Bangalore</MenuItem>
-                    <MenuItem value="Hyderabad">Hyderabad</MenuItem>
-                    <MenuItem value="Chennai">Chennai</MenuItem>
-                    <MenuItem value="Kolkata">Kolkata</MenuItem>
+                    <MenuItem value="Galle">Galle</MenuItem>
+                    <MenuItem value="Colombo">Colombo</MenuItem>
+                    <MenuItem value="Kurunegala">Kurunegala</MenuItem>
+                    <MenuItem value="Jaffna">Jaffna</MenuItem>
+                    <MenuItem value="Negombo">Negombo</MenuItem>
+                    <MenuItem value="Kandy">Kandy</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -180,7 +180,7 @@ const handleSeeMoreClick = (event) => {
                 md={4}
                 lg={3}
                 key={event.eventId}
-                sx={{ display: "flex" }}
+                sx={{ display: "flex",px:1 }}
               >
                 <Card
                   sx={{
