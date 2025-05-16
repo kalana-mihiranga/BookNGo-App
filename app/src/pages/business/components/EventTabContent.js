@@ -136,7 +136,7 @@ const EventsTabContent = () => {
       <Box display="grid" gridTemplateColumns="repeat(4, 1fr)" gap={3}>
         {events.map((event) => (
           <Card
-            key={event.id}
+            key={event.eventId}
             sx={{ display: "flex", flexDirection: "column" }}
           >
             <CardMedia
@@ -178,19 +178,19 @@ const EventsTabContent = () => {
               sx={{ p: 1, display: "flex", justifyContent: "space-between" }}
             >
               <Tooltip title="View">
-                <IconButton onClick={() => handleViewEvent(event.id)}>
+                <IconButton onClick={() => handleViewEvent(event.eventId)}>
                   <Visibility color="primary" />
                 </IconButton>
               </Tooltip>
               <Tooltip title="Edit">
-                <IconButton onClick={() => handleEditEvent(event.id)}>
+                <IconButton onClick={() => handleEditEvent(event.eventId)}>
                   <Edit color="info" />
                 </IconButton>
               </Tooltip>
               <Tooltip title="Delete">
                 <IconButton
                   onClick={() => {
-                    setEventToDelete(event.id);
+                    setEventToDelete(event.eventId);
                     setDeleteDialogOpen(true);
                   }}
                 >
