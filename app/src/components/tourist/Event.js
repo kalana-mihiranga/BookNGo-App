@@ -1,4 +1,4 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axiosInstance from '../../utils/axiosInstance';
 import {
@@ -49,19 +49,18 @@ const Event = () => {
     }
   }, [eventId]);
 
-   const handleBook = () => {
-     navigate('/payment', {
-    state: {
-      eventId: event.id,
-      priceCategoryId: selectedTicket.id,
-      ticketCount: quantity,
-      paymentAmount: selectedTicket.price * quantity
-    }
-  });
-};
+  const handleBook = () => {
+    navigate('/payment', {
+      state: {
+        eventId: event.id,
+        priceCategoryId: selectedTicket.id,
+        ticketCount: quantity,
+        paymentAmount: selectedTicket.price * quantity
+      }
+    });
+  };
 
   if (loading) return (
-
     <Box display="flex" justifyContent="center" mt={4}>
       <CircularProgress />
     </Box>
@@ -73,261 +72,193 @@ const Event = () => {
     </Box>
   );
 
-return (
-  <Box>
-    <Navbar />
+  return (
+    <Box>
+      <Navbar />
 
-    <Container  maxWidth={false}
-  sx={{
-    py: 4,
-    px: 2,
-    width: '80%',
-    maxWidth: '1280px',
-    mx: 'auto',
-  }}>
-      <Grid container spacing={4} sx={{ml:'5%'}}>
-
-        
-        {/* Image Section */}
-        <Grid item xs={12} md={5}>
-          <Card sx={{ borderRadius: 2, overflow: 'hidden', height: 'auto' }}>
-            <CardMedia
-              component="img"
-              image={event.bannerUrl}
-              alt={event.name}
-              sx={{width: '100%', height: 300,objectFit: 'cover', display: 'block'}}/>
-          </Card>
-          <Card>
-{/* Enhanced Event Details Section */}
-<Box>
-  <Grid  spacing={3}>
-    {/* Specifications */}
-    <Grid item xs={12} md={6} >
-      <Paper
-        variant="outlined"
+      <Container maxWidth={false}
         sx={{
-          p: 1,
-          borderRadius: 2,
-          bgcolor: "#f9fafb",
-          borderColor: "divider"
-        }}
-      >
-        <Typography
-          variant="subtitle1"
-          fontWeight="600"
-          color="primary"
-          gutterBottom
-        >
-          Specifications
-        </Typography>
-        {event.specifications.length > 0 ? (
-          <List dense disablePadding>
-            {event.specifications.map((spec) => (
-              <ListItem key={spec.id} disableGutters>
-                <ListItemText primary={`• ${spec.specName}`} />
-              </ListItem>
-            ))}
-          </List>
-        ) : (
-          <Typography variant="body2" color="text.secondary">
-            No specifications listed.
-          </Typography>
-        )}
-      </Paper>
-    </Grid>
-
-    {/* Conditions */}
-    <Grid item xs={12} md={6}>
-      <Paper
-        variant="outlined"
-        sx={{
-          p: 1,
-          borderRadius: 2,
-          bgcolor: "#f9fafb",
-          borderColor: "divider"
-        }}
-      >
-        <Typography
-          variant="subtitle1"
-          fontWeight="600"
-          color="secondary"
-          gutterBottom
-        >
-          Conditions
-        </Typography>
-        {event.conditions.length > 0 ? (
-          <List dense disablePadding>
-            {event.conditions.map((cond) => (
-              <ListItem key={cond.id} disableGutters>
-                <ListItemText primary={`• ${cond.condition}`} />
-              </ListItem>
-            ))}
-          </List>
-        ) : (
-          <Typography variant="body2" color="text.secondary">
-            No conditions specified.
-          </Typography>
-        )}
-      </Paper>
-    </Grid>
-  </Grid>
-
-  {/* Refund Policy */}
-  <Box>
-    <Paper
-      variant="outlined"
-      sx={{ p: 1, borderRadius: 2, bgcolor: "#f9f9f9", borderColor: "divider" }}
-    >
-      <Typography
-        variant="subtitle1"
-        fontWeight="600"
-        color="error"
-        gutterBottom
-      >
-        Refund Policy
-      </Typography>
-      <Typography variant="body2">
-        {event.refundPolicy || "No refund policy specified."}
-      </Typography>
-    </Paper>
-  </Box>
-</Box>
-
-          </Card>
-        </Grid>
-
-        {/* Event Info */}
-        <Grid item xs={12} md={7} sx={{ml:'1%'}}>
-          <Box display="flex" gap={1} mb={2}>
-            <Chip label={event.type} color="primary" />
-            <Chip label={event.category} color="secondary" />
-          </Box>
-
-          <Typography variant="h4" fontWeight={600} gutterBottom>
-            {event.name}
-          </Typography>
-
-          <Box display="flex" alignItems="center" gap={1} mb={1}>
-            <LocationOn fontSize="small" color="primary" />
-            <Typography>{event.location}, {event.country}</Typography>
-          </Box>
-
-          <Box display="flex" alignItems="center" gap={1} mb={2}>
-            <CalendarToday fontSize="small" color="primary" />
-            <Typography>{new Date(event.date).toLocaleDateString()}</Typography>
-            <Schedule fontSize="small" color="primary" />
-            <Typography>{event.startTime} - {event.endTime}</Typography>
-          </Box>
-
-          <Typography variant="body1" mb={2}>
-            {event.description}
-          </Typography>
-
-          <Divider/>
-
-          {/* Tickets */}
-          <Typography variant="h6" mb={1}>Choose Your Ticket</Typography>
-          <Box display="flex" flexDirection="column" gap={1}>
-            {event.priceCategories.map(ticket => (
-              <Paper
-                key={ticket.id}
-                elevation={selectedTicket?.id === ticket.id ? 2 : 0}
-                onClick={() => setSelectedTicket(ticket)}
+          py: 4,
+          px: 2,
+          width: '90%',
+          maxWidth: '1280px',
+          mx: 'auto',
+        }}>
+        <Grid container spacing={4} sx={{ display: 'flex', flexWrap: 'wrap' }}>
+          {/* Left Panel - 40% */}
+          <Grid item sx={{ width: '40%' }}>
+            <Card sx={{ borderRadius: 3, overflow: 'hidden', mb: 0.5 }}>
+              <CardMedia
+                component="img"
+                image={event.bannerUrl}
+                alt={event.name}
                 sx={{
-                  p: 2,
-                  borderRadius: 1,
-                  border: selectedTicket?.id === ticket.id ? '2px solid #1976d2' : '1px solid #ddd',
-                  cursor: 'pointer',
-                  transition: '0.2s ease',
-                  '&:hover': {
-                    borderColor: '#1976d2',
-                    boxShadow: '0 0 6px rgba(25, 118, 210, 0.2)'
-                  }
+                  width: '100%',
+                  height: 300,
+                  objectFit: 'cover',
                 }}
+              />
+            </Card>
+
+            {[{
+              title: "Specifications",
+              items: event.specifications,
+              keyName: "specName",
+            }, {
+              title: "Conditions",
+              items: event.conditions,
+              keyName: "condition",
+            }].map(({ title, items, keyName }) => (
+              <Paper
+                key={title}
+                variant="outlined"
+                sx={{ p: 1, borderRadius: 2 }}
               >
-                <Box display="flex" justifyContent="space-between">
-                  <Typography>{ticket.name}</Typography>
-                  <Typography fontWeight={600} color="primary">
-                    Lkr {ticket.price.toFixed(2)}
+                <Typography variant="subtitle1" fontWeight={600} gutterBottom>
+                  {title}
+                </Typography>
+                {items.length > 0 ? (
+                  <List dense disablePadding>
+                    {items.map((item) => (
+                      <ListItem key={item.id} disableGutters>
+                        <ListItemText primary={`• ${item[keyName]}`} />
+                      </ListItem>
+                    ))}
+                  </List>
+                ) : (
+                  <Typography variant="body2" color="text.secondary">
+                    No {title.toLowerCase()} listed.
                   </Typography>
-                </Box>
+                )}
               </Paper>
             ))}
-          </Box>
 
-          {/* Quantity and Summary */}
-          {selectedTicket && (
-            <>
-              <Box mt={1}>
-                <Typography variant="subtitle1" gutterBottom>Quantity</Typography>
-                <Box display="flex" alignItems="center">
-                  <Button
-                    variant="outlined"
-                    onClick={() => setQuantity(q => Math.max(1, q - 1))}
-                    sx={{ minWidth: 40 }}
-                  >−</Button>
-                  <TextField
-                    value={quantity}
-                    onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+            {/* Refund Policy */}
+            <Paper variant="outlined" sx={{ p: 1, borderRadius: 2 }}>
+              <Typography variant="subtitle1" fontWeight={600} color="error" gutterBottom>
+                Refund Policy
+              </Typography>
+              <Typography variant="body2">
+                {event.refundPolicy || "No refund policy specified."}
+              </Typography>
+            </Paper>
+          </Grid>
+
+          {/* Right Panel - 50% */}
+          <Grid item sx={{ width: '50%', ml: '2%' }}>
+            <Box sx={{ fontSize: '0.9rem' }}>
+              <Box display="flex" gap={1} mb={2}>
+                <Chip label={event.type} color="primary" />
+                <Chip label={event.category} color="secondary" />
+              </Box>
+
+              <Typography variant="h5" fontWeight={600} gutterBottom>
+                {event.name}
+              </Typography>
+
+              <Box display="flex" alignItems="center" gap={1} mb={1}>
+                <LocationOn fontSize="small" color="primary" />
+                <Typography>{event.location}, {event.country}</Typography>
+              </Box>
+
+              <Box display="flex" alignItems="center" gap={2} mb={2}>
+                <CalendarToday fontSize="small" color="primary" />
+                <Typography>{new Date(event.date).toLocaleDateString()}</Typography>
+                <Schedule fontSize="small" color="primary" />
+                <Typography>{event.startTime} - {event.endTime}</Typography>
+              </Box>
+
+              <Typography variant="body2" mb={1}>
+                {event.description}
+              </Typography>
+
+              <Divider sx={{ mb: 3 }} />
+
+              <Typography variant="h6" gutterBottom>Choose Your Ticket</Typography>
+              <Box display="flex" flexDirection="column" gap={1} mb={1}>
+                {event.priceCategories.map(ticket => (
+                  <Paper
+                    key={ticket.id}
+                    elevation={selectedTicket?.id === ticket.id ? 3 : 1}
+                    onClick={() => setSelectedTicket(ticket)}
                     sx={{
-                      width: 80,
-                      mx: 1,
-                      '& input': { textAlign: 'center' }
+                      p: 1,
+                      borderRadius: 2,
+                      border: selectedTicket?.id === ticket.id ? '2px solid' : '1px solid',
+                      borderColor: selectedTicket?.id === ticket.id ? 'primary.main' : 'divider',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease-in-out',
+                      '&:hover': {
+                        borderColor: 'primary.main',
+                        boxShadow: 2,
+                      },
                     }}
-                    size="small"
-                  />
-                  <Button
-                    variant="outlined"
-                    onClick={() => setQuantity(q => q + 1)}
-                    sx={{ minWidth: 40 }}
-                  >+</Button>
-                </Box>
+                  >
+                    <Box display="flex" justifyContent="space-between" alignItems="center">
+                      <Typography>{ticket.name}</Typography>
+                      <Typography fontWeight={600} color="primary">
+                        Lkr {ticket.price.toFixed(2)}
+                      </Typography>
+                    </Box>
+                  </Paper>
+                ))}
               </Box>
 
-              {/* Price Summary */}
-              <Box bgcolor="#f5f5f5" borderRadius={2}>
-                <Box display="flex" justifyContent="space-between" mb={1}>
-                  {/* <Typography>Subtotal</Typography> */}
-                  {/* <Typography>${(selectedTicket.price * quantity).toFixed(2)}</Typography> */}
-                </Box>
-                {/* {event.discount > 0 && (
-                  <Box display="flex" justifyContent="space-between" mb={1}>
-                    <Typography>Discount ({event.discount}%)</Typography>
-                    <Typography color="success.main">
-                      -${(selectedTicket.price * quantity * event.discount / 100).toFixed(2)}
-                    </Typography>
+              {selectedTicket && (
+                <>
+                  <Typography variant="subtitle1" gutterBottom>Quantity</Typography>
+                  <Box display="flex" alignItems="center" mb={3}>
+                    <Button
+                      variant="outlined"
+                      onClick={() => setQuantity(q => Math.max(1, q - 1))}
+                      sx={{ minWidth: 40 }}
+                    >−</Button>
+                    <TextField
+                      value={quantity}
+                      onChange={(e) =>
+                        setQuantity(Math.max(1, parseInt(e.target.value) || 1))
+                      }
+                      size="small"
+                      sx={{
+                        width: 80,
+                        mx: 1,
+                        '& input': { textAlign: 'center' },
+                      }}
+                    />
+                    <Button
+                      variant="outlined"
+                      onClick={() => setQuantity(q => q + 1)}
+                      sx={{ minWidth: 40 }}
+                    >+</Button>
                   </Box>
-                )} */}
-                <Divider/>
-                <Box display="flex" justifyContent="space-between" fontWeight={600}>
-                  <Typography>Total</Typography>
-                  <Typography>
-                    {/* ${(selectedTicket.price * quantity * (1 - event.discount / 100)).toFixed(2)} */}
-                    Lkr {(selectedTicket.price * quantity).toFixed(2)}
 
-                  </Typography>
-                </Box>
-              </Box>
+                  <Box bgcolor="#f8f9fa" p={2} borderRadius={2} mb={3}>
+                    <Box display="flex" justifyContent="space-between" fontWeight={600}>
+                      <Typography>Total</Typography>
+                      <Typography>
+                        Lkr {(selectedTicket.price * quantity).toFixed(2)}
+                      </Typography>
+                    </Box>
+                  </Box>
 
-              <Button
-                variant="contained"
-                fullWidth
-                size="large"
-                sx={{ mt: 1 }}
-                onClick={handleBook}
-              >
-                Book Now
-              </Button>
-            </>
-          )}
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    size="small"
+                    onClick={handleBook}
+                  >
+                    Book Now
+                  </Button>
+                </>
+              )}
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
-    </Container>
+      </Container>
 
-    <Footer />
-  </Box>
-);
-
+      <Footer />
+    </Box>
+  );
 };
 
 export default Event;
