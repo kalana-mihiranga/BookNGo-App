@@ -57,12 +57,6 @@ const Event = () => {
     navigate('/payment', {
       state: {
         eventId: event.id,
-        eventName: event.name,
-        ticketType: selectedTicket.name,
-        quantity,
-        price: selectedTicket.price,
-        discount: event.discount,
-        total: (selectedTicket.price * quantity * (1 - event.discount/100)).toFixed(2)
       }
     });
   };
@@ -290,22 +284,24 @@ return (
               {/* Price Summary */}
               <Box mt={3} p={2} bgcolor="#f5f5f5" borderRadius={2}>
                 <Box display="flex" justifyContent="space-between" mb={1}>
-                  <Typography>Subtotal</Typography>
-                  <Typography>${(selectedTicket.price * quantity).toFixed(2)}</Typography>
+                  {/* <Typography>Subtotal</Typography> */}
+                  {/* <Typography>${(selectedTicket.price * quantity).toFixed(2)}</Typography> */}
                 </Box>
-                {event.discount > 0 && (
+                {/* {event.discount > 0 && (
                   <Box display="flex" justifyContent="space-between" mb={1}>
                     <Typography>Discount ({event.discount}%)</Typography>
                     <Typography color="success.main">
                       -${(selectedTicket.price * quantity * event.discount / 100).toFixed(2)}
                     </Typography>
                   </Box>
-                )}
+                )} */}
                 <Divider sx={{ my: 1 }} />
                 <Box display="flex" justifyContent="space-between" fontWeight={600}>
                   <Typography>Total</Typography>
                   <Typography>
-                    ${(selectedTicket.price * quantity * (1 - event.discount / 100)).toFixed(2)}
+                    {/* ${(selectedTicket.price * quantity * (1 - event.discount / 100)).toFixed(2)} */}
+                    ${(selectedTicket.price * quantity).toFixed(2)}
+
                   </Typography>
                 </Box>
               </Box>
