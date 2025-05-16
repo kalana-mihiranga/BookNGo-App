@@ -7,7 +7,6 @@ import Tourist from "./components/tourist/index";
 import HomePage from "./components/home/HomePage";
 import EventCRUD from "./components/business/EventCRUD";
 import AboutUs from "./pages/common/AboutUs";
-import AdminDashboard from "./pages/admin/AdminDashboard";
 import SignIn from "./pages/common/SignIn";
 import SignUp from "./pages/common/SignUp";
 import Home from "./pages/common/Home";
