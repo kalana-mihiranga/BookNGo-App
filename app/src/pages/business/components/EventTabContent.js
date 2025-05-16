@@ -22,11 +22,13 @@ import {
   Delete,
   Search,
   FilterList,
-  MonetizationOn 
+  MonetizationOn,
 } from "@mui/icons-material";
 import axiosInstance from "../../../utils/axiosInstance";
 import Pagination from "@mui/material/Pagination";
 import { styled } from "@mui/material/styles";
+import EventViewDialog from "../../../components/business/EventViewDialog";
+import EventUpdateDialog from "../../../components/business/EventUpdateDialog";
 
 const StyledPagination = styled(Pagination)(({ theme }) => ({
   "& .MuiPaginationItem-root": {
@@ -51,6 +53,22 @@ const EventsTabContent = () => {
   const [totalPages, setTotalPages] = useState(0);
   const limit = 4;
 
+  const [selectedEventId, setSelectedEventId] = useState(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const handleViewEvent = (id) => {
+    setSelectedEventId(id);
+    setDialogOpen(true);
+  };
+
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [editEventId, setEditEventId] = useState(null);
+
+  const handleEditEvent = (id) => {
+    setEditEventId(id);
+    setEditDialogOpen(true);
+  };
+
   const fetchEvents = async () => {
     try {
       const response = await axiosInstance.get(
@@ -62,7 +80,7 @@ const EventsTabContent = () => {
           },
         }
       );
-      setTotalPages(response.data.totalPages)
+      setTotalPages(response.data.totalPages);
       setEvents(response.data.events || []);
     } catch (error) {
       console.error("Failed to fetch events", error);
@@ -134,7 +152,7 @@ const EventsTabContent = () => {
                 </Typography>
               </Box>
               <Box sx={{ display: "flex", alignItems: "center" }}>
-                <MonetizationOn fontSize="small" sx={{ mr: 1 }} /> Min : 
+                <MonetizationOn fontSize="small" sx={{ mr: 1 }} /> Min :
                 <Typography sx={{ pl: 1 }} variant="body2" fontWeight="bold">
                   LKR {event.price}
                 </Typography>
@@ -145,12 +163,12 @@ const EventsTabContent = () => {
               sx={{ p: 1, display: "flex", justifyContent: "space-between" }}
             >
               <Tooltip title="View">
-                <IconButton>
+                <IconButton onClick={() => handleViewEvent(event.id)}>
                   <Visibility color="primary" />
                 </IconButton>
               </Tooltip>
               <Tooltip title="Edit">
-                <IconButton>
+                <IconButton onClick={() => handleEditEvent(event.id)}>
                   <Edit color="info" />
                 </IconButton>
               </Tooltip>
@@ -187,6 +205,19 @@ const EventsTabContent = () => {
           />
         </Box>
       )}
+
+      <EventViewDialog
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        eventId={selectedEventId}
+      />
+
+      <EventUpdateDialog
+        open={editDialogOpen}
+        onClose={() => setEditDialogOpen(false)}
+        eventId={editEventId}
+        onUpdated={fetchEvents}
+      />
     </>
   );
 };
