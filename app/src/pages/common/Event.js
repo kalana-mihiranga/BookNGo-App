@@ -66,8 +66,6 @@ const Event = () => {
 
   if (loading) return (
 
-
-
     <Box display="flex" justifyContent="center" mt={4}>
       <CircularProgress />
     </Box>
@@ -83,8 +81,15 @@ return (
   <Box>
     <Navbar />
 
-    <Container maxWidth="md" sx={{ py: 4 }}>
-      <Grid container spacing={4}>
+    <Container  maxWidth={false}
+  sx={{
+    py: 4,
+    px: 2,
+    width: '70%',
+    maxWidth: '1280px',
+    mx: 'auto',
+  }}>
+      <Grid container spacing={4} sx={{ml:'5%'}}>
 
         
         {/* Image Section */}
@@ -94,19 +99,18 @@ return (
               component="img"
               image={event.bannerUrl}
               alt={event.name}
-              sx={{ height: 300, objectFit: 'cover' }}
-            />
+              sx={{width: '100%', height: 300,objectFit: 'cover', display: 'block'}}/>
           </Card>
           <Card>
 {/* Enhanced Event Details Section */}
 <Box>
   <Grid  spacing={3}>
     {/* Specifications */}
-    <Grid item xs={12} md={6}>
+    <Grid item xs={12} md={6} >
       <Paper
         variant="outlined"
         sx={{
-          p: 3,
+          p: 1,
           borderRadius: 2,
           bgcolor: "#f9fafb",
           borderColor: "divider"
@@ -141,7 +145,7 @@ return (
       <Paper
         variant="outlined"
         sx={{
-          p: 3,
+          p: 1,
           borderRadius: 2,
           bgcolor: "#f9fafb",
           borderColor: "divider"
@@ -176,7 +180,7 @@ return (
   <Box>
     <Paper
       variant="outlined"
-      sx={{ p: 3, borderRadius: 2, bgcolor: "#f9f9f9", borderColor: "divider" }}
+      sx={{ p: 1, borderRadius: 2, bgcolor: "#f9f9f9", borderColor: "divider" }}
     >
       <Typography
         variant="subtitle1"
@@ -197,7 +201,7 @@ return (
         </Grid>
 
         {/* Event Info */}
-        <Grid item xs={12} md={7}>
+        <Grid item xs={12} md={7} sx={{ml:'1%'}}>
           <Box display="flex" gap={1} mb={2}>
             <Chip label={event.type} color="primary" />
             <Chip label={event.category} color="secondary" />
@@ -223,7 +227,7 @@ return (
             {event.description}
           </Typography>
 
-          <Divider sx={{ my: 2 }} />
+          <Divider/>
 
           {/* Tickets */}
           <Typography variant="h6" mb={1}>Choose Your Ticket</Typography>
@@ -258,7 +262,7 @@ return (
           {/* Quantity and Summary */}
           {selectedTicket && (
             <>
-              <Box mt={3}>
+              <Box mt={1}>
                 <Typography variant="subtitle1" gutterBottom>Quantity</Typography>
                 <Box display="flex" alignItems="center">
                   <Button
@@ -285,7 +289,7 @@ return (
               </Box>
 
               {/* Price Summary */}
-              <Box mt={3} p={2} bgcolor="#f5f5f5" borderRadius={2}>
+              <Box bgcolor="#f5f5f5" borderRadius={2}>
                 <Box display="flex" justifyContent="space-between" mb={1}>
                   {/* <Typography>Subtotal</Typography> */}
                   {/* <Typography>${(selectedTicket.price * quantity).toFixed(2)}</Typography> */}
@@ -298,7 +302,7 @@ return (
                     </Typography>
                   </Box>
                 )} */}
-                <Divider sx={{ my: 1 }} />
+                <Divider/>
                 <Box display="flex" justifyContent="space-between" fontWeight={600}>
                   <Typography>Total</Typography>
                   <Typography>
@@ -313,7 +317,7 @@ return (
                 variant="contained"
                 fullWidth
                 size="large"
-                sx={{ mt: 2 }}
+                sx={{ mt: 1 }}
                 onClick={handleBook}
               >
                 Book Now
