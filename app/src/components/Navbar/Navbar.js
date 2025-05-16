@@ -58,13 +58,13 @@ export default function Navbar() {
           <Box sx={{ display: "flex", gap: 1 }}>
             <Button
               variant="outlined"
-              startIcon={<AccountCircleIcon />}
+              startIcon={<AccountCircleIcon sx={{ color: 'white' }} />}
               sx={buttonStyles}
               onClick={navigateUserProfile}
             ></Button>
             <Button
               variant="outlined"
-              startIcon={<NotificationsActiveIcon />}
+              startIcon={<NotificationsActiveIcon sx={{ color: 'white' }}/>}
               sx={buttonStyles}
             ></Button>
 

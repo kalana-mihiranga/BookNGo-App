@@ -221,22 +221,21 @@ const UserProfile = () => {
 
       {/* Booking History Section */}
       <div>
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ArrowDownwardIcon />}
-            aria-controls="panel1-content"
-            id="panel1-header"
-          >
-            <Typography variant="h5" component="h5">
-              Booking Details
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              <BookingHistory />
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
+<Accordion>
+  <AccordionDetails sx={{ p: 0 }}>
+    <Box
+      sx={{
+        maxHeight: 500, // Maximum height before scrolling
+        overflowY: 'auto', // Enable vertical scroll
+        width: '100%',
+      }}
+    >
+      <Box sx={{ p: 2 }}>
+        <BookingHistory />
+      </Box>
+    </Box>
+  </AccordionDetails>
+</Accordion>
       </div>
 
       <Footer />
