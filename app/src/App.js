@@ -10,8 +10,8 @@ import AboutUs from "./pages/common/AboutUs";
 import SignIn from "./pages/common/SignIn";
 import SignUp from "./pages/common/SignUp";
 import Home from "./pages/common/Home";
-import Event from "./pages/common/Event";
-import Landing from "./pages/common/Landing/Landing";
+
+import Landing from "./components/tourist/Landing";
 
 
 // Admin Pages
@@ -35,6 +35,7 @@ import UserProfile from "./components/tourist/UserProfile";
 import Payment from "./components/tourist/Payment";
 import BusinessEvents from "./components/tourist/BusinessEvents";
 import HomePage from "./components/home/HomePage";
+import Event from "./components/tourist/Event";
 
 
 function App() {

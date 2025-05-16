@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../../../components/Navbar/Navbar";
-import Footer from "../../../components/Footer/Footer";
+import Navbar from "../Navbar/Navbar";
+import Footer from "../Footer/Footer";
 import HeroSection from "./HeroSection";
 import {
   Grid,
@@ -18,7 +18,7 @@ import {
   Slider,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../../../utils/axiosInstance";
+import axiosInstance from "../../utils/axiosInstance";
 
 const Landing = () => {
 
