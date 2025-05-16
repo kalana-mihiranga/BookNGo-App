@@ -13,6 +13,10 @@ import {
   Paper,
   Button,
   TextField,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from "@mui/material";
 import {
   Group,
@@ -27,6 +31,7 @@ import {
 import axiosInstance from "../../../utils/axiosInstance";
 import Pagination from "@mui/material/Pagination";
 import { styled } from "@mui/material/styles";
+import { useSnackbar } from "notistack";
 import EventViewDialog from "../../../components/business/EventViewDialog";
 import EventUpdateDialog from "../../../components/business/EventUpdateDialog";
 
@@ -52,6 +57,7 @@ const EventsTabContent = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const limit = 4;
+  const { enqueueSnackbar } = useSnackbar();
 
   const [selectedEventId, setSelectedEventId] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -68,6 +74,11 @@ const EventsTabContent = () => {
     setEditEventId(id);
     setEditDialogOpen(true);
   };
+
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [eventToDelete, setEventToDelete] = useState(null);
+
+  const [filterDialogOpen, setFilterDialogOpen] = useState(false);
 
   const fetchEvents = async () => {
     try {
@@ -113,7 +124,11 @@ const EventsTabContent = () => {
           sx={{ width: 300 }}
         />
 
-        <Button variant="outlined" startIcon={<FilterList />}>
+        <Button
+          variant="outlined"
+          startIcon={<FilterList />}
+          onClick={() => setFilterDialogOpen(true)}
+        >
           Filters
         </Button>
       </Box>
@@ -173,7 +188,12 @@ const EventsTabContent = () => {
                 </IconButton>
               </Tooltip>
               <Tooltip title="Delete">
-                <IconButton>
+                <IconButton
+                  onClick={() => {
+                    setEventToDelete(event.id);
+                    setDeleteDialogOpen(true);
+                  }}
+                >
                   <Delete color="error" />
                 </IconButton>
               </Tooltip>
@@ -218,6 +238,98 @@ const EventsTabContent = () => {
         eventId={editEventId}
         onUpdated={fetchEvents}
       />
+
+      <Dialog
+        open={deleteDialogOpen}
+        onClose={() => setDeleteDialogOpen(false)}
+      >
+        <DialogTitle>Confirm Deletion</DialogTitle>
+        <DialogContent dividers>
+          <Typography>Are you sure you want to delete this event?</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDeleteDialogOpen(false)} color="inherit">
+            Cancel
+          </Button>
+          <Button
+            color="error"
+            variant="contained"
+            onClick={() => {
+              enqueueSnackbar("Event deleted successfully.", {
+                variant: "success",
+              });
+              setDeleteDialogOpen(false);
+            }}
+          >
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog
+        open={filterDialogOpen}
+        onClose={() => setFilterDialogOpen(false)}
+        fullWidth
+        maxWidth="sm"
+      >
+        <DialogTitle>Filter Events</DialogTitle>
+
+        <DialogContent dividers>
+          <Stack spacing={3}>
+            <Box>
+              <Typography variant="subtitle2" gutterBottom>
+                Filter by Price
+              </Typography>
+              <Stack direction="row" spacing={1}>
+                <Chip label="Below LKR 1000" clickable />
+                <Chip label="LKR 1000 - 5000" clickable />
+                <Chip label="Above LKR 5000" clickable />
+              </Stack>
+            </Box>
+
+            <Box>
+              <Typography variant="subtitle2" gutterBottom>
+                Event Type
+              </Typography>
+              <Stack direction="row" spacing={1}>
+                <Chip label="Corporate" clickable />
+                <Chip label="Entertainment" clickable />
+                <Chip label="Festival" clickable />
+              </Stack>
+            </Box>
+
+            <Box>
+              <Typography variant="subtitle2" gutterBottom>
+                Sort by Date
+              </Typography>
+              <Stack direction="row" spacing={1}>
+                <Chip label="Newest First" clickable />
+                <Chip label="Oldest First" clickable />
+              </Stack>
+            </Box>
+          </Stack>
+        </DialogContent>
+
+        <DialogActions>
+          <Button
+            onClick={() => {
+              console.log("Filters reset");
+              setFilterDialogOpen(false);
+            }}
+          >
+            Reset
+          </Button>
+          <Button
+            onClick={() => {
+              console.log("Filters applied");
+              setFilterDialogOpen(false);
+            }}
+            variant="contained"
+          >
+            Apply
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
