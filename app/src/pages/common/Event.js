@@ -53,13 +53,16 @@ const Event = () => {
     }
   }, [eventId]);
 
-  const handleBook = () => {
-    navigate('/payment', {
-      state: {
-        eventId: event.id,
-      }
-    });
-  };
+   const handleBook = () => {
+     navigate('/payment', {
+    state: {
+      eventId: event.id,
+      priceCategoryId: selectedTicket.id,
+      ticketCount: quantity,
+      paymentAmount: selectedTicket.price * quantity
+    }
+  });
+};
 
   if (loading) return (
 
